@@ -29,7 +29,7 @@ export function CategoryFilter({
   onCategoryChange,
 }: CategoryFilterProps) {
   return (
-    <div className="flex flex-wrap gap-3 mb-8">
+    <div className="flex flex-wrap gap-2">
       {categories.map((category) => {
         const Icon = iconMap[category.icon as keyof typeof iconMap];
         const isSelected = selectedCategory === category.id;
@@ -38,14 +38,14 @@ export function CategoryFilter({
           <button
             key={category.id}
             onClick={() => onCategoryChange(category.id)}
-            className={`flex items-center gap-2.5 px-5 py-2.5 rounded-full font-medium transition-all ${
+            className={`flex items-center gap-2 px-3.5 py-2 rounded-lg text-sm font-medium transition-all ${
               isSelected
-                ? "bg-gradient-to-r from-purple-600 to-violet-600 text-white shadow-lg shadow-purple-500/25"
-                : "glass-card text-gray-400 hover:text-white hover:border-purple-500/30"
+                ? "bg-violet-500 text-white"
+                : "bg-white/5 text-gray-400 hover:text-white hover:bg-white/10 border border-white/5"
             }`}
           >
             <Icon className="w-4 h-4" />
-            <span className="text-sm">{category.name}</span>
+            <span>{category.name}</span>
           </button>
         );
       })}

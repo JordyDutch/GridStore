@@ -1,82 +1,190 @@
 "use client";
 
 import { ConnectButton } from "@rainbow-me/rainbowkit";
-import { Grid3X3, Menu, X } from "lucide-react";
-import { useState } from "react";
+import { Grid3X3, Menu, X, ChevronDown, ExternalLink, LogOut, Wallet } from "lucide-react";
+import { useState, useRef, useEffect } from "react";
 import Link from "next/link";
+import { useUniversalProfile } from "@/hooks/useUniversalProfile";
+import { useDisconnect, useBalance } from "wagmi";
 
 export function Header() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const [profileMenuOpen, setProfileMenuOpen] = useState(false);
+  const menuRef = useRef<HTMLDivElement>(null);
+  
+  const { profile, isLoading, address, isConnected } = useUniversalProfile();
+  const { disconnect } = useDisconnect();
+  const { data: balance } = useBalance({ address: address as `0x${string}` | undefined });
+
+  // Close menu when clicking outside
+  useEffect(() => {
+    function handleClickOutside(event: MouseEvent) {
+      if (menuRef.current && !menuRef.current.contains(event.target as Node)) {
+        setProfileMenuOpen(false);
+      }
+    }
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => document.removeEventListener("mousedown", handleClickOutside);
+  }, []);
+
+  const formatBalance = (value: bigint | undefined, decimals: number = 18) => {
+    if (!value) return "0";
+    const formatted = Number(value) / Math.pow(10, decimals);
+    return formatted.toLocaleString(undefined, { 
+      minimumFractionDigits: 2, 
+      maximumFractionDigits: 2 
+    });
+  };
 
   return (
-    <header className="fixed top-0 left-0 right-0 z-50 bg-black/40 backdrop-blur-xl border-b border-white/5">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex items-center justify-between h-18 py-4">
+    <header className="fixed top-0 left-0 right-0 z-50 bg-[#0a0a0f]/80 backdrop-blur-md border-b border-white/5">
+      <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="flex items-center justify-between h-16">
           {/* Logo */}
-          <Link href="/" className="flex items-center gap-3 group">
-            <div className="w-10 h-10 bg-gradient-lukso rounded-xl flex items-center justify-center group-hover:scale-105 transition-transform">
-              <Grid3X3 className="w-5 h-5 text-white" />
+          <Link href="/" className="flex items-center gap-2.5">
+            <div className="w-9 h-9 bg-gradient-to-br from-violet-500 to-purple-600 rounded-lg flex items-center justify-center">
+              <Grid3X3 className="w-4.5 h-4.5 text-white" />
             </div>
-            <span className="text-xl font-bold gradient-text">GridStore</span>
+            <span className="text-lg font-semibold text-white">GridStore</span>
           </Link>
 
           {/* Desktop Navigation */}
-          <nav className="hidden md:flex items-center gap-8">
+          <nav className="hidden md:flex items-center gap-1">
             <Link
               href="/"
-              className="text-gray-300 hover:text-white transition-colors"
+              className="px-4 py-2 text-sm text-gray-300 hover:text-white transition-colors rounded-lg hover:bg-white/5"
             >
               Templates
             </Link>
             <Link
               href="#featured"
-              className="text-gray-300 hover:text-white transition-colors"
+              className="px-4 py-2 text-sm text-gray-300 hover:text-white transition-colors rounded-lg hover:bg-white/5"
             >
               Featured
             </Link>
             <a
-              href="https://erc725-inspect.lukso.tech"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="text-gray-300 hover:text-white transition-colors"
-            >
-              ERC725 Inspect
-            </a>
-            <a
               href="https://docs.lukso.tech"
               target="_blank"
               rel="noopener noreferrer"
-              className="text-gray-300 hover:text-white transition-colors"
+              className="px-4 py-2 text-sm text-gray-300 hover:text-white transition-colors rounded-lg hover:bg-white/5"
             >
               Docs
             </a>
           </nav>
 
-          {/* Connect Button */}
-          <div className="flex items-center gap-4">
+          {/* Connect Button / Profile */}
+          <div className="flex items-center gap-3">
             <div className="hidden sm:block">
-              <ConnectButton
-                chainStatus="icon"
-                accountStatus={{
-                  smallScreen: "avatar",
-                  largeScreen: "full",
-                }}
-                showBalance={{
-                  smallScreen: false,
-                  largeScreen: true,
-                }}
-              />
+              {isConnected && address ? (
+                <div className="relative" ref={menuRef}>
+                  {/* Profile Button */}
+                  <button
+                    onClick={() => setProfileMenuOpen(!profileMenuOpen)}
+                    className="flex items-center gap-2.5 pl-3 pr-2 py-1.5 rounded-full bg-white/5 border border-white/10 hover:border-white/20 transition-all"
+                  >
+                    {/* Name */}
+                    {isLoading ? (
+                      <span className="text-sm text-gray-400">Loading...</span>
+                    ) : profile?.name ? (
+                      <span className="text-sm text-white font-medium max-w-[120px] truncate">
+                        {profile.name}
+                      </span>
+                    ) : (
+                      <span className="text-sm text-gray-300 font-mono">
+                        {address.slice(0, 6)}...{address.slice(-4)}
+                      </span>
+                    )}
+                    
+                    {/* Profile Image */}
+                    {profile?.profileImage ? (
+                      <div className="w-7 h-7 rounded-full overflow-hidden border border-white/10">
+                        <img
+                          src={profile.profileImage}
+                          alt={profile.name || "Profile"}
+                          className="w-full h-full object-cover"
+                        />
+                      </div>
+                    ) : (
+                      <div className="w-7 h-7 rounded-full bg-gradient-to-br from-violet-500 to-purple-600 flex items-center justify-center">
+                        <span className="text-xs text-white font-medium">
+                          {profile?.name?.charAt(0) || address?.slice(2, 4).toUpperCase()}
+                        </span>
+                      </div>
+                    )}
+                    
+                    <ChevronDown className={`w-4 h-4 text-gray-400 transition-transform ${profileMenuOpen ? 'rotate-180' : ''}`} />
+                  </button>
+
+                  {/* Dropdown Menu */}
+                  {profileMenuOpen && (
+                    <div className="absolute right-0 mt-2 w-56 rounded-xl bg-[#12121a] border border-white/10 shadow-xl overflow-hidden animate-fadeIn">
+                      {/* Balance */}
+                      <div className="px-4 py-3 border-b border-white/5">
+                        <p className="text-xs text-gray-500 mb-1">Balance</p>
+                        <p className="text-white font-medium">
+                          {formatBalance(balance?.value)} {balance?.symbol || 'LYX'}
+                        </p>
+                      </div>
+
+                      {/* Menu Items */}
+                      <div className="py-1">
+                        <a
+                          href={`https://universaleverything.io/${address}`}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="flex items-center gap-3 px-4 py-2.5 text-sm text-gray-300 hover:text-white hover:bg-white/5 transition-colors"
+                          onClick={() => setProfileMenuOpen(false)}
+                        >
+                          <ExternalLink className="w-4 h-4" />
+                          View Profile
+                        </a>
+                        <a
+                          href={`https://explorer.execution.mainnet.lukso.network/address/${address}`}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="flex items-center gap-3 px-4 py-2.5 text-sm text-gray-300 hover:text-white hover:bg-white/5 transition-colors"
+                          onClick={() => setProfileMenuOpen(false)}
+                        >
+                          <Wallet className="w-4 h-4" />
+                          Explorer
+                        </a>
+                      </div>
+
+                      {/* Disconnect */}
+                      <div className="border-t border-white/5 py-1">
+                        <button
+                          onClick={() => {
+                            disconnect();
+                            setProfileMenuOpen(false);
+                          }}
+                          className="flex items-center gap-3 px-4 py-2.5 text-sm text-red-400 hover:text-red-300 hover:bg-white/5 transition-colors w-full"
+                        >
+                          <LogOut className="w-4 h-4" />
+                          Disconnect
+                        </button>
+                      </div>
+                    </div>
+                  )}
+                </div>
+              ) : (
+                <ConnectButton
+                  label="Connect"
+                  chainStatus="none"
+                  showBalance={false}
+                  accountStatus="avatar"
+                />
+              )}
             </div>
 
             {/* Mobile menu button */}
             <button
               onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-              className="md:hidden p-2 text-gray-400 hover:text-white"
+              className="md:hidden p-2 text-gray-400 hover:text-white rounded-lg hover:bg-white/5 transition-colors"
             >
               {mobileMenuOpen ? (
-                <X className="w-6 h-6" />
+                <X className="w-5 h-5" />
               ) : (
-                <Menu className="w-6 h-6" />
+                <Menu className="w-5 h-5" />
               )}
             </button>
           </div>
@@ -84,41 +192,86 @@ export function Header() {
 
         {/* Mobile Menu */}
         {mobileMenuOpen && (
-          <div className="md:hidden py-4 border-t border-white/10">
-            <nav className="flex flex-col gap-4">
+          <div className="md:hidden py-4 border-t border-white/5 animate-fadeIn">
+            <nav className="flex flex-col gap-1">
               <Link
                 href="/"
-                className="text-gray-300 hover:text-white transition-colors py-2"
+                className="px-4 py-2.5 text-gray-300 hover:text-white hover:bg-white/5 rounded-lg transition-colors"
                 onClick={() => setMobileMenuOpen(false)}
               >
                 Templates
               </Link>
               <Link
                 href="#featured"
-                className="text-gray-300 hover:text-white transition-colors py-2"
+                className="px-4 py-2.5 text-gray-300 hover:text-white hover:bg-white/5 rounded-lg transition-colors"
                 onClick={() => setMobileMenuOpen(false)}
               >
                 Featured
               </Link>
               <a
-                href="https://erc725-inspect.lukso.tech"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="text-gray-300 hover:text-white transition-colors py-2"
-              >
-                ERC725 Inspect
-              </a>
-              <a
                 href="https://docs.lukso.tech"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="text-gray-300 hover:text-white transition-colors py-2"
+                className="px-4 py-2.5 text-gray-300 hover:text-white hover:bg-white/5 rounded-lg transition-colors"
               >
                 Docs
               </a>
-              <div className="pt-4 sm:hidden">
-                <ConnectButton />
-              </div>
+              
+              {/* Mobile Profile Section */}
+              {isConnected && address ? (
+                <div className="mt-3 pt-3 border-t border-white/5">
+                  <div className="px-4 py-2 flex items-center gap-3">
+                    {profile?.profileImage ? (
+                      <div className="w-10 h-10 rounded-full overflow-hidden border border-white/10">
+                        <img
+                          src={profile.profileImage}
+                          alt={profile.name || "Profile"}
+                          className="w-full h-full object-cover"
+                        />
+                      </div>
+                    ) : (
+                      <div className="w-10 h-10 rounded-full bg-gradient-to-br from-violet-500 to-purple-600 flex items-center justify-center">
+                        <span className="text-sm text-white font-medium">
+                          {profile?.name?.charAt(0) || address?.slice(2, 4).toUpperCase()}
+                        </span>
+                      </div>
+                    )}
+                    <div>
+                      <p className="text-white font-medium">
+                        {profile?.name || `${address.slice(0, 6)}...${address.slice(-4)}`}
+                      </p>
+                      <p className="text-sm text-gray-500">
+                        {formatBalance(balance?.value)} {balance?.symbol || 'LYX'}
+                      </p>
+                    </div>
+                  </div>
+                  
+                  <a
+                    href={`https://universaleverything.io/${address}`}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="flex items-center gap-3 px-4 py-2.5 text-sm text-gray-300 hover:text-white hover:bg-white/5 rounded-lg transition-colors"
+                  >
+                    <ExternalLink className="w-4 h-4" />
+                    View Profile
+                  </a>
+                  
+                  <button
+                    onClick={() => {
+                      disconnect();
+                      setMobileMenuOpen(false);
+                    }}
+                    className="flex items-center gap-3 px-4 py-2.5 text-sm text-red-400 hover:text-red-300 hover:bg-white/5 rounded-lg transition-colors w-full"
+                  >
+                    <LogOut className="w-4 h-4" />
+                    Disconnect
+                  </button>
+                </div>
+              ) : (
+                <div className="pt-3 px-4">
+                  <ConnectButton label="Connect Universal Profile" />
+                </div>
+              )}
             </nav>
           </div>
         )}

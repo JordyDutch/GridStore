@@ -1,0 +1,33 @@
+import type { Metadata } from "next";
+import { Inter } from "next/font/google";
+import "./globals.css";
+import { Providers } from "./providers";
+
+const inter = Inter({ subsets: ["latin"] });
+
+export const metadata: Metadata = {
+  title: "GridStore - Grid Templates for Universal Profiles",
+  description:
+    "Discover and apply beautiful grid templates to your LUKSO Universal Profile. Connect your UP and customize your Grid layout.",
+  keywords: ["LUKSO", "Universal Profile", "Grid", "Templates", "Web3", "Blockchain"],
+  authors: [{ name: "GridStore" }],
+  openGraph: {
+    title: "GridStore - Grid Templates for Universal Profiles",
+    description: "Discover and apply beautiful grid templates to your LUKSO Universal Profile.",
+    type: "website",
+  },
+};
+
+export default function RootLayout({
+  children,
+}: Readonly<{
+  children: React.ReactNode;
+}>) {
+  return (
+    <html lang="en">
+      <body className={inter.className}>
+        <Providers>{children}</Providers>
+      </body>
+    </html>
+  );
+}

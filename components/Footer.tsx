@@ -1,6 +1,6 @@
 "use client";
 
-import { Grid3X3, Github, Twitter, ExternalLink, User } from "lucide-react";
+import { Grid3X3, Github, Twitter, ExternalLink } from "lucide-react";
 import Link from "next/link";
 
 export function Footer() {

@@ -4,6 +4,7 @@ import { ConnectButton } from "@rainbow-me/rainbowkit";
 import { Grid3X3, Menu, X, ChevronDown, ExternalLink, LogOut, Wallet } from "lucide-react";
 import { useState, useRef, useEffect } from "react";
 import Link from "next/link";
+import Image from "next/image";
 import { useUniversalProfile } from "@/hooks/useUniversalProfile";
 import { useDisconnect, useBalance } from "wagmi";
 
@@ -105,11 +106,13 @@ export function Header() {
                     
                     {/* Profile Image */}
                     {profile?.profileImage ? (
-                      <div className="w-7 h-7 rounded-full overflow-hidden border border-white/10">
-                        <img
+                      <div className="w-7 h-7 rounded-full overflow-hidden border border-white/10 relative">
+                        <Image
                           src={profile.profileImage}
                           alt={profile.name || "Profile"}
-                          className="w-full h-full object-cover"
+                          fill
+                          className="object-cover"
+                          unoptimized
                         />
                       </div>
                     ) : (
@@ -242,11 +245,13 @@ export function Header() {
                 <div className="mt-3 pt-3 border-t border-white/5">
                   <div className="px-4 py-2 flex items-center gap-3">
                     {profile?.profileImage ? (
-                      <div className="w-10 h-10 rounded-full overflow-hidden border border-white/10">
-                        <img
+                      <div className="w-10 h-10 rounded-full overflow-hidden border border-white/10 relative">
+                        <Image
                           src={profile.profileImage}
                           alt={profile.name || "Profile"}
-                          className="w-full h-full object-cover"
+                          fill
+                          className="object-cover"
+                          unoptimized
                         />
                       </div>
                     ) : (

@@ -2,6 +2,24 @@ import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
   reactStrictMode: true,
+  images: {
+    remotePatterns: [
+      {
+        protocol: "https",
+        hostname: "api.universalprofile.cloud",
+        pathname: "/ipfs/**",
+      },
+      {
+        protocol: "https",
+        hostname: "**.ipfs.w3s.link",
+      },
+      {
+        protocol: "https",
+        hostname: "ipfs.io",
+        pathname: "/ipfs/**",
+      },
+    ],
+  },
   webpack: (config, { isServer }) => {
     // Fix for WalletConnect and MetaMask SDK
     if (!isServer) {

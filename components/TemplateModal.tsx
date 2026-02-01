@@ -2,7 +2,7 @@
 
 import { GridTemplate } from "@/lib/templates";
 import { encodeVerifiableURI, GRID_DATA_KEY, UniversalProfileABI } from "@/lib/erc725";
-import { X, Download, User, Palette, Grid3X3, Check, Loader2, AlertCircle } from "lucide-react";
+import { X, User, Grid3X3, Check, Loader2, AlertCircle, Layers } from "lucide-react";
 import { useAccount, useWriteContract, useWaitForTransactionReceipt } from "wagmi";
 import { useState, useEffect } from "react";
 
@@ -80,7 +80,7 @@ export function TemplateModal({ template, onClose }: TemplateModalProps) {
       />
 
       {/* Modal */}
-      <div className="relative card rounded-2xl max-w-2xl w-full max-h-[90vh] overflow-hidden animate-fadeIn">
+      <div className="relative card rounded-2xl max-w-lg w-full max-h-[90vh] overflow-hidden animate-fadeIn">
         {/* Close Button */}
         <button
           onClick={onClose}
@@ -91,7 +91,7 @@ export function TemplateModal({ template, onClose }: TemplateModalProps) {
 
         {/* Preview */}
         <div
-          className="h-48 relative"
+          className="h-40 relative"
           style={{ background: template.preview }}
         >
           {/* Grid Preview Overlay */}
@@ -117,25 +117,16 @@ export function TemplateModal({ template, onClose }: TemplateModalProps) {
           <h2 className="text-xl font-semibold text-white mb-2">
             {template.name}
           </h2>
-          <p className="text-gray-400 text-sm leading-relaxed mb-6">{template.description}</p>
+          <p className="text-gray-400 text-sm leading-relaxed mb-5">{template.description}</p>
 
           {/* Stats */}
-          <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 mb-6">
+          <div className="grid grid-cols-3 gap-3 mb-5">
             <div className="stat-card">
               <div className="flex items-center gap-2 text-gray-400 text-xs mb-1">
                 <User className="w-3.5 h-3.5" />
                 Author
               </div>
               <p className="text-white font-medium text-sm">{template.author}</p>
-            </div>
-            <div className="stat-card">
-              <div className="flex items-center gap-2 text-gray-400 text-xs mb-1">
-                <Download className="w-3.5 h-3.5" />
-                Downloads
-              </div>
-              <p className="text-white font-medium text-sm">
-                {template.downloads.toLocaleString()}
-              </p>
             </div>
             <div className="stat-card">
               <div className="flex items-center gap-2 text-gray-400 text-xs mb-1">
@@ -148,28 +139,12 @@ export function TemplateModal({ template, onClose }: TemplateModalProps) {
             </div>
             <div className="stat-card">
               <div className="flex items-center gap-2 text-gray-400 text-xs mb-1">
-                <Palette className="w-3.5 h-3.5" />
+                <Layers className="w-3.5 h-3.5" />
                 Category
               </div>
               <p className="text-white font-medium text-sm capitalize">
                 {template.category}
               </p>
-            </div>
-          </div>
-
-          {/* Color Palette */}
-          <div className="mb-6">
-            <h3 className="text-xs text-gray-400 mb-3 font-medium">Color Palette</h3>
-            <div className="flex gap-2">
-              {Object.entries(template.colors).map(([name, color]) => (
-                <div key={name} className="flex flex-col items-center gap-1.5">
-                  <div
-                    className="w-10 h-10 rounded-lg border border-white/10"
-                    style={{ backgroundColor: color }}
-                  />
-                  <span className="text-xs text-gray-500 capitalize">{name}</span>
-                </div>
-              ))}
             </div>
           </div>
 
@@ -219,10 +194,7 @@ export function TemplateModal({ template, onClose }: TemplateModalProps) {
                   Applied!
                 </>
               ) : (
-                <>
-                  <Download className="w-4 h-4" />
-                  Apply to Profile
-                </>
+                "Apply to Profile"
               )}
             </button>
             <button

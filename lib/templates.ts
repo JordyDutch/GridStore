@@ -10,15 +10,8 @@ export interface GridTemplate {
     gap: string;
     areas?: string[];
   };
-  colors: {
-    primary: string;
-    secondary: string;
-    background: string;
-    accent: string;
-  };
   featured: boolean;
   author: string;
-  downloads: number;
   // On-chain grid data
   gridData?: {
     // Raw encoded value to be used directly in setData (hex string)
@@ -32,6 +25,24 @@ export interface GridTemplate {
 // Example grid templates for the store
 export const gridTemplates: GridTemplate[] = [
   {
+    id: "empty-grid",
+    name: "Empty Grid",
+    description: "Reset your grid to empty. Removes all grid data from your Universal Profile.",
+    preview: "linear-gradient(135deg, #1a1a1a 0%, #0a0a0a 100%)",
+    category: "minimal",
+    gridConfig: {
+      columns: 1,
+      rows: 1,
+      gap: "0px",
+    },
+    featured: false,
+    author: "GridStore",
+    // Empty grid data - resets LSP28TheGrid to empty bytes
+    gridData: {
+      rawValue: "0x",
+    },
+  },
+  {
     id: "minimal-classic",
     name: "Minimal Classic",
     description: "Clean and simple layout with focus on content. Perfect for personal profiles.",
@@ -42,15 +53,8 @@ export const gridTemplates: GridTemplate[] = [
       rows: 3,
       gap: "16px",
     },
-    colors: {
-      primary: "#667eea",
-      secondary: "#764ba2",
-      background: "#0f0f0f",
-      accent: "#ffffff",
-    },
     featured: true,
     author: "GridStore",
-    downloads: 1250,
   },
   {
     id: "neon-cyberpunk",
@@ -63,15 +67,8 @@ export const gridTemplates: GridTemplate[] = [
       rows: 3,
       gap: "12px",
     },
-    colors: {
-      primary: "#f093fb",
-      secondary: "#f5576c",
-      background: "#0a0a0a",
-      accent: "#00ff88",
-    },
     featured: true,
     author: "CyberDesigns",
-    downloads: 890,
   },
   {
     id: "corporate-pro",
@@ -84,15 +81,8 @@ export const gridTemplates: GridTemplate[] = [
       rows: 4,
       gap: "20px",
     },
-    colors: {
-      primary: "#4facfe",
-      secondary: "#00f2fe",
-      background: "#1a1a2e",
-      accent: "#eaeaea",
-    },
     featured: false,
     author: "ProLayouts",
-    downloads: 567,
   },
   {
     id: "gamer-zone",
@@ -105,15 +95,8 @@ export const gridTemplates: GridTemplate[] = [
       rows: 4,
       gap: "8px",
     },
-    colors: {
-      primary: "#fa709a",
-      secondary: "#fee140",
-      background: "#0d0d0d",
-      accent: "#ff4444",
-    },
     featured: true,
     author: "GameMasters",
-    downloads: 2340,
   },
   {
     id: "social-hub",
@@ -126,15 +109,8 @@ export const gridTemplates: GridTemplate[] = [
       rows: 3,
       gap: "14px",
     },
-    colors: {
-      primary: "#a8edea",
-      secondary: "#fed6e3",
-      background: "#1f1f1f",
-      accent: "#333333",
-    },
     featured: false,
     author: "SocialStyles",
-    downloads: 780,
   },
   {
     id: "dark-elegance",
@@ -147,15 +123,8 @@ export const gridTemplates: GridTemplate[] = [
       rows: 3,
       gap: "24px",
     },
-    colors: {
-      primary: "#434343",
-      secondary: "#000000",
-      background: "#0a0a0a",
-      accent: "#d4af37",
-    },
     featured: true,
     author: "GridStore",
-    downloads: 1567,
   },
   {
     id: "sunset-vibes",
@@ -168,15 +137,8 @@ export const gridTemplates: GridTemplate[] = [
       rows: 3,
       gap: "16px",
     },
-    colors: {
-      primary: "#f5af19",
-      secondary: "#f12711",
-      background: "#1a1a1a",
-      accent: "#ffffff",
-    },
     featured: false,
     author: "SunsetArt",
-    downloads: 445,
   },
   {
     id: "ocean-breeze",
@@ -189,15 +151,8 @@ export const gridTemplates: GridTemplate[] = [
       rows: 3,
       gap: "18px",
     },
-    colors: {
-      primary: "#667db6",
-      secondary: "#0082c8",
-      background: "#0d1b2a",
-      accent: "#e0e1dd",
-    },
     featured: false,
     author: "AquaDesigns",
-    downloads: 623,
   },
   {
     id: "pixel-retro",
@@ -210,15 +165,8 @@ export const gridTemplates: GridTemplate[] = [
       rows: 3,
       gap: "4px",
     },
-    colors: {
-      primary: "#11998e",
-      secondary: "#38ef7d",
-      background: "#000000",
-      accent: "#ffffff",
-    },
     featured: false,
     author: "RetroPixels",
-    downloads: 1890,
   },
   {
     id: "aurora-borealis",
@@ -231,15 +179,8 @@ export const gridTemplates: GridTemplate[] = [
       rows: 4,
       gap: "12px",
     },
-    colors: {
-      primary: "#00c9ff",
-      secondary: "#92fe9d",
-      background: "#0c0c0c",
-      accent: "#ff66b2",
-    },
     featured: true,
     author: "NorthernLights",
-    downloads: 2100,
   },
   {
     id: "community-connect",
@@ -252,15 +193,8 @@ export const gridTemplates: GridTemplate[] = [
       rows: 3,
       gap: "16px",
     },
-    colors: {
-      primary: "#ee0979",
-      secondary: "#ff6a00",
-      background: "#141414",
-      accent: "#ffffff",
-    },
     featured: false,
     author: "DAOStyles",
-    downloads: 934,
   },
   {
     id: "jordys-grid",
@@ -273,15 +207,8 @@ export const gridTemplates: GridTemplate[] = [
       rows: 3,
       gap: "16px",
     },
-    colors: {
-      primary: "#FE005B",
-      secondary: "#7B3FE4",
-      background: "#0D0D0D",
-      accent: "#ffffff",
-    },
     featured: true,
     author: "Jordy",
-    downloads: 3450,
     // Grid data from Universal Profile - using the exact decoded values from ERC725 Inspect
     // URL: ipfs://QmbTtb9znWdoCjw9qC5Zxr7KGguWAtj7qbre5gnyaiQ5rE
     // Hash: 0x66340de3fa939c35952afeb01bb1bc0c411160a548a8f39457d03414698e35b6

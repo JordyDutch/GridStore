@@ -1,7 +1,7 @@
 "use client";
 
 import { GridTemplate } from "@/lib/templates";
-import { Download, User, Star } from "lucide-react";
+import { User, Star } from "lucide-react";
 
 interface TemplateCardProps {
   template: GridTemplate;
@@ -55,26 +55,17 @@ export function TemplateCard({ template, onSelect, isSelected }: TemplateCardPro
           {template.description}
         </p>
 
-        {/* Meta */}
-        <div className="flex items-center justify-between text-xs text-gray-500 mb-3">
-          <div className="flex items-center gap-1.5">
+        {/* Meta & Tags */}
+        <div className="flex items-center justify-between">
+          <div className="flex items-center gap-1.5 text-xs text-gray-500">
             <User className="w-3.5 h-3.5" />
             <span>{template.author}</span>
           </div>
-          <div className="flex items-center gap-1.5">
-            <Download className="w-3.5 h-3.5" />
-            <span>{template.downloads.toLocaleString()}</span>
+          <div className="flex items-center gap-2 text-xs">
+            <span className="px-2.5 py-1 rounded-md bg-white/5 border border-white/10 text-gray-300">
+              {template.gridConfig.columns}x{template.gridConfig.rows}
+            </span>
           </div>
-        </div>
-
-        {/* Tags */}
-        <div className="flex items-center gap-2 text-xs">
-          <span className="px-2.5 py-1 rounded-md bg-white/5 border border-white/10 text-gray-300">
-            {template.gridConfig.columns}x{template.gridConfig.rows}
-          </span>
-          <span className="px-2.5 py-1 rounded-md bg-violet-500/10 border border-violet-500/20 text-violet-300 capitalize">
-            {template.category}
-          </span>
         </div>
       </div>
     </div>

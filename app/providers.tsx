@@ -31,11 +31,12 @@ const luksoTheme = darkTheme({
 });
 
 // Suppress noisy console warnings in development
-if (typeof window !== "undefined" && process.env.NODE_ENV === "development") {
+if (typeof window !== "undefined") {
   const originalWarn = console.warn;
-  console.warn = (...args) => {
-    const message = args[0]?.toString() || "";
-    // Suppress known harmless warnings
+  const originalError = console.error;
+  
+  console.warn = function(...args: unknown[]) {
+    const message = String(args[0] || "");
     if (
       message.includes("WalletConnect") ||
       message.includes("Lit is in dev mode") ||
@@ -44,6 +45,14 @@ if (typeof window !== "undefined" && process.env.NODE_ENV === "development") {
       return;
     }
     originalWarn.apply(console, args);
+  };
+  
+  console.error = function(...args: unknown[]) {
+    const message = String(args[0] || "");
+    if (message.includes("@react-native-async-storage")) {
+      return;
+    }
+    originalError.apply(console, args);
   };
 }
 

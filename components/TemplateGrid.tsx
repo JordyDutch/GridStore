@@ -34,9 +34,9 @@ export function TemplateGrid() {
   return (
     <div>
       {/* Featured Section */}
-      <section id="featured" className="mb-16">
-        <h2 className="text-2xl font-bold text-white mb-6 flex items-center gap-2">
-          <span className="w-2 h-8 bg-gradient-lukso rounded-full" />
+      <section id="featured" className="mb-20">
+        <h2 className="text-3xl font-bold text-white mb-8 flex items-center gap-3">
+          <span className="w-1.5 h-8 bg-gradient-to-b from-purple-500 to-pink-500 rounded-full" />
           Featured Templates
         </h2>
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
@@ -53,20 +53,20 @@ export function TemplateGrid() {
 
       {/* All Templates */}
       <section>
-        <h2 className="text-2xl font-bold text-white mb-6 flex items-center gap-2">
-          <span className="w-2 h-8 bg-gradient-lukso rounded-full" />
+        <h2 className="text-3xl font-bold text-white mb-8 flex items-center gap-3">
+          <span className="w-1.5 h-8 bg-gradient-to-b from-purple-500 to-pink-500 rounded-full" />
           All Templates
         </h2>
 
         {/* Search */}
-        <div className="relative mb-6">
-          <Search className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-gray-500" />
+        <div className="relative mb-8">
+          <Search className="absolute left-5 top-1/2 -translate-y-1/2 w-5 h-5 text-gray-500" />
           <input
             type="text"
             placeholder="Search templates..."
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
-            className="w-full bg-lukso-gray border border-white/10 rounded-xl py-3 pl-12 pr-4 text-white placeholder-gray-500 focus:outline-none focus:border-lukso-pink transition-colors"
+            className="w-full glass-card rounded-2xl py-4 pl-14 pr-6 text-white placeholder-gray-500 focus:outline-none"
           />
         </div>
 

@@ -13,13 +13,13 @@ export function TemplateCard({ template, onSelect, isSelected }: TemplateCardPro
   return (
     <div
       onClick={() => onSelect(template)}
-      className={`template-card cursor-pointer ${
+      className={`template-card cursor-pointer flex flex-col h-full ${
         isSelected ? "border-violet-500/50 bg-violet-500/5" : ""
       }`}
     >
       {/* Preview */}
       <div
-        className="h-36 relative"
+        className="h-36 relative shrink-0"
         style={{ background: template.preview }}
       >
         {/* Grid Preview Overlay */}
@@ -49,14 +49,14 @@ export function TemplateCard({ template, onSelect, isSelected }: TemplateCardPro
       </div>
 
       {/* Content */}
-      <div className="p-4">
+      <div className="p-4 flex flex-col flex-1 min-h-0">
         <h3 className="font-medium text-white mb-1.5">{template.name}</h3>
-        <p className="text-gray-400 text-sm line-clamp-2 mb-4 leading-relaxed">
+        <p className="text-gray-400 text-sm line-clamp-2 mb-4 leading-relaxed min-h-[2.5rem]">
           {template.description}
         </p>
 
         {/* Meta & Tags */}
-        <div className="flex items-center justify-between">
+        <div className="flex items-center justify-between mt-auto">
           <div className="flex items-center gap-1.5 text-xs text-gray-500">
             <User className="w-3.5 h-3.5" />
             <span>{template.author}</span>

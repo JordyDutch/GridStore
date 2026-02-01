@@ -63,6 +63,14 @@ export function Header() {
               Featured
             </Link>
             <a
+              href="https://erc725-inspect.lukso.tech"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="px-4 py-2 text-sm text-gray-300 hover:text-white transition-colors rounded-lg hover:bg-white/5"
+            >
+              ERC725 Inspect
+            </a>
+            <a
               href="https://docs.lukso.tech"
               target="_blank"
               rel="noopener noreferrer"
@@ -167,12 +175,16 @@ export function Header() {
                   )}
                 </div>
               ) : (
-                <ConnectButton
-                  label="Connect"
-                  chainStatus="none"
-                  showBalance={false}
-                  accountStatus="avatar"
-                />
+                <ConnectButton.Custom>
+                  {({ openConnectModal }) => (
+                    <button
+                      onClick={openConnectModal}
+                      className="px-5 py-2 text-sm font-medium text-white bg-violet-600 hover:bg-violet-500 rounded-lg transition-colors"
+                    >
+                      Connect
+                    </button>
+                  )}
+                </ConnectButton.Custom>
               )}
             </div>
 
@@ -208,6 +220,14 @@ export function Header() {
               >
                 Featured
               </Link>
+              <a
+                href="https://erc725-inspect.lukso.tech"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="px-4 py-2.5 text-gray-300 hover:text-white hover:bg-white/5 rounded-lg transition-colors"
+              >
+                ERC725 Inspect
+              </a>
               <a
                 href="https://docs.lukso.tech"
                 target="_blank"
@@ -269,7 +289,16 @@ export function Header() {
                 </div>
               ) : (
                 <div className="pt-3 px-4">
-                  <ConnectButton label="Connect Universal Profile" />
+                  <ConnectButton.Custom>
+                    {({ openConnectModal }) => (
+                      <button
+                        onClick={openConnectModal}
+                        className="w-full px-5 py-2.5 text-sm font-medium text-white bg-violet-600 hover:bg-violet-500 rounded-lg transition-colors"
+                      >
+                        Connect Universal Profile
+                      </button>
+                    )}
+                  </ConnectButton.Custom>
                 </div>
               )}
             </nav>

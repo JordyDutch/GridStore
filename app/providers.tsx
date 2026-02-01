@@ -21,14 +21,26 @@ const queryClient = new QueryClient({
   },
 });
 
-// Custom LUKSO theme for RainbowKit
-const luksoTheme = darkTheme({
-  accentColor: "#FE005B",
+// Custom theme matching website style
+const gridStoreTheme = darkTheme({
+  accentColor: "#8b5cf6",
   accentColorForeground: "white",
-  borderRadius: "medium",
+  borderRadius: "large",
   fontStack: "system",
   overlayBlur: "small",
 });
+
+// Override specific colors
+gridStoreTheme.colors.modalBackground = "#12121a";
+gridStoreTheme.colors.modalBorder = "rgba(255, 255, 255, 0.08)";
+gridStoreTheme.colors.profileForeground = "#12121a";
+gridStoreTheme.colors.closeButton = "rgba(255, 255, 255, 0.6)";
+gridStoreTheme.colors.closeButtonBackground = "rgba(255, 255, 255, 0.08)";
+gridStoreTheme.colors.actionButtonBorder = "rgba(139, 92, 246, 0.3)";
+gridStoreTheme.colors.actionButtonSecondaryBackground = "rgba(255, 255, 255, 0.05)";
+gridStoreTheme.colors.connectButtonBackground = "#8b5cf6";
+gridStoreTheme.colors.connectButtonInnerBackground = "#8b5cf6";
+gridStoreTheme.shadows.connectButton = "0 4px 12px rgba(139, 92, 246, 0.25)";
 
 // Suppress noisy console warnings in development
 if (typeof window !== "undefined") {
@@ -67,7 +79,7 @@ export function Providers({ children }: { children: React.ReactNode }) {
     <WagmiProvider config={config}>
       <QueryClientProvider client={queryClient}>
         <RainbowKitProvider
-          theme={luksoTheme}
+          theme={gridStoreTheme}
           modalSize="compact"
           appInfo={{
             appName: "GridStore",

@@ -67,7 +67,7 @@ export function Footer() {
             <h4 className="text-white font-medium mb-4 text-sm">Connect</h4>
             <div className="flex gap-2">
               <a
-                href="https://github.com"
+                href="https://github.com/JordyDutch"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="w-10 h-10 rounded-lg bg-white/5 border border-white/5 flex items-center justify-center text-gray-400 hover:text-white hover:bg-white/10 transition-all"
@@ -75,7 +75,7 @@ export function Footer() {
                 <Github className="w-4 h-4" />
               </a>
               <a
-                href="https://twitter.com"
+                href="https://x.com/jordydutch"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="w-10 h-10 rounded-lg bg-white/5 border border-white/5 flex items-center justify-center text-gray-400 hover:text-white hover:bg-white/10 transition-all"

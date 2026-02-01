@@ -26,7 +26,16 @@ export function Hero() {
       {/* Connection CTA - only show when not connected */}
       {!isConnected && (
         <div className="flex justify-center mb-10">
-          <ConnectButton label="Connect Universal Profile" />
+          <ConnectButton.Custom>
+            {({ openConnectModal }) => (
+              <button
+                onClick={openConnectModal}
+                className="px-6 py-3 text-sm font-medium text-white bg-violet-600 hover:bg-violet-500 rounded-xl transition-colors"
+              >
+                Connect Universal Profile
+              </button>
+            )}
+          </ConnectButton.Custom>
         </div>
       )}
 

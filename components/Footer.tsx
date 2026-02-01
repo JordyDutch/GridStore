@@ -1,6 +1,6 @@
 "use client";
 
-import { Grid3X3, Github, Twitter, ExternalLink } from "lucide-react";
+import { Grid3X3, Github, Twitter, ExternalLink, User } from "lucide-react";
 import Link from "next/link";
 
 export function Footer() {
@@ -67,10 +67,20 @@ export function Footer() {
             <h4 className="text-white font-medium mb-4 text-sm">Connect</h4>
             <div className="flex gap-2">
               <a
+                href="https://universaleverything.io/0x378be8577ede94b9d4b9f45447f21b826501bab8"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="w-10 h-10 rounded-lg bg-violet-500/10 border border-violet-500/20 flex items-center justify-center text-violet-400 hover:text-violet-300 hover:bg-violet-500/20 transition-all"
+                title="Universal Profile"
+              >
+                <span className="text-xs font-bold">UP</span>
+              </a>
+              <a
                 href="https://github.com/JordyDutch"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="w-10 h-10 rounded-lg bg-white/5 border border-white/5 flex items-center justify-center text-gray-400 hover:text-white hover:bg-white/10 transition-all"
+                title="GitHub"
               >
                 <Github className="w-4 h-4" />
               </a>
@@ -79,6 +89,7 @@ export function Footer() {
                 target="_blank"
                 rel="noopener noreferrer"
                 className="w-10 h-10 rounded-lg bg-white/5 border border-white/5 flex items-center justify-center text-gray-400 hover:text-white hover:bg-white/10 transition-all"
+                title="X (Twitter)"
               >
                 <Twitter className="w-4 h-4" />
               </a>

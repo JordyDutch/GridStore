@@ -1,7 +1,7 @@
 "use client";
 
 import { GridTemplate } from "@/lib/templates";
-import { User, Star } from "lucide-react";
+import { User, Star, ExternalLink } from "lucide-react";
 
 interface TemplateCardProps {
   template: GridTemplate;
@@ -9,7 +9,11 @@ interface TemplateCardProps {
   isSelected?: boolean;
 }
 
-export function TemplateCard({ template, onSelect, isSelected }: TemplateCardProps) {
+export function TemplateCard({
+  template,
+  onSelect,
+  isSelected,
+}: TemplateCardProps) {
   return (
     <div
       onClick={() => onSelect(template)}
@@ -31,11 +35,11 @@ export function TemplateCard({ template, onSelect, isSelected }: TemplateCardPro
               gridTemplateRows: `repeat(${template.gridConfig.rows}, 1fr)`,
             }}
           >
-            {Array.from({ length: template.gridConfig.columns * template.gridConfig.rows }).map(
-              (_, i) => (
-                <div key={i} className="bg-white/70 rounded-sm" />
-              )
-            )}
+            {Array.from({
+              length: template.gridConfig.columns * template.gridConfig.rows,
+            }).map((_, i) => (
+              <div key={i} className="bg-white/70 rounded-sm" />
+            ))}
           </div>
         </div>
 
@@ -62,8 +66,20 @@ export function TemplateCard({ template, onSelect, isSelected }: TemplateCardPro
             <span>{template.author}</span>
           </div>
           <div className="flex items-center gap-2 text-xs">
+            {template.profileLink && (
+              <a
+                href={template.profileLink}
+                target="_blank"
+                rel="noopener noreferrer"
+                onClick={(e) => e.stopPropagation()}
+                className="flex items-center gap-1 px-2.5 py-1 rounded-md bg-violet-500/10 border border-violet-500/20 text-violet-400 hover:bg-violet-500/20 transition-colors"
+              >
+                <ExternalLink className="w-3 h-3" />
+                View Grid
+              </a>
+            )}
             <span className="px-2.5 py-1 rounded-md bg-white/5 border border-white/10 text-gray-300">
-              {template.gridConfig.columns}x{template.gridConfig.rows}
+              {template.gridConfig.columns}×{template.gridConfig.rows}
             </span>
           </div>
         </div>

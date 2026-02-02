@@ -12,7 +12,7 @@ export function TemplateGrid() {
   const [selectedCategory, setSelectedCategory] = useState<Category>("all");
   const [searchQuery, setSearchQuery] = useState("");
   const [selectedTemplate, setSelectedTemplate] = useState<GridTemplate | null>(
-    null
+    null,
   );
 
   const filteredTemplates = useMemo(() => {
@@ -21,7 +21,9 @@ export function TemplateGrid() {
         selectedCategory === "all" || template.category === selectedCategory;
       const matchesSearch =
         template.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
-        template.description.toLowerCase().includes(searchQuery.toLowerCase()) ||
+        template.description
+          .toLowerCase()
+          .includes(searchQuery.toLowerCase()) ||
         template.author.toLowerCase().includes(searchQuery.toLowerCase());
       return matchesCategory && matchesSearch;
     });
@@ -31,17 +33,51 @@ export function TemplateGrid() {
     return gridTemplates.filter((t) => t.featured);
   }, []);
 
+  const communityTemplates = useMemo(() => {
+    return gridTemplates.filter((t) => t.category === "community");
+  }, []);
+
   return (
     <div>
       {/* Featured Section */}
       <section id="featured" className="mb-12">
         <div className="flex items-center gap-3 mb-6">
           <div className="w-1 h-6 bg-gradient-to-b from-violet-500 to-purple-500 rounded-full" />
-          <h2 className="text-xl font-semibold text-white">Featured Templates</h2>
+          <h2 className="text-xl font-semibold text-white">
+            Featured Templates
+          </h2>
         </div>
-        
+
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
           {featuredTemplates.slice(0, 3).map((template, index) => (
+            <div
+              key={template.id}
+              style={{
+                animationDelay: `${index * 100}ms`,
+              }}
+              className="animate-slideUp opacity-0"
+            >
+              <TemplateCard
+                template={template}
+                onSelect={setSelectedTemplate}
+                isSelected={selectedTemplate?.id === template.id}
+              />
+            </div>
+          ))}
+        </div>
+      </section>
+
+      {/* Community Section */}
+      <section id="featured" className="mb-12">
+        <div className="flex items-center gap-3 mb-6">
+          <div className="w-1 h-6 bg-gradient-to-b from-violet-500 to-purple-500 rounded-full" />
+          <h2 className="text-xl font-semibold text-white">
+            Community Templates
+          </h2>
+        </div>
+
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+          {communityTemplates.map((template, index) => (
             <div
               key={template.id}
               style={{

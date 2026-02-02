@@ -1,9 +1,25 @@
 "use client";
 
 import { GridTemplate } from "@/lib/templates";
-import { encodeVerifiableURI, GRID_DATA_KEY, UniversalProfileABI } from "@/lib/erc725";
-import { X, User, Grid3X3, Check, Loader2, AlertCircle, Layers } from "lucide-react";
-import { useAccount, useWriteContract, useWaitForTransactionReceipt } from "wagmi";
+import {
+  encodeVerifiableURI,
+  GRID_DATA_KEY,
+  UniversalProfileABI,
+} from "@/lib/erc725";
+import {
+  X,
+  User,
+  Grid3X3,
+  Check,
+  Loader2,
+  AlertCircle,
+  Layers,
+} from "lucide-react";
+import {
+  useAccount,
+  useWriteContract,
+  useWaitForTransactionReceipt,
+} from "wagmi";
 import { useState, useEffect } from "react";
 
 interface TemplateModalProps {
@@ -53,7 +69,7 @@ export function TemplateModal({ template, onClose }: TemplateModalProps) {
         // Encode the IPFS URL as VerifiableURI
         encodedValue = encodeVerifiableURI(
           template.gridData.ipfsUrl,
-          template.gridData.hash
+          template.gridData.hash,
         );
       } else {
         throw new Error("No grid data configured");
@@ -90,10 +106,7 @@ export function TemplateModal({ template, onClose }: TemplateModalProps) {
         </button>
 
         {/* Preview */}
-        <div
-          className="h-40 relative"
-          style={{ background: template.preview }}
-        >
+        <div className="h-40 relative" style={{ background: template.preview }}>
           {/* Grid Preview Overlay */}
           <div className="absolute inset-0 p-6 flex items-center justify-center">
             <div
@@ -117,7 +130,9 @@ export function TemplateModal({ template, onClose }: TemplateModalProps) {
           <h2 className="text-xl font-semibold text-white mb-2">
             {template.name}
           </h2>
-          <p className="text-gray-400 text-sm leading-relaxed mb-5">{template.description}</p>
+          <p className="text-gray-400 text-sm leading-relaxed mb-5">
+            {template.description}
+          </p>
 
           {/* Stats */}
           <div className="grid grid-cols-3 gap-3 mb-5">
@@ -126,7 +141,9 @@ export function TemplateModal({ template, onClose }: TemplateModalProps) {
                 <User className="w-3.5 h-3.5" />
                 Author
               </div>
-              <p className="text-white font-medium text-sm">{template.author}</p>
+              <p className="text-white font-medium text-sm">
+                {template.author}
+              </p>
             </div>
             <div className="stat-card">
               <div className="flex items-center gap-2 text-gray-400 text-xs mb-1">
@@ -148,18 +165,45 @@ export function TemplateModal({ template, onClose }: TemplateModalProps) {
             </div>
           </div>
 
-          {/* Grid Data Key Info */}
-          <div className="mb-5 p-3 bg-white/5 rounded-lg border border-white/5">
-            <p className="text-xs text-gray-500 font-mono break-all">
-              Data Key: {GRID_DATA_KEY}
-            </p>
+          {/* Grid Data Key & Value Infos */}
+          <p className="text-gray-400 text-sm leading-relaxed mb-1">
+            LSP28TheGrid Data Key
+          </p>
+          <div className="mb-4 p-3 bg-white/5 rounded-lg border border-white/5">
+            <code className="text-xs text-gray-400 font-mono break-all">
+              {GRID_DATA_KEY}
+            </code>
           </div>
+
+          {hasGridData && template.gridData?.rawValue && (
+            <>
+              <p className="text-gray-400 text-sm leading-relaxed mb-1">
+                Value to set
+              </p>
+              <div className="mb-4 p-3 bg-white/5 rounded-lg border border-white/5 overflow-x-auto">
+                <pre className="text-xs text-gray-400 font-mono break-all whitespace-pre-wrap">
+                  {template.gridData.rawValue}
+                </pre>
+              </div>
+            </>
+          )}
+
+          {/* How to use this template */}
+          <p className="text-gray-400 text-sm font-medium mb-1">
+            How to use this template?
+          </p>
+          <p className="text-gray-500 text-xs leading-relaxed mb-5">
+            Click on the Apply to Profile button below or set the metadata above
+            via <code>setData(bytes32,bytes)</code> through a block explorer or
+            a dApp.
+          </p>
 
           {/* Transaction Status */}
           {!hasGridData && (
             <div className="mb-5 p-4 bg-amber-500/10 border border-amber-500/20 rounded-xl text-amber-400 text-sm flex items-center gap-3">
               <AlertCircle className="w-5 h-5 flex-shrink-0" />
-              This template preview doesn&apos;t have IPFS data configured yet. Coming soon!
+              This template preview doesn&apos;t have IPFS data configured yet.
+              Coming soon!
             </div>
           )}
 
@@ -180,7 +224,9 @@ export function TemplateModal({ template, onClose }: TemplateModalProps) {
           <div className="flex gap-3">
             <button
               onClick={handleApplyTemplate}
-              disabled={!isConnected || isPending || isConfirming || !hasGridData}
+              disabled={
+                !isConnected || isPending || isConfirming || !hasGridData
+              }
               className="flex-1 btn-primary py-3 px-5 rounded-xl flex items-center justify-center gap-2"
             >
               {isPending || isConfirming ? (

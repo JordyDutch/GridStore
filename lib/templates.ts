@@ -25,21 +25,21 @@ export interface GridTemplate {
 // Templates with on-chain grid data (rawValue or ipfsUrl)
 export const gridTemplates: GridTemplate[] = [
   {
-    id: "empty-grid",
-    name: "Empty Grid",
-    description: "Reset your grid to empty. Removes all grid data from your Universal Profile.",
-    preview: "linear-gradient(135deg, #1a1a1a 0%, #0a0a0a 100%)",
-    category: "minimal",
+    id: "artist-showcase",
+    name: "Artist Showcase",
+    description: "For artists to showcase a signature piece and share their bio and creative statement.",
+    preview: "linear-gradient(135deg, #4c1d95 0%, #7c3aed 100%)",
+    category: "creative",
     gridConfig: {
-      columns: 1,
-      rows: 1,
-      gap: "0px",
+      columns: 3,
+      rows: 3,
+      gap: "12px"
     },
-    featured: false,
+    featured: true,
     author: "GridStore",
     gridData: {
-      rawValue: "0x",
-    },
+      rawValue: '0x00006f357c6a0020ed1d0f7d3781c4b89ab7cd9fc8d70ba739209b52591049791e738c291c0d927a697066733a2f2f516d595745734346583236585a31524d72484d54384d705339665a6f75376b666a45754456617347784d634e7736'
+    }
   },
   {
     id: "memetoken",

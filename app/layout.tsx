@@ -4,7 +4,7 @@ import { Analytics } from "@vercel/analytics/react";
 import "./globals.css";
 import { Providers } from "./providers";
 
-const inter = Inter({ 
+const inter = Inter({
   subsets: ["latin"],
   display: "swap",
 });
@@ -13,11 +13,22 @@ export const metadata: Metadata = {
   title: "GridStore - Grid Templates for Universal Profiles",
   description:
     "Discover and apply beautiful grid templates to your LUKSO Universal Profile. Connect your UP and customize your Grid layout.",
-  keywords: ["LUKSO", "Universal Profile", "Grid", "Templates", "Web3", "Blockchain"],
+  keywords: [
+    "LUKSO",
+    "Universal Profile",
+    "Grid",
+    "Templates",
+    "Web3",
+    "Blockchain",
+  ],
   authors: [{ name: "GridStore" }],
+  icons: {
+    icon: "/favicon.ico",
+  },
   openGraph: {
     title: "GridStore - Grid Templates for Universal Profiles",
-    description: "Discover and apply beautiful grid templates to your LUKSO Universal Profile.",
+    description:
+      "Discover and apply beautiful grid templates to your LUKSO Universal Profile.",
     type: "website",
   },
 };

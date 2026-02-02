@@ -19,8 +19,10 @@ export interface GridTemplate {
     // Or IPFS URL + hash to encode
     ipfsUrl?: string;
     hash?: string;
-  },
-  profileLink?: string
+  };
+  profileLink?: string;
+  // Universal Profile address for fetching profile/background images
+  profileAddress?: string;
 }
 
 // Templates with on-chain grid data (rawValue or ipfsUrl)
@@ -95,9 +97,9 @@ export const gridTemplates: GridTemplate[] = [
   },
   // Community templates
   {
-    id: "jean-cavallera-grid",
-    name: "Jean Cavallera's Grid",
-    description: "Developer oriented frid template by Jean Cavallera.",
+    id: "jean-cavallera",
+    name: "Jean Cavallera",
+    description: "Developer oriented grid from Jean Cavallera.",
     preview: "linear-gradient(135deg,rgb(100, 100, 100) 0%,rgb(71, 93, 187) 100%)",
     category: "community",
     gridConfig: {
@@ -110,11 +112,12 @@ export const gridTemplates: GridTemplate[] = [
     gridData: {
       rawValue: "0x00006f357c6a00202d141067a502dce141bea99be776f090d08b9b7f68ca09c6bdf23df1bd0773de697066733a2f2f516d616e4873644576526f6a567a613670736352636e6a6a64597931764367566431577242586861587255487361",
     },
+    profileAddress: "0x927aAD446E3bF6eeB776387B3d7A89D8016fA54d"
   },
   {
-    id: "jordydutch-grid",
-    name: "JordyDutch's Grid",
-    description: "Custom grid template with LUKSO brand colors and styling.",
+    id: "jordydutch",
+    name: "JordyDutch",
+    description: "Custom grid from JordyDutch with LUKSO brand colors and styling.",
     preview: "linear-gradient(135deg, #FE005B 0%, #7B3FE4 100%)",
     category: "community",
     gridConfig: {
@@ -127,13 +130,14 @@ export const gridTemplates: GridTemplate[] = [
     gridData: {
       rawValue: "0x00006f357c6a002066340de3fa939c35952afeb01bb1bc0c411160a548a8f39457d03414698e35b6697066733a2f2f516d62547462397a6e57646f436a77397143355a7872374b4767755741746a377162726535676e79616951357245",
     },
+    profileAddress: "0x378Be8577ede94b9d4b9F45447F21B826501bab8"
   },
   {
     id: "alts-anonymous",
     name: "Alts Anonymous",
-    description: "Grid layout for Alts Anonymous community and altcoin profiles.",
+    description: "Grid of Alts Anonymous community and altcoin profiles.",
     preview: "linear-gradient(135deg, #6366f1 0%, #8b5cf6 50%, #a855f7 100%)",
-    category: "social",
+    category: "community",
     gridConfig: {
       columns: 3,
       rows: 3,
@@ -144,11 +148,12 @@ export const gridTemplates: GridTemplate[] = [
     gridData: {
       rawValue: "0x00006f357c6a0020e1c516b43480cdf31791fa8faa71cbd5de7c319cea06260eab6731ac74190b47697066733a2f2f516d635a36513133774d69586635725953456b316b47486d6e53566854765272684a383734525934794678624846",
     },
+    profileAddress: "0x29d7c7E4571a83B3eF5C867f75c81D736a9D58aa"
   },
   {
     id: 'datzel',
     name: "Datzel",
-    description: "Grid layout for Datzel community and altcoin profiles.",
+    description: "Grid layout of Datzel, designer inspired.",
     preview: "linear-gradient(135deg,rgb(115, 74, 142) 0%, #8b5cf6 50%, #a855f7 100%)",
     category: "community",
     gridConfig: {
@@ -161,6 +166,7 @@ export const gridTemplates: GridTemplate[] = [
     gridData: {
       rawValue: "0x00006f357c6a0020ef6dadc0dddb6cc3a6641b221829c0da6a9b11ca7137e895e94e154b7d5ac353697066733a2f2f516d50615231726a5a36714e64477253523755456d7642697735593536325761747a704633394a41385666385775",
     },
+    profileAddress: "0x24bCBa5b6E5010C6CC3c1272798854CE1dADBd71"
   },
   {
     id: "clubmulticulti",
@@ -178,7 +184,8 @@ export const gridTemplates: GridTemplate[] = [
     profileLink: "https://universaleverything.io/0x261564f5260369438bf7f8977cdfa75fc0532422?grid=audiovibes-%E1%81%8A%E1%81%8A||%E1%81%8A%E1%81%8A%E1%81%8A||%E1%81%8A%E2%8B%86",
     gridData: {
       rawValue: "0x00006f357c6a002010b49e9944ad42099fb5f87acf691b11404bd03d850b593064c71013ceffd26e697066733a2f2f516d5556595862625950414e4a797850345732645a757578505a4d5264464837744255486b6e327450486d4b4337"
-    }
+    },
+    profileAddress: "0x261564F5260369438bF7F8977CDFa75Fc0532422"
   },
   {
     id: "speedracer",
@@ -196,7 +203,8 @@ export const gridTemplates: GridTemplate[] = [
     profileLink: "https://universaleverything.io/0x7d817ef6adb23a038bbae352d4e838cabb6454d0?grid=art",
     gridData: {
       rawValue: "0x00006f357c6a00205be58b4d30d3919837acf4b9e3b474c883212f7403dbc7b2e1bde8d4f6a9761e697066733a2f2f516d5474563777753872737861754c697061523370347a754e72797852417464674263764351334d6a7a75456636"
-    }
+    },
+    profileAddress: '0x7D817EF6adB23A038Bbae352D4E838CabB6454D0'
   },
   {
     id: "t-mass",
@@ -214,7 +222,8 @@ export const gridTemplates: GridTemplate[] = [
     profileLink: "https://universaleverything.io/0xcEcD1798420A533c9627770e052f49aa127c3B3B?grid=pepito",
     gridData: {
       rawValue: "0x00006f357c6a002058adc7380790706163e57037ad418e23c50c32552285e69ffb8be28645c33cef697066733a2f2f516d53363563374a62654d353643315434384b575370716b354d5a484c34556d4175516f6e7a6b546a5534454a6e"
-    }
+    },
+    profileAddress: "0xcEcD1798420A533c9627770e052f49aa127c3B3B"
   },
 ];
 

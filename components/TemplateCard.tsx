@@ -1,7 +1,8 @@
 "use client";
 
 import { GridTemplate } from "@/lib/templates";
-import { User, Star, ExternalLink } from "lucide-react";
+import { useCommunityProfile } from "@/hooks/useCommunityProfile";
+import { User, Star, ExternalLink, Loader2 } from "lucide-react";
 
 interface TemplateCardProps {
   template: GridTemplate;
@@ -14,6 +15,12 @@ export function TemplateCard({
   onSelect,
   isSelected,
 }: TemplateCardProps) {
+  const isCommunityTemplate =
+    template.category === "community" && template.profileAddress;
+  const { images, isLoading } = useCommunityProfile(
+    isCommunityTemplate ? template.profileAddress : undefined,
+  );
+
   return (
     <div
       onClick={() => onSelect(template)}
@@ -23,25 +30,56 @@ export function TemplateCard({
     >
       {/* Preview */}
       <div
-        className="h-36 relative shrink-0"
-        style={{ background: template.preview }}
+        className="h-36 relative shrink-0 overflow-hidden"
+        style={{
+          background: images.backgroundImage ? undefined : template.preview,
+        }}
       >
-        {/* Grid Preview Overlay */}
-        <div className="absolute inset-0 p-4 flex items-center justify-center">
-          <div
-            className="w-full h-full grid gap-1 opacity-30"
-            style={{
-              gridTemplateColumns: `repeat(${template.gridConfig.columns}, 1fr)`,
-              gridTemplateRows: `repeat(${template.gridConfig.rows}, 1fr)`,
-            }}
-          >
-            {Array.from({
-              length: template.gridConfig.columns * template.gridConfig.rows,
-            }).map((_, i) => (
-              <div key={i} className="bg-white/70 rounded-sm" />
-            ))}
+        {/* Background Image for Community Templates */}
+        {images.backgroundImage && (
+          <img
+            src={images.backgroundImage}
+            alt={`${template.author}'s background`}
+            className="absolute inset-0 w-full h-full object-cover"
+          />
+        )}
+
+        {/* Loading State for Community Templates */}
+        {isCommunityTemplate && isLoading && (
+          <div className="absolute inset-0 flex items-center justify-center bg-black/20">
+            <Loader2 className="w-6 h-6 text-white/50 animate-spin" />
           </div>
-        </div>
+        )}
+
+        {/* Grid Preview Overlay - only show for non-community or when no background image */}
+        {!images.backgroundImage && (
+          <div className="absolute inset-0 p-4 flex items-center justify-center">
+            <div
+              className="w-full h-full grid gap-1 opacity-30"
+              style={{
+                gridTemplateColumns: `repeat(${template.gridConfig.columns}, 1fr)`,
+                gridTemplateRows: `repeat(${template.gridConfig.rows}, 1fr)`,
+              }}
+            >
+              {Array.from({
+                length: template.gridConfig.columns * template.gridConfig.rows,
+              }).map((_, i) => (
+                <div key={i} className="bg-white/70 rounded-sm" />
+              ))}
+            </div>
+          </div>
+        )}
+
+        {/* Profile Image for Community Templates */}
+        {images.profileImage && (
+          <div className="absolute bottom-3 left-3">
+            <img
+              src={images.profileImage}
+              alt={template.author}
+              className="w-10 h-10 rounded-full border-2 border-white/20 object-cover shadow-lg"
+            />
+          </div>
+        )}
 
         {/* Featured Badge */}
         {template.featured && (

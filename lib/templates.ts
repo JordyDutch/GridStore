@@ -250,7 +250,6 @@ export const gridTemplates: GridTemplate[] = [
     },
     featured: false,
     author: "clubmulticulti",
-    profileLink: "https://universaleverything.io/0x261564f5260369438bf7f8977cdfa75fc0532422?grid=audiovibes-%E1%81%8A%E1%81%8A||%E1%81%8A%E1%81%8A%E1%81%8A||%E1%81%8A%E2%8B%86",
     gridData: {
       rawValue: "0x00006f357c6a002010b49e9944ad42099fb5f87acf691b11404bd03d850b593064c71013ceffd26e697066733a2f2f516d5556595862625950414e4a797850345732645a757578505a4d5264464837744255486b6e327450486d4b4337"
     },
@@ -269,7 +268,6 @@ export const gridTemplates: GridTemplate[] = [
     },
     featured: false,
     author: "SpeedRacer",
-    profileLink: "https://universaleverything.io/0x7d817ef6adb23a038bbae352d4e838cabb6454d0?grid=art",
     gridData: {
       rawValue: "0x00006f357c6a00205be58b4d30d3919837acf4b9e3b474c883212f7403dbc7b2e1bde8d4f6a9761e697066733a2f2f516d5474563777753872737861754c697061523370347a754e72797852417464674263764351334d6a7a75456636"
     },
@@ -288,7 +286,6 @@ export const gridTemplates: GridTemplate[] = [
     },
     featured: false,
     author: "t-mass",
-    profileLink: "https://universaleverything.io/0xcEcD1798420A533c9627770e052f49aa127c3B3B?grid=pepito",
     gridData: {
       rawValue: "0x00006f357c6a002058adc7380790706163e57037ad418e23c50c32552285e69ffb8be28645c33cef697066733a2f2f516d53363563374a62654d353643315434384b575370716b354d5a484c34556d4175516f6e7a6b546a5534454a6e"
     },

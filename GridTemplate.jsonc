@@ -1,0 +1,100 @@
+{
+  "LSP28TheGrid": [
+    {
+      "title": "My Socials",
+      "gridColumns": 2, // Example value
+      "visibility": "private", // private/public OPTIONAL
+      "grid": [
+        // IFRAME
+        {
+          "width": 1, // Example value
+          "height": 3, // Example value
+          "type": "IFRAME",
+          "properties": {
+            "src": "...",
+            "allow": "accelerometer; autoplay; clipboard-write", // OPTIONAL
+            "sandbox": "allow-forms;allow-pointer-lock;allow-popups;allow-same-orig;allow-scripts;allow-top-navigation", // OPTIONAL
+            "allowfullscreen": true, // OPTIONAL
+            "referrerpolicy": "..." // OPTIONAL
+          }
+        },
+
+        // TEXT
+        {
+          "width": 2,
+          "height": 2,
+          "type": "TEXT",
+          "properties": {
+            "title": "My title", // OPTIONAL and MARKDOWN possible
+            "titleColor": "#000000", // OPTIONAL, overwrites "text-color" for titles
+            "text": "My title", // OPTIONAL and MARKDOWN possible
+            "textColor": "#000000", // OPTIONAL
+            "backgroundColor": "#ffffff", // OPTIONAL
+            "backgroundImage": "https://myimage.jpg", // OPTIONAL
+            "link": "https://mylink.com" // OPTIONAL click on the box, opens link
+          }
+        },
+
+        // IMAGES
+        {
+          "width": 2,
+          "height": 2,
+          "type": "IMAGES",
+          "properties": {
+            "type": "grid", // OPTIONAL "grid", "carousel", (grid is default)
+            "images": ["<IMAGE_URL_1>", "<IMAGE_URL_2>"]
+          }
+        },
+
+        // -------------------------------
+        // Custom items from web application
+
+        // ELFSIGHT
+        {
+          "width": 2,
+          "height": 1,
+          "type": "ELFSIGHT",
+          "properties": {
+            "id": "..." // Elfsight ID
+          }
+        },
+
+        // X (post)
+        {
+          "width": 2,
+          "height": 1,
+          "type": "X",
+          "properties": {
+            "type": "post",
+            "username": "feindura",
+            "id": "1804519711377436675", // OPTIONAL used when "post" type
+            "theme": "light", // OPTIONAL data-theme=dark
+            "language": "en", // OPTIONAL data-lang=en
+            "donottrack": true // OPTIONAL data-dnt=true
+          }
+        },
+
+        // INSTAGRAM (post)
+        {
+          "width": 2,
+          "height": 2,
+          "type": "INSTAGRAM",
+          "properties": {
+            "type": "p", // The type of item, for example "p" for post
+            "id": "..." // Post ID
+          }
+        },
+
+        // QR CODE
+        {
+          "width": 2,
+          "height": 1,
+          "type": "QR_CODE",
+          "properties": {
+            "data": "..." // data displayed in QR code
+          }
+        }
+      ]
+    }
+  ]
+}

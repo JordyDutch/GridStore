@@ -5,6 +5,7 @@ import {
   encodeVerifiableURI,
   GRID_DATA_KEY,
   UniversalProfileABI,
+  fetchRawGridData,
 } from "@/lib/erc725";
 import {
   X,
@@ -13,6 +14,7 @@ import {
   Check,
   Loader2,
   AlertCircle,
+  AlertTriangle,
   Layers,
 } from "lucide-react";
 import {
@@ -30,6 +32,9 @@ interface TemplateModalProps {
 export function TemplateModal({ template, onClose }: TemplateModalProps) {
   const { address, isConnected } = useAccount();
   const [txSuccess, setTxSuccess] = useState(false);
+  const [fetchedRawValue, setFetchedRawValue] = useState<string | null>(null);
+  const [isFetchingGridData, setIsFetchingGridData] = useState(false);
+  const [fetchError, setFetchError] = useState<string | null>(null);
 
   const { data: hash, writeContract, isPending, error } = useWriteContract();
 
@@ -43,8 +48,41 @@ export function TemplateModal({ template, onClose }: TemplateModalProps) {
     }
   }, [isSuccess]);
 
-  // Check if template has grid data configured (either rawValue or ipfsUrl)
-  const hasGridData = template.gridData?.rawValue || template.gridData?.ipfsUrl;
+  // Fetch grid data for community templates
+  useEffect(() => {
+    async function fetchCommunityGridData() {
+      if (
+        template.category === "community" &&
+        template.profileAddress &&
+        !template.gridData?.rawValue
+      ) {
+        setIsFetchingGridData(true);
+        setFetchError(null);
+        try {
+          const rawValue = await fetchRawGridData(template.profileAddress);
+          if (rawValue) {
+            setFetchedRawValue(rawValue);
+          } else {
+            setFetchError("No grid data found for this profile");
+          }
+        } catch (err) {
+          console.error("Error fetching community grid data:", err);
+          setFetchError("Failed to fetch grid data");
+          setFetchedRawValue(null);
+        } finally {
+          setIsFetchingGridData(false);
+        }
+      }
+    }
+
+    fetchCommunityGridData();
+  }, [template.category, template.profileAddress, template.gridData?.rawValue]);
+
+  // Check if template has grid data configured (either rawValue, ipfsUrl, or fetched value for community)
+  const hasGridData =
+    template.gridData?.rawValue ||
+    template.gridData?.ipfsUrl ||
+    (template.category === "community" && fetchedRawValue);
 
   const handleApplyTemplate = async () => {
     if (!isConnected || !address) {
@@ -62,7 +100,14 @@ export function TemplateModal({ template, onClose }: TemplateModalProps) {
     try {
       let encodedValue: string;
 
-      if (template.gridData?.rawValue) {
+      // For community templates, use fetched raw value if available
+      if (
+        template.category === "community" &&
+        fetchedRawValue &&
+        !template.gridData?.rawValue
+      ) {
+        encodedValue = fetchedRawValue;
+      } else if (template.gridData?.rawValue) {
         // Use raw value directly if provided
         encodedValue = template.gridData.rawValue;
       } else if (template.gridData?.ipfsUrl) {
@@ -175,16 +220,26 @@ export function TemplateModal({ template, onClose }: TemplateModalProps) {
             </code>
           </div>
 
-          {hasGridData && template.gridData?.rawValue && (
+          {/* Value to set - show rawValue or fetched value for community templates */}
+          {hasGridData && (template.gridData?.rawValue || fetchedRawValue) && (
             <>
               <p className="text-gray-400 text-sm leading-relaxed mb-1">
                 Value to set
               </p>
-              <div className="mb-4 p-3 bg-white/5 rounded-lg border border-white/5 overflow-x-auto">
-                <pre className="text-xs text-gray-400 font-mono break-all whitespace-pre-wrap">
-                  {template.gridData.rawValue}
-                </pre>
-              </div>
+              {isFetchingGridData ? (
+                <div className="mb-4 p-3 bg-white/5 rounded-lg border border-white/5 flex items-center justify-center">
+                  <Loader2 className="w-4 h-4 text-gray-400 animate-spin" />
+                  <span className="ml-2 text-xs text-gray-400">
+                    Fetching grid data...
+                  </span>
+                </div>
+              ) : (
+                <div className="mb-4 p-3 bg-white/5 rounded-lg border border-white/5 overflow-x-auto">
+                  <pre className="text-xs text-gray-400 font-mono break-all whitespace-pre-wrap">
+                    {template.gridData?.rawValue || fetchedRawValue}
+                  </pre>
+                </div>
+              )}
             </>
           )}
 
@@ -199,7 +254,14 @@ export function TemplateModal({ template, onClose }: TemplateModalProps) {
           </p>
 
           {/* Transaction Status */}
-          {!hasGridData && (
+          {fetchError && (
+            <div className="mb-5 p-4 bg-amber-500/10 border border-amber-500/20 rounded-xl text-amber-400 text-sm flex items-center gap-3">
+              <AlertCircle className="w-5 h-5 flex-shrink-0" />
+              {fetchError}
+            </div>
+          )}
+
+          {!hasGridData && !isFetchingGridData && !fetchError && (
             <div className="mb-5 p-4 bg-amber-500/10 border border-amber-500/20 rounded-xl text-amber-400 text-sm flex items-center gap-3">
               <AlertCircle className="w-5 h-5 flex-shrink-0" />
               This template preview doesn&apos;t have IPFS data configured yet.
@@ -220,12 +282,28 @@ export function TemplateModal({ template, onClose }: TemplateModalProps) {
             </div>
           )}
 
+          {/* Warning about replacing existing grid */}
+          {isConnected && (
+            <div className="mb-5 p-4 bg-yellow-500/10 border border-yellow-500/20 rounded-xl text-yellow-400 text-sm flex items-center gap-3">
+              <AlertTriangle className="w-5 h-5 flex-shrink-0" />
+              <span>
+                If you have an existing grid setup, by clicking the button
+                below, you are aware that this will replace entirely your
+                existing grid.
+              </span>
+            </div>
+          )}
+
           {/* Actions */}
           <div className="flex gap-3">
             <button
               onClick={handleApplyTemplate}
               disabled={
-                !isConnected || isPending || isConfirming || !hasGridData
+                !isConnected ||
+                isPending ||
+                isConfirming ||
+                !hasGridData ||
+                isFetchingGridData
               }
               className="flex-1 btn-primary py-3 px-5 rounded-xl flex items-center justify-center gap-2"
             >

@@ -1,8 +1,16 @@
 import { ERC725, ERC725JSONSchema } from "@erc725/erc725.js";
 import LSP3Schema from "@erc725/erc725.js/schemas/LSP3ProfileMetadata.json";
+import { createPublicClient, http } from "viem";
+import { lukso } from "viem/chains";
 
 // RPC endpoint for LUKSO
 const RPC_ENDPOINT = "https://rpc.mainnet.lukso.network";
+
+// Public client for direct contract calls
+const publicClient = createPublicClient({
+  chain: lukso,
+  transport: http(RPC_ENDPOINT),
+});
 
 // Official Universal Everything Grid data key
 export const GRID_DATA_KEY = "0x724141d9918ce69e6b8afcf53a91748466086ba2c74b94cab43c649ae2ac23ff";
@@ -39,10 +47,33 @@ export function createERC725Instance(profileAddress: string) {
 export async function fetchGridData(profileAddress: string) {
   try {
     const erc725 = createERC725Instance(profileAddress);
-    const result = await erc725.fetchData("Grid");
+    const result = await erc725.fetchData("LSP28TheGrid");
     return result?.value;
   } catch (error) {
     console.error("Error fetching grid data:", error);
+    return null;
+  }
+}
+
+/**
+ * Fetch the raw grid data value (hex string) from a Universal Profile
+ * This returns the raw bytes that can be used directly in setData
+ * Uses a direct contract call to getData(bytes32) instead of erc725.js
+ */
+export async function fetchRawGridData(profileAddress: string): Promise<string | null> {
+  try {
+    // Direct contract call to getData(bytes32) function
+    const rawData = (await publicClient.readContract({
+      address: profileAddress as `0x${string}`,
+      abi: UniversalProfileABI,
+      functionName: "getData",
+      args: [GRID_DATA_KEY as `0x${string}`],
+    })) as string;
+
+    // Return the raw bytes as hex string, or null if empty
+    return rawData && rawData !== "0x" ? rawData : null;
+  } catch (error) {
+    console.error("Error fetching raw grid data:", error);
     return null;
   }
 }

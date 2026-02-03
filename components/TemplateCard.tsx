@@ -104,9 +104,9 @@ export function TemplateCard({
             <span>{template.author}</span>
           </div>
           <div className="flex items-center gap-2 text-xs">
-            {template.profileLink && (
+            {template.profileAddress && (
               <a
-                href={template.profileLink}
+                href={`https://universaleverything.io/${template.profileAddress}`}
                 target="_blank"
                 rel="noopener noreferrer"
                 onClick={(e) => e.stopPropagation()}

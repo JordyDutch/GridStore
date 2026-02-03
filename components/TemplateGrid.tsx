@@ -6,17 +6,21 @@ import { CategoryFilter } from "./CategoryFilter";
 import { TemplateCard } from "./TemplateCard";
 import { TemplateModal } from "./TemplateModal";
 import type { GridTemplate } from "@/lib/types";
-import { Search, ChevronLeft, ChevronRight } from "lucide-react";
+import { Search, ChevronLeft, ChevronRight, Star, StarOff } from "lucide-react";
 import { communityGrids } from "@/templates/community";
 
 const FEATURED_ITEMS_PER_PAGE = 8;
 const COMMUNITY_ITEMS_PER_PAGE = 9;
+
+type CommunityFeaturedFilter = "all" | "featured" | "exclude-featured";
 
 export function TemplateGrid() {
   const [selectedCategory, setSelectedCategory] = useState<Category>("all");
   const [searchQuery, setSearchQuery] = useState("");
   const [currentPage, setCurrentPage] = useState(1);
   const [communityPage, setCommunityPage] = useState(1);
+  const [communityFeaturedFilter, setCommunityFeaturedFilter] =
+    useState<CommunityFeaturedFilter>("all");
   const [selectedTemplate, setSelectedTemplate] = useState<GridTemplate | null>(
     null,
   );
@@ -40,6 +44,11 @@ export function TemplateGrid() {
     setCurrentPage(1);
   }, [selectedCategory, searchQuery]);
 
+  // Reset community page when featured filter changes
+  useEffect(() => {
+    setCommunityPage(1);
+  }, [communityFeaturedFilter]);
+
   // Calculate pagination
   const totalPages = Math.ceil(
     filteredTemplates.length / FEATURED_ITEMS_PER_PAGE,
@@ -59,14 +68,18 @@ export function TemplateGrid() {
     return gridTemplates.filter((t) => t.featured);
   }, []);
 
-  // Community templates: featured first, then pagination
-  const communityTemplatesSorted = useMemo(
-    () =>
-      [...communityGrids].sort((a, b) =>
-        a.featured === b.featured ? 0 : a.featured ? -1 : 1,
-      ),
-    [],
-  );
+  // Community templates: filter by featured preference, then sort (featured first when showing all)
+  const communityTemplatesSorted = useMemo(() => {
+    let list = communityGrids;
+    if (communityFeaturedFilter === "featured") {
+      list = communityGrids.filter((t) => t.featured);
+    } else if (communityFeaturedFilter === "exclude-featured") {
+      list = communityGrids.filter((t) => !t.featured);
+    }
+    return [...list].sort((a, b) =>
+      a.featured === b.featured ? 0 : a.featured ? -1 : 1,
+    );
+  }, [communityFeaturedFilter]);
 
   const communityTotalPages = Math.ceil(
     communityTemplatesSorted.length / COMMUNITY_ITEMS_PER_PAGE,
@@ -253,11 +266,51 @@ export function TemplateGrid() {
 
       {/* Community Section */}
       <section id="community" className="mb-12">
-        <div className="flex items-center gap-3 mb-6">
-          <div className="w-1 h-6 bg-gradient-to-b from-violet-500 to-purple-500 rounded-full" />
-          <h2 className="text-xl font-semibold text-gray-900 dark:text-white">
-            Community Templates
-          </h2>
+        <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 mb-6">
+          <div className="flex items-center gap-3">
+            <div className="w-1 h-6 bg-gradient-to-b from-violet-500 to-purple-500 rounded-full" />
+            <h2 className="text-xl font-semibold text-gray-900 dark:text-white">
+              Community Templates
+            </h2>
+          </div>
+          <div
+            className="flex flex-wrap gap-2"
+            role="group"
+            aria-label="Filter by featured status"
+          >
+            {(
+              [
+                { value: "all" as const, label: "All", icon: null },
+                {
+                  value: "featured" as const,
+                  label: "Featured only",
+                  icon: Star,
+                },
+                {
+                  value: "exclude-featured" as const,
+                  label: "Exclude featured",
+                  icon: StarOff,
+                },
+              ] as const
+            ).map(({ value, label, icon: Icon }) => {
+              const isSelected = communityFeaturedFilter === value;
+              return (
+                <button
+                  key={value}
+                  type="button"
+                  onClick={() => setCommunityFeaturedFilter(value)}
+                  className={`flex items-center gap-2 px-3.5 py-2 rounded-lg text-sm font-medium transition-all ${
+                    isSelected
+                      ? "bg-violet-500 text-white"
+                      : "bg-gray-100 dark:bg-white/5 text-gray-700 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white hover:bg-gray-200 dark:hover:bg-white/10 border border-gray-200 dark:border-white/5"
+                  }`}
+                >
+                  {Icon && <Icon className="w-4 h-4 shrink-0" />}
+                  <span>{label}</span>
+                </button>
+              );
+            })}
+          </div>
         </div>
 
         {communityTemplatesSorted.length > 0 ? (
@@ -355,7 +408,13 @@ export function TemplateGrid() {
           </>
         ) : (
           <div className="card rounded-2xl p-12 text-center">
-            <p className="text-gray-500">No community templates available.</p>
+            <p className="text-gray-500">
+              {communityFeaturedFilter === "featured"
+                ? "No featured community templates."
+                : communityFeaturedFilter === "exclude-featured"
+                ? "No non-featured community templates."
+                : "No community templates available."}
+            </p>
           </div>
         )}
       </section>

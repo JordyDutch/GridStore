@@ -1,7 +1,15 @@
 "use client";
 
 import { ConnectButton } from "@rainbow-me/rainbowkit";
-import { Grid3X3, Menu, X, ChevronDown, ExternalLink, LogOut, Wallet } from "lucide-react";
+import {
+  Grid3X3,
+  Menu,
+  X,
+  ChevronDown,
+  ExternalLink,
+  LogOut,
+  Wallet,
+} from "lucide-react";
 import { useState, useRef, useEffect } from "react";
 import Link from "next/link";
 import Image from "next/image";
@@ -12,10 +20,12 @@ export function Header() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [profileMenuOpen, setProfileMenuOpen] = useState(false);
   const menuRef = useRef<HTMLDivElement>(null);
-  
+
   const { profile, isLoading, address, isConnected } = useUniversalProfile();
   const { disconnect } = useDisconnect();
-  const { data: balance } = useBalance({ address: address as `0x${string}` | undefined });
+  const { data: balance } = useBalance({
+    address: address as `0x${string}` | undefined,
+  });
 
   // Close menu when clicking outside
   useEffect(() => {
@@ -31,9 +41,9 @@ export function Header() {
   const formatBalance = (value: bigint | undefined, decimals: number = 18) => {
     if (!value) return "0";
     const formatted = Number(value) / Math.pow(10, decimals);
-    return formatted.toLocaleString(undefined, { 
-      minimumFractionDigits: 2, 
-      maximumFractionDigits: 2 
+    return formatted.toLocaleString(undefined, {
+      minimumFractionDigits: 2,
+      maximumFractionDigits: 2,
     });
   };
 
@@ -72,7 +82,7 @@ export function Header() {
               ERC725 Inspect
             </a>
             <a
-              href="https://docs.lukso.tech"
+              href="https://docs.lukso.tech/learn/mini-apps/connect-upprovider/"
               target="_blank"
               rel="noopener noreferrer"
               className="px-4 py-2 text-sm text-gray-300 hover:text-white transition-colors rounded-lg hover:bg-white/5"
@@ -103,7 +113,7 @@ export function Header() {
                         {address.slice(0, 6)}...{address.slice(-4)}
                       </span>
                     )}
-                    
+
                     {/* Profile Image */}
                     {profile?.profileImage ? (
                       <div className="w-7 h-7 rounded-full overflow-hidden border border-white/10 relative">
@@ -118,12 +128,15 @@ export function Header() {
                     ) : (
                       <div className="w-7 h-7 rounded-full bg-gradient-to-br from-violet-500 to-purple-600 flex items-center justify-center">
                         <span className="text-xs text-white font-medium">
-                          {profile?.name?.charAt(0) || address?.slice(2, 4).toUpperCase()}
+                          {profile?.name?.charAt(0) ||
+                            address?.slice(2, 4).toUpperCase()}
                         </span>
                       </div>
                     )}
-                    
-                    <ChevronDown className={`w-4 h-4 text-gray-400 transition-transform ${profileMenuOpen ? 'rotate-180' : ''}`} />
+
+                    <ChevronDown
+                      className={`w-4 h-4 text-gray-400 transition-transform ${profileMenuOpen ? "rotate-180" : ""}`}
+                    />
                   </button>
 
                   {/* Dropdown Menu */}
@@ -133,7 +146,8 @@ export function Header() {
                       <div className="px-4 py-3 border-b border-white/5">
                         <p className="text-xs text-gray-500 mb-1">Balance</p>
                         <p className="text-white font-medium">
-                          {formatBalance(balance?.value)} {balance?.symbol || 'LYX'}
+                          {formatBalance(balance?.value)}{" "}
+                          {balance?.symbol || "LYX"}
                         </p>
                       </div>
 
@@ -239,7 +253,7 @@ export function Header() {
               >
                 Docs
               </a>
-              
+
               {/* Mobile Profile Section */}
               {isConnected && address ? (
                 <div className="mt-3 pt-3 border-t border-white/5">
@@ -257,20 +271,23 @@ export function Header() {
                     ) : (
                       <div className="w-10 h-10 rounded-full bg-gradient-to-br from-violet-500 to-purple-600 flex items-center justify-center">
                         <span className="text-sm text-white font-medium">
-                          {profile?.name?.charAt(0) || address?.slice(2, 4).toUpperCase()}
+                          {profile?.name?.charAt(0) ||
+                            address?.slice(2, 4).toUpperCase()}
                         </span>
                       </div>
                     )}
                     <div>
                       <p className="text-white font-medium">
-                        {profile?.name || `${address.slice(0, 6)}...${address.slice(-4)}`}
+                        {profile?.name ||
+                          `${address.slice(0, 6)}...${address.slice(-4)}`}
                       </p>
                       <p className="text-sm text-gray-500">
-                        {formatBalance(balance?.value)} {balance?.symbol || 'LYX'}
+                        {formatBalance(balance?.value)}{" "}
+                        {balance?.symbol || "LYX"}
                       </p>
                     </div>
                   </div>
-                  
+
                   <a
                     href={`https://universaleverything.io/${address}`}
                     target="_blank"
@@ -280,7 +297,7 @@ export function Header() {
                     <ExternalLink className="w-4 h-4" />
                     View Profile
                   </a>
-                  
+
                   <button
                     onClick={() => {
                       disconnect();

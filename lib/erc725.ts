@@ -1,18 +1,8 @@
 import { ERC725, ERC725JSONSchema } from "@erc725/erc725.js";
+import LSP3Schema from "@erc725/erc725.js/schemas/LSP3ProfileMetadata.json";
 
 // RPC endpoint for LUKSO
 const RPC_ENDPOINT = "https://rpc.mainnet.lukso.network";
-
-// LSP3 Profile Metadata schema
-const LSP3Schema: ERC725JSONSchema[] = [
-  {
-    name: "LSP3Profile",
-    key: "0x5ef83ad9559033e6e941db7d7c495acdce616347d28e90c7ce47cbfcfcad3bc5",
-    keyType: "Singleton",
-    valueType: "bytes",
-    valueContent: "VerifiableURI",
-  },
-];
 
 // Official Universal Everything Grid data key
 export const GRID_DATA_KEY = "0x724141d9918ce69e6b8afcf53a91748466086ba2c74b94cab43c649ae2ac23ff";
@@ -94,7 +84,7 @@ function stringToHex(str: string): string {
 export function encodeVerifiableURI(ipfsUrl: string, hash?: string): string {
   // Convert URL to hex
   const urlHex = stringToHex(ipfsUrl);
-  
+
   if (hash && hash !== "0x0000000000000000000000000000000000000000000000000000000000000000") {
     // With verification: keccak256(utf8) method = 0x6f357c6a
     // Format: verification method (4 bytes) + hash (32 bytes) + url

@@ -16,6 +16,7 @@ import {
   AlertCircle,
   AlertTriangle,
   Layers,
+  ChevronDown,
 } from "lucide-react";
 import {
   useAccount,
@@ -47,6 +48,7 @@ export function TemplateModal({ template, onClose }: TemplateModalProps) {
   const [fetchedRawValue, setFetchedRawValue] = useState<string | null>(null);
   const [isFetchingGridData, setIsFetchingGridData] = useState(false);
   const [fetchError, setFetchError] = useState<string | null>(null);
+  const [manualInstructionsOpen, setManualInstructionsOpen] = useState(false);
 
   const { data: hash, writeContract, isPending, error } = useWriteContract();
 
@@ -273,50 +275,6 @@ export function TemplateModal({ template, onClose }: TemplateModalProps) {
               </div>
             </div>
 
-            {/* Grid Data Key & Value Infos */}
-            <p className="text-gray-700 dark:text-gray-400 text-sm leading-relaxed mb-1">
-              LSP28TheGrid Data Key
-            </p>
-            <div className="mb-4 p-3 bg-gray-100 dark:bg-white/5 rounded-lg border border-gray-200 dark:border-white/5">
-              <code className="text-xs text-gray-800 dark:text-gray-400 font-mono break-all">
-                {GRID_DATA_KEY}
-              </code>
-            </div>
-
-            {/* Value to set - show rawValue or fetched value for community templates */}
-            {hasGridData &&
-              (template.gridData?.rawValue || fetchedRawValue) && (
-                <>
-                  <p className="text-gray-700 dark:text-gray-400 text-sm leading-relaxed mb-1">
-                    Value to set
-                  </p>
-                  {isFetchingGridData ? (
-                    <div className="mb-4 p-3 bg-gray-100 dark:bg-white/5 rounded-lg border border-gray-200 dark:border-white/5 flex items-center justify-center">
-                      <Loader2 className="w-4 h-4 text-gray-600 dark:text-gray-400 animate-spin" />
-                      <span className="ml-2 text-xs text-gray-700 dark:text-gray-400">
-                        Fetching grid data...
-                      </span>
-                    </div>
-                  ) : (
-                    <div className="mb-4 p-3 bg-gray-100 dark:bg-white/5 rounded-lg border border-gray-200 dark:border-white/5 overflow-x-auto">
-                      <pre className="text-xs text-gray-800 dark:text-gray-400 font-mono break-all whitespace-pre-wrap">
-                        {template.gridData?.rawValue || fetchedRawValue}
-                      </pre>
-                    </div>
-                  )}
-                </>
-              )}
-
-            {/* How to use this template */}
-            <p className="text-gray-700 dark:text-gray-400 text-sm font-medium mb-1">
-              How to use this template?
-            </p>
-            <p className="text-gray-600 dark:text-gray-500 text-xs leading-relaxed mb-5">
-              Click on the Apply to Profile button below or set the metadata
-              above via <code>setData(bytes32,bytes)</code> through a block
-              explorer or a dApp.
-            </p>
-
             {/* Transaction Status */}
             {fetchError && (
               <div className="mb-5 p-4 bg-amber-500/10 border border-amber-500/20 rounded-xl text-amber-400 text-sm flex items-center gap-3">
@@ -358,6 +316,17 @@ export function TemplateModal({ template, onClose }: TemplateModalProps) {
               </div>
             )}
 
+            {/* How to use */}
+            <div className="mb-5">
+              <p className="text-gray-700 dark:text-gray-400 text-sm font-medium mb-1">
+                How to use this template?
+              </p>
+              <p className="text-gray-600 dark:text-gray-500 text-xs leading-relaxed">
+                Click on the Apply to Profile button below or use the manual
+                instructions.
+              </p>
+            </div>
+
             {/* Actions */}
             <div className="flex gap-3">
               <button
@@ -391,6 +360,95 @@ export function TemplateModal({ template, onClose }: TemplateModalProps) {
               >
                 Close
               </button>
+            </div>
+
+            {/* Manual Instructions - Collapsible (below Apply to Profile) */}
+            <div className="mt-4 rounded-xl border border-gray-200 dark:border-white/10 overflow-hidden">
+              <button
+                type="button"
+                onClick={() => setManualInstructionsOpen((o) => !o)}
+                className="w-full flex items-center justify-between px-4 py-3 bg-gray-100 dark:bg-white/5 text-gray-700 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-white/10 transition-colors text-sm font-medium"
+              >
+                <span>Manual Instructions</span>
+                <ChevronDown
+                  className={`w-4 h-4 transition-transform ${
+                    manualInstructionsOpen ? "rotate-180" : ""
+                  }`}
+                />
+              </button>
+              {manualInstructionsOpen && (
+                <div className="px-4 py-4 space-y-4 bg-gray-50 dark:bg-white/[0.02] border-t border-gray-200 dark:border-white/10">
+                  <div className="text-gray-700 dark:text-gray-400 text-sm leading-relaxed mb-1">
+                    <p className="mb-3">
+                      To set this Grid, set the following metadata on your
+                      Universal Profile smart contract.
+                    </p>
+                    <p className="mb-1">
+                      1. Got to the{" "}
+                      <a
+                        href="https://explorer.lukso.network"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                      >
+                        LUKSO Block Explorer
+                      </a>{" "}
+                      and search for your Universal Profile address.
+                    </p>
+                    <p className="mb-1">
+                      2. Click on the "Contract" tab and then click on the
+                      "Write Contract" button.
+                    </p>
+                    <p className="mb-1">
+                      3. Select the "setData" function from the dropdown menu.
+                    </p>
+                    <p className="mb-1">4. Enter the following values below:</p>
+                    <p className="mb-1">
+                      5. Click on the "Write" button to submit the transaction.
+                    </p>
+                    <p className="mb-1">
+                      6. Wait for the transaction to be confirmed.
+                    </p>
+                    <p className="mb-1">
+                      7. The Grid should now be set on your Universal Profile.
+                    </p>
+                  </div>
+                  {/* Grid Data Key */}
+                  <div>
+                    <p className="text-gray-700 dark:text-gray-400 text-sm leading-relaxed mb-1">
+                      LSP28TheGrid Data Key
+                    </p>
+                    <div className="p-3 bg-white dark:bg-white/5 rounded-lg border border-gray-200 dark:border-white/5">
+                      <code className="text-xs text-gray-800 dark:text-gray-400 font-mono break-all">
+                        {GRID_DATA_KEY}
+                      </code>
+                    </div>
+                  </div>
+
+                  {/* Value to set */}
+                  {hasGridData &&
+                    (template.gridData?.rawValue || fetchedRawValue) && (
+                      <div>
+                        <p className="text-gray-700 dark:text-gray-400 text-sm leading-relaxed mb-1">
+                          Value to set
+                        </p>
+                        {isFetchingGridData ? (
+                          <div className="p-3 bg-white dark:bg-white/5 rounded-lg border border-gray-200 dark:border-white/5 flex items-center justify-center">
+                            <Loader2 className="w-4 h-4 text-gray-600 dark:text-gray-400 animate-spin" />
+                            <span className="ml-2 text-xs text-gray-700 dark:text-gray-400">
+                              Fetching grid data...
+                            </span>
+                          </div>
+                        ) : (
+                          <div className="p-3 bg-white dark:bg-white/5 rounded-lg border border-gray-200 dark:border-white/5 overflow-x-auto">
+                            <pre className="text-xs text-gray-800 dark:text-gray-400 font-mono break-all whitespace-pre-wrap">
+                              {template.gridData?.rawValue || fetchedRawValue}
+                            </pre>
+                          </div>
+                        )}
+                      </div>
+                    )}
+                </div>
+              )}
             </div>
 
             {!isConnected && (

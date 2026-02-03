@@ -30,7 +30,9 @@ export function TemplateGrid() {
   }, [selectedCategory, searchQuery]);
 
   const featuredTemplates = useMemo(() => {
-    return gridTemplates.filter((t) => t.featured);
+    return gridTemplates.filter(
+      (t) => t.featured && t.category !== "community",
+    );
   }, []);
 
   const communityTemplates = useMemo(() => {
@@ -49,7 +51,7 @@ export function TemplateGrid() {
         </div>
 
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
-          {featuredTemplates.slice(0, 3).map((template, index) => (
+          {featuredTemplates.map((template, index) => (
             <div
               key={template.id}
               style={{

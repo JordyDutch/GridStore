@@ -2,7 +2,7 @@
 
 import { ConnectButton } from "@rainbow-me/rainbowkit";
 import { useAccount } from "wagmi";
-import { Grid3X3, Zap, Shield } from "lucide-react";
+import { Grid3X3, Zap, File } from "lucide-react";
 
 export function Hero() {
   const { isConnected } = useAccount();
@@ -18,8 +18,8 @@ export function Hero() {
           </span>
         </h1>
         <p className="text-base sm:text-lg text-gray-400 max-w-xl mx-auto leading-relaxed">
-          Discover and apply beautiful grid templates to your LUKSO Universal Profile
-          with a single transaction.
+          Discover and apply beautiful grid templates to your LUKSO Universal
+          Profile with a single transaction.
         </p>
       </div>
 
@@ -49,7 +49,8 @@ export function Hero() {
             <h3 className="font-medium text-white">Beautiful Templates</h3>
           </div>
           <p className="text-sm text-gray-400 leading-relaxed">
-            Curated collection of stunning grid layouts for every style.
+            Curated collection of stunning grid layouts for every style, use and
+            audience.
           </p>
         </div>
 
@@ -61,19 +62,21 @@ export function Hero() {
             <h3 className="font-medium text-white">One-Click Apply</h3>
           </div>
           <p className="text-sm text-gray-400 leading-relaxed">
-            Apply templates directly to your profile with one transaction.
+            Apply a grid template directly to your profile in one click with one
+            single transaction.
           </p>
         </div>
 
         <div className="card rounded-xl p-5">
           <div className="flex items-center gap-3 mb-3">
             <div className="w-10 h-10 rounded-lg bg-fuchsia-500/10 border border-fuchsia-500/20 flex items-center justify-center">
-              <Shield className="w-5 h-5 text-fuchsia-400" />
+              <File className="w-5 h-5 text-fuchsia-400" />
             </div>
-            <h3 className="font-medium text-white">On-Chain Storage</h3>
+            <h3 className="font-medium text-white">Grid Data</h3>
           </div>
           <p className="text-sm text-gray-400 leading-relaxed">
-            Grid layouts stored on your Universal Profile using LSP2.
+            Find the encoded grid data value of each template to set under your
+            Universal Profile.
           </p>
         </div>
       </div>

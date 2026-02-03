@@ -95,6 +95,63 @@ export const gridTemplates: GridTemplate[] = [
       rawValue: "0x00006f357c6a0020b65690ac95c9ee801173e050c7a7043352215e5e26cf2e72feb41442811788ae697066733a2f2f516d59467a654d6e4e32393279636f687475645039693274396e4345693843464b37664276614b796f3756756276",
     },
   },
+  {
+    id: "photography-portfolio",
+    name: "Photography Portfolio",
+    description: "Grid layout for professional and enthusiast photographers.",
+    preview: "linear-gradient(135deg, #1e3a5f 0%, #4a7c9b 50%, #7fb3d5 100%)",
+    category: "professional",
+    gridConfig: {
+      columns: 3,
+      rows: 3,
+      gap: "16px",
+    },
+    featured: true,
+    author: "GridStore",
+  },
+  {
+    id: "founder-profile",
+    name: "Founder Profile",
+    description: "Grid layout for startup founders.",
+    preview: "linear-gradient(135deg, #1e3a5f 0%, #4a7c9b 50%, #7fb3d5 100%)",
+    category: "professional",
+    gridConfig: {
+      columns: 3,
+      rows: 3,
+      gap: "16px",
+    },
+    featured: true,
+    author: "GridStore",
+  },
+  {
+    id: "magazine",
+    name: "Magazine",
+    description: "Grid layout for paper and digital magazine to highlight articles, and content.",
+    preview: "linear-gradient(135deg, #1e3a5f 0%, #4a7c9b 50%, #7fb3d5 100%)",
+    category: "professional",
+    gridConfig: {
+      columns: 3,
+      rows: 3,
+      gap: "16px",
+    },
+    featured: true,
+    author: "GridStore",
+  },
+  {
+    id: "event-conference",
+    name: "Event & Conference",
+    description: "Grid layout to promote events and conferences.",
+    preview: "linear-gradient(135deg, #1e3a5f 0%, #4a7c9b 50%, #7fb3d5 100%)",
+    category: "professional",
+    gridConfig: {
+      columns: 3,
+      rows: 3,
+      gap: "16px",
+    },
+    featured: true,
+    author: "GridStore",
+  },
+
   // Community templates
   {
     id: "jean-cavallera",
@@ -234,6 +291,7 @@ export const categories = [
   { id: "professional", name: "Professional", icon: "Briefcase" },
   { id: "gaming", name: "Gaming", icon: "Gamepad2" },
   { id: "social", name: "Social", icon: "Users" },
+  { id: "community", name: "Community", icon: "Users" },
 ] as const;
 
 export type Category = (typeof categories)[number]["id"];

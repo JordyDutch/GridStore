@@ -59,13 +59,21 @@ export function TemplateGrid() {
     return gridTemplates.filter((t) => t.featured);
   }, []);
 
-  // Community templates pagination
+  // Community templates: featured first, then pagination
+  const communityTemplatesSorted = useMemo(
+    () =>
+      [...communityGrids].sort((a, b) =>
+        a.featured === b.featured ? 0 : a.featured ? -1 : 1,
+      ),
+    [],
+  );
+
   const communityTotalPages = Math.ceil(
-    communityGrids.length / COMMUNITY_ITEMS_PER_PAGE,
+    communityTemplatesSorted.length / COMMUNITY_ITEMS_PER_PAGE,
   );
   const communityStartIndex = (communityPage - 1) * COMMUNITY_ITEMS_PER_PAGE;
   const communityEndIndex = communityStartIndex + COMMUNITY_ITEMS_PER_PAGE;
-  const paginatedCommunityTemplates = communityGrids.slice(
+  const paginatedCommunityTemplates = communityTemplatesSorted.slice(
     communityStartIndex,
     communityEndIndex,
   );
@@ -252,7 +260,7 @@ export function TemplateGrid() {
           </h2>
         </div>
 
-        {communityGrids.length > 0 ? (
+        {communityTemplatesSorted.length > 0 ? (
           <>
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
               {paginatedCommunityTemplates.map((template, index) => (
@@ -341,8 +349,8 @@ export function TemplateGrid() {
             {/* Community Results count */}
             <div className="mt-4 text-center text-sm text-gray-500">
               Showing {communityStartIndex + 1}-
-              {Math.min(communityEndIndex, communityGrids.length)} of{" "}
-              {communityGrids.length} templates
+              {Math.min(communityEndIndex, communityTemplatesSorted.length)} of{" "}
+              {communityTemplatesSorted.length} templates
             </div>
           </>
         ) : (

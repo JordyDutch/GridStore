@@ -2,6 +2,17 @@ import type { GridTemplate } from "@/lib/types";
 
 export const communityGrids: GridTemplate[] = [
     {
+        id: "official-lukso-up",
+        name: "LUKSO",
+        description: "Grid of Official LUKSO UP's profile.",
+        preview: "linear-gradient(135deg, #FE005B 0%, #7B3FE4 100%)",
+        category: "community",
+        gridConfig: { columns: 3, rows: 3, gap: "12px" },
+        featured: true,
+        author: "Official LUKSO UP",
+        profileAddress: "0x8363cfe6c787218f0ada0a4abc289a8d9dfc2453"
+    },
+    {
         id: "sleek",
         name: "Sleek",
         description: "Grid of Sleek magazine.",
@@ -15,6 +26,39 @@ export const communityGrids: GridTemplate[] = [
         featured: true,
         author: "Sleek",
         profileAddress: "0x8CeF7Ca98BddCaB3ead366B5037817E7D11D99d4",
+    },
+    {
+        id: "sons-of-art",
+        name: "Sons of art",
+        description: "Grid of Sons of art's profile.",
+        preview: "linear-gradient(135deg, #ff6b9d 0%, #c44569 100%)",
+        category: "community",
+        gridConfig: { columns: 3, rows: 3, gap: "12px" },
+        featured: true,
+        author: "Sons of art",
+        profileAddress: "0xf110a5e3af9135743116ba81ca37468205d22473",
+    },
+    {
+        id: "pob-studio",
+        name: "Pob Studio",
+        description: "Grid of Pob Studio's profile.",
+        preview: "linear-gradient(135deg, #fa709a 0%, #fee140 100%)",
+        category: "community",
+        gridConfig: { columns: 3, rows: 3, gap: "12px" },
+        featured: true,
+        author: "Pob Studio",
+        profileAddress: "0xf4db5f2acfad310f9c4203a121af445941704b39"
+    },
+    {
+        id: "kat",
+        name: "Kat",
+        description: "Grid of Kat's profile.",
+        preview: "linear-gradient(135deg, #ff9a9e 0%, #fecfef 100%)",
+        category: "community",
+        gridConfig: { columns: 3, rows: 3, gap: "12px" },
+        featured: true,
+        author: "Kat",
+        profileAddress: "0x7778ff6f6c8978ca2fa26a065a606a3c393a4d38",
     },
     {
         id: "devconnect-2025",
@@ -32,21 +76,6 @@ export const communityGrids: GridTemplate[] = [
         profileAddress: "0xa561a63d8BD44C3f396E722A981f5F8819fADd9E",
     },
     {
-        id: "lyxbandit",
-        name: "LYX Bandit'",
-        description: "Grid of LYX Bandit's profile.",
-        preview: "linear-gradient(135deg, #a8edea 0%, #fed6e3 100%)",
-        category: "community",
-        gridConfig: {
-            columns: 3,
-            rows: 3,
-            gap: "12px",
-        },
-        featured: false,
-        author: "LYX Bandit",
-        profileAddress: "0xAaC561C01ab461e7dF55F01bc481298B2305DA39",
-    },
-    {
         id: "alexdiaconu",
         name: "Alex Diaconu",
         description: "Alex Diaconu's portfolio grid showcasing work samples and projects.",
@@ -60,6 +89,43 @@ export const communityGrids: GridTemplate[] = [
         featured: true,
         author: "Community",
         profileAddress: "0xc0c3Da2590d26E275a1D87bC24997cc4E209A714",
+    },
+    {
+        id: "phygicoil",
+        name: "Phygicoil",
+        description: "Grid of Phygicoil's profile.",
+        preview: "linear-gradient(135deg, #4facfe 0%, #00f2fe 100%)",
+        category: "community",
+        gridConfig: { columns: 3, rows: 3, gap: "12px" },
+        featured: true,
+        author: "Phygicoil",
+        profileAddress: "0x8adc83bbe4e97d0eb6936dce3325a2bb04f6cb1a"
+    },
+    {
+        id: "lyxbandit",
+        name: "LYX Bandit",
+        description: "Grid of LYX Bandit's profile.",
+        preview: "linear-gradient(135deg, #a8edea 0%, #fed6e3 100%)",
+        category: "community",
+        gridConfig: {
+            columns: 3,
+            rows: 3,
+            gap: "12px",
+        },
+        featured: true,
+        author: "LYX Bandit",
+        profileAddress: "0xAaC561C01ab461e7dF55F01bc481298B2305DA39",
+    },
+    {
+        id: "jonathan-wan",
+        name: "Jonathan wan",
+        description: "Grid of Jonathan wan's profile.",
+        preview: "linear-gradient(135deg, #6366f1 0%, #8b5cf6 100%)",
+        category: "community",
+        gridConfig: { columns: 3, rows: 3, gap: "12px" },
+        featured: true,
+        author: "Jonathan wan",
+        profileAddress: "0xb8afdf77d049bd052170c413029b23da2fb12922",
     },
     {
         id: 'datzel',
@@ -259,8 +325,6 @@ export const communityGrids: GridTemplate[] = [
         author: "Prazen",
         profileAddress: "0x1c02B51C435b3F1336eAAb3C4eFA5cB75A49976a",
     },
-
-    // User grids from Universal Everything
     {
         id: "kaliyuga",
         name: "Kaliyuga",
@@ -271,7 +335,6 @@ export const communityGrids: GridTemplate[] = [
         featured: true,
         author: "Kaliyuga",
         profileAddress: "0xe11999ecae4c2cd5e719577f71fae32d5f6bc4d0",
-        profileLink: "https://universaleverything.io/0xe11999ecae4c2cd5e719577f71fae32d5f6bc4d0",
     },
     {
         id: "chill-labs",
@@ -283,7 +346,6 @@ export const communityGrids: GridTemplate[] = [
         featured: false,
         author: "Chill Labs",
         profileAddress: "0xb6c10458274431189d4d0da66ce00dc62a215908",
-        profileLink: "https://universaleverything.io/0xb6c10458274431189d4d0da66ce00dc62a215908",
     },
     {
         id: "rob",
@@ -295,7 +357,6 @@ export const communityGrids: GridTemplate[] = [
         featured: false,
         author: "Rob",
         profileAddress: "0x82c4dc98e27cfe9d7d312250e972e7380fbf6b77",
-        profileLink: "https://universaleverything.io/0x82c4dc98e27cfe9d7d312250e972e7380fbf6b77?grid=lukso-shorts",
     },
     {
         id: "jak",
@@ -307,7 +368,6 @@ export const communityGrids: GridTemplate[] = [
         featured: true,
         author: "Jak",
         profileAddress: "0x4945bd66b3faa4726f8c88a0553753f701a1f5f7",
-        profileLink: "https://universaleverything.io/0x4945bd66b3faa4726f8c88a0553753f701a1f5f7?grid=about-me",
     },
     {
         id: "deliquified-labs",
@@ -319,19 +379,6 @@ export const communityGrids: GridTemplate[] = [
         featured: false,
         author: "Deliquified Labs",
         profileAddress: "0x746a88d4bc09562e3f01bf4bd0ec91233f67e0d5",
-        profileLink: "https://universaleverything.io/0x746a88d4bc09562e3f01bf4bd0ec91233f67e0d5?grid=main",
-    },
-    {
-        id: "kat",
-        name: "Kat",
-        description: "Grid of Kat's profile.",
-        preview: "linear-gradient(135deg, #ff9a9e 0%, #fecfef 100%)",
-        category: "community",
-        gridConfig: { columns: 3, rows: 3, gap: "12px" },
-        featured: true,
-        author: "Kat",
-        profileAddress: "0x7778ff6f6c8978ca2fa26a065a606a3c393a4d38",
-        profileLink: "https://universaleverything.io/0x7778ff6f6c8978ca2fa26a065a606a3c393a4d38?grid=main",
     },
     {
         id: "sage",
@@ -343,7 +390,6 @@ export const communityGrids: GridTemplate[] = [
         featured: true,
         author: "Sage",
         profileAddress: "0xae5a927ac8bc2c96361cec14661dc7231aeca1ac",
-        profileLink: "https://universaleverything.io/0xae5a927ac8bc2c96361cec14661dc7231aeca1ac?grid=main",
     },
     {
         id: "dominik",
@@ -355,31 +401,6 @@ export const communityGrids: GridTemplate[] = [
         featured: true,
         author: "Dominik",
         profileAddress: "0xdc2d461baa36bc17d3f75425d56faaaa9551a28e",
-        profileLink: "https://universaleverything.io/0xdc2d461baa36bc17d3f75425d56faaaa9551a28e?grid=lukso",
-    },
-    {
-        id: "jonathan-wan",
-        name: "Jonathan wan",
-        description: "Grid of Jonathan wan's profile.",
-        preview: "linear-gradient(135deg, #6366f1 0%, #8b5cf6 100%)",
-        category: "community",
-        gridConfig: { columns: 3, rows: 3, gap: "12px" },
-        featured: true,
-        author: "Jonathan wan",
-        profileAddress: "0xb8afdf77d049bd052170c413029b23da2fb12922",
-        profileLink: "https://universaleverything.io/0xb8afdf77d049bd052170c413029b23da2fb12922?grid=main",
-    },
-    {
-        id: "sons-of-art",
-        name: "Sons of art",
-        description: "Grid of Sons of art's profile.",
-        preview: "linear-gradient(135deg, #ff6b9d 0%, #c44569 100%)",
-        category: "community",
-        gridConfig: { columns: 3, rows: 3, gap: "12px" },
-        featured: true,
-        author: "Sons of art",
-        profileAddress: "0xf110a5e3af9135743116ba81ca37468205d22473",
-        profileLink: "https://universaleverything.io/0xf110a5e3af9135743116ba81ca37468205d22473?grid=sonsofart.it",
     },
     {
         id: "onderkoffer",
@@ -391,7 +412,6 @@ export const communityGrids: GridTemplate[] = [
         featured: false,
         author: "Onderkoffer",
         profileAddress: "0xb5f21a787895c0f827a567a6761f283409a3d3ab",
-        profileLink: "https://universaleverything.io/0xb5f21a787895c0f827a567a6761f283409a3d3ab?grid=lukso-twitter",
     },
     {
         id: "metaversal",
@@ -403,7 +423,6 @@ export const communityGrids: GridTemplate[] = [
         featured: false,
         author: "Metaversal",
         profileAddress: "0x3473833ea200f6e2803c52f9d3e04a118b2c8a28",
-        profileLink: "https://universaleverything.io/0x3473833ea200f6e2803c52f9d3e04a118b2c8a28?grid=mini-apps",
     },
     {
         id: "ferroresonance",
@@ -414,8 +433,7 @@ export const communityGrids: GridTemplate[] = [
         gridConfig: { columns: 3, rows: 3, gap: "12px" },
         featured: false,
         author: "ferroresonance",
-        profileAddress: "0xa5118f0524c14ef9bfb7ceec73d5cbdc2838dfe0",
-        profileLink: "https://universaleverything.io/0xa5118f0524c14ef9bfb7ceec73d5cbdc2838dfe0?grid=main",
+        profileAddress: "0xa5118f0524c14ef9bfb7ceec73d5cbdc2838dfe0"
     },
     {
         id: "buddyk",
@@ -426,8 +444,7 @@ export const communityGrids: GridTemplate[] = [
         gridConfig: { columns: 3, rows: 3, gap: "12px" },
         featured: false,
         author: "buddyk",
-        profileAddress: "0x3c33871d7ff685433cdba55a85a5960fd9feb007",
-        profileLink: "https://universaleverything.io/0x3c33871d7ff685433cdba55a85a5960fd9feb007?grid=forever-moments",
+        profileAddress: "0x3c33871d7ff685433cdba55a85a5960fd9feb007"
     },
     {
         id: "forever-moments",
@@ -438,8 +455,7 @@ export const communityGrids: GridTemplate[] = [
         gridConfig: { columns: 3, rows: 3, gap: "12px" },
         featured: false,
         author: "Forever moments",
-        profileAddress: "0x7de347be3ebaed43065182fcaba462796d6f2a83",
-        profileLink: "https://universaleverything.io/0x7de347be3ebaed43065182fcaba462796d6f2a83?grid=main",
+        profileAddress: "0x7de347be3ebaed43065182fcaba462796d6f2a83"
     },
     {
         id: "pharaoh",
@@ -450,8 +466,7 @@ export const communityGrids: GridTemplate[] = [
         gridConfig: { columns: 3, rows: 3, gap: "12px" },
         featured: false,
         author: "pharaoh",
-        profileAddress: "0xd72251143cbcb6fee8295dec34633231497c1111",
-        profileLink: "https://universaleverything.io/0xd72251143cbcb6fee8295dec34633231497c1111?grid=main",
+        profileAddress: "0xd72251143cbcb6fee8295dec34633231497c1111"
     },
     {
         id: "fawn",
@@ -462,20 +477,7 @@ export const communityGrids: GridTemplate[] = [
         gridConfig: { columns: 3, rows: 3, gap: "12px" },
         featured: false,
         author: "Fawn",
-        profileAddress: "0x4d26f3e69973de843e3446f641b46384701b4217",
-        profileLink: "https://universaleverything.io/0x4d26f3e69973de843e3446f641b46384701b4217?grid=main",
-    },
-    {
-        id: "official-lukso-up",
-        name: "LUKSO",
-        description: "Grid of Official LUKSO UP's profile.",
-        preview: "linear-gradient(135deg, #FE005B 0%, #7B3FE4 100%)",
-        category: "community",
-        gridConfig: { columns: 3, rows: 3, gap: "12px" },
-        featured: true,
-        author: "Official LUKSO UP",
-        profileAddress: "0x8363cfe6c787218f0ada0a4abc289a8d9dfc2453",
-        profileLink: "https://universaleverything.io/0x8363cfe6c787218f0ada0a4abc289a8d9dfc2453?grid=home",
+        profileAddress: "0x4d26f3e69973de843e3446f641b46384701b4217"
     },
     {
         id: "roland-carter",
@@ -486,20 +488,7 @@ export const communityGrids: GridTemplate[] = [
         gridConfig: { columns: 3, rows: 3, gap: "12px" },
         featured: true,
         author: "Roland Carter",
-        profileAddress: "0x86c6f4ab31a31497694108b82d827797019719b8",
-        profileLink: "https://universaleverything.io/0x86c6f4ab31a31497694108b82d827797019719b8?grid=main",
-    },
-    {
-        id: "phygicoil",
-        name: "Phygicoil",
-        description: "Grid of Phygicoil's profile.",
-        preview: "linear-gradient(135deg, #4facfe 0%, #00f2fe 100%)",
-        category: "community",
-        gridConfig: { columns: 3, rows: 3, gap: "12px" },
-        featured: true,
-        author: "Phygicoil",
-        profileAddress: "0x8adc83bbe4e97d0eb6936dce3325a2bb04f6cb1a",
-        profileLink: "https://universaleverything.io/0x8adc83bbe4e97d0eb6936dce3325a2bb04f6cb1a?grid=design-development",
+        profileAddress: "0x86c6f4ab31a31497694108b82d827797019719b8"
     },
     {
         id: "aratta-labs",
@@ -510,8 +499,7 @@ export const communityGrids: GridTemplate[] = [
         gridConfig: { columns: 3, rows: 3, gap: "12px" },
         featured: false,
         author: "Aratta Labs",
-        profileAddress: "0x0d5c8b7cc12ed8486e1e0147cc0c3395739f138d",
-        profileLink: "https://universaleverything.io/0x0d5c8b7cc12ed8486e1e0147cc0c3395739f138d",
+        profileAddress: "0x0d5c8b7cc12ed8486e1e0147cc0c3395739f138d"
     },
     {
         id: "stakingverse",
@@ -522,31 +510,6 @@ export const communityGrids: GridTemplate[] = [
         gridConfig: { columns: 3, rows: 3, gap: "12px" },
         featured: true,
         author: "Stakingverse",
-        profileAddress: "0x900be67854a47282211844bbdf5cc0f332620513",
-        profileLink: "https://universaleverything.io/0x900be67854a47282211844bbdf5cc0f332620513?grid=main",
-    },
-    {
-        id: "pob-studio",
-        name: "Pob Studio",
-        description: "Grid of Pob Studio's profile.",
-        preview: "linear-gradient(135deg, #fa709a 0%, #fee140 100%)",
-        category: "community",
-        gridConfig: { columns: 3, rows: 3, gap: "12px" },
-        featured: true,
-        author: "Pob Studio",
-        profileAddress: "0xf4db5f2acfad310f9c4203a121af445941704b39",
-        profileLink: "https://universaleverything.io/0xf4db5f2acfad310f9c4203a121af445941704b39?grid=homepage",
-    },
-    {
-        id: "phygicoil-2",
-        name: "Phygicoil",
-        description: "Grid of Phygicoil's profile (design-development).",
-        preview: "linear-gradient(135deg, #4facfe 0%, #00f2fe 100%)",
-        category: "community",
-        gridConfig: { columns: 3, rows: 3, gap: "12px" },
-        featured: true,
-        author: "Phygicoil",
-        profileAddress: "0x8adc83bbe4e97d0eb6936dce3325a2bb04f6cb1a",
-        profileLink: "https://universaleverything.io/0x8adc83bbe4e97d0eb6936dce3325a2bb04f6cb1a?grid=design-development",
+        profileAddress: "0x900be67854a47282211844bbdf5cc0f332620513"
     },
 ]

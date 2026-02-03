@@ -50,7 +50,7 @@ export function TemplateGrid() {
   );
 
   const filteredTemplates = useMemo(() => {
-    return gridTemplates.filter((template) => {
+    const filtered = gridTemplates.filter((template) => {
       const matchesCategory =
         selectedCategory === "all" || template.category === selectedCategory;
       const matchesSearch =
@@ -61,6 +61,9 @@ export function TemplateGrid() {
         template.author.toLowerCase().includes(searchQuery.toLowerCase());
       return matchesCategory && matchesSearch;
     });
+    return [...filtered].sort((a, b) =>
+      a.featured === b.featured ? 0 : a.featured ? -1 : 1,
+    );
   }, [selectedCategory, searchQuery]);
 
   // Reset to page 1 when filters change
@@ -87,10 +90,6 @@ export function TemplateGrid() {
       window.scrollTo({ top: 0, behavior: "smooth" });
     }
   };
-
-  const featuredTemplates = useMemo(() => {
-    return gridTemplates.filter((t) => t.featured);
-  }, []);
 
   // Enrich community templates with tags from LSP3Profile, then filter by tag and featured
   const communityTemplatesSorted = useMemo(() => {
@@ -274,41 +273,13 @@ export function TemplateGrid() {
         )}
       </section>
 
-      {/* Featured Section */}
-      <section id="featured" className="mb-12">
-        <div className="flex items-center gap-3 mb-6">
-          <div className="w-1 h-6 bg-gradient-to-b from-violet-500 to-purple-500 rounded-full" />
-          <h2 className="text-xl font-semibold text-gray-900 dark:text-white">
-            Featured Templates
-          </h2>
-        </div>
-
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
-          {featuredTemplates.map((template, index) => (
-            <div
-              key={template.id}
-              style={{
-                animationDelay: `${index * 100}ms`,
-              }}
-              className="animate-slideUp opacity-0"
-            >
-              <TemplateCard
-                template={template}
-                onSelect={setSelectedTemplate}
-                isSelected={selectedTemplate?.id === template.id}
-              />
-            </div>
-          ))}
-        </div>
-      </section>
-
       {/* Community Section */}
       <section id="community" className="mb-12">
         <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 mb-6">
           <div className="flex items-center gap-3">
             <div className="w-1 h-6 bg-gradient-to-b from-violet-500 to-purple-500 rounded-full" />
             <h2 className="text-xl font-semibold text-gray-900 dark:text-white">
-              Community Templates
+              Best Grids on LUKSO
             </h2>
           </div>
           <div className="flex flex-wrap items-center gap-2">

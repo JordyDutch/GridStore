@@ -1,6 +1,6 @@
 "use client";
 
-import { Category, categories } from "@/lib/templates";
+import { Category, categories } from "@/templates/templates";
 import {
   Grid3X3,
   Minus,

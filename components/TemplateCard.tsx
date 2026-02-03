@@ -1,6 +1,6 @@
 "use client";
 
-import { GridTemplate } from "@/lib/templates";
+import { GridTemplate } from "@/templates/templates";
 import { useCommunityProfile } from "@/hooks/useCommunityProfile";
 import { User, Star, ExternalLink, Loader2 } from "lucide-react";
 

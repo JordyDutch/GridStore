@@ -1,12 +1,13 @@
 "use client";
 
 import { useState, useMemo, useEffect } from "react";
-import { gridTemplates, Category } from "@/lib/templates";
+import { gridTemplates, Category } from "@/templates/templates";
 import { CategoryFilter } from "./CategoryFilter";
 import { TemplateCard } from "./TemplateCard";
 import { TemplateModal } from "./TemplateModal";
-import { GridTemplate } from "@/lib/templates";
+import type { GridTemplate } from "@/lib/types";
 import { Search, ChevronLeft, ChevronRight } from "lucide-react";
+import { communityGrids } from "@/templates/community";
 
 const FEATURED_ITEMS_PER_PAGE = 8;
 const COMMUNITY_ITEMS_PER_PAGE = 9;
@@ -55,22 +56,16 @@ export function TemplateGrid() {
   };
 
   const featuredTemplates = useMemo(() => {
-    return gridTemplates.filter(
-      (t) => t.featured && t.category !== "community",
-    );
-  }, []);
-
-  const communityTemplates = useMemo(() => {
-    return gridTemplates.filter((t) => t.category === "community");
+    return gridTemplates.filter((t) => t.featured);
   }, []);
 
   // Community templates pagination
   const communityTotalPages = Math.ceil(
-    communityTemplates.length / COMMUNITY_ITEMS_PER_PAGE,
+    communityGrids.length / COMMUNITY_ITEMS_PER_PAGE,
   );
   const communityStartIndex = (communityPage - 1) * COMMUNITY_ITEMS_PER_PAGE;
   const communityEndIndex = communityStartIndex + COMMUNITY_ITEMS_PER_PAGE;
-  const paginatedCommunityTemplates = communityTemplates.slice(
+  const paginatedCommunityTemplates = communityGrids.slice(
     communityStartIndex,
     communityEndIndex,
   );
@@ -88,12 +83,12 @@ export function TemplateGrid() {
 
   return (
     <div>
-      {/* All Templates */}
+      {/* Browse Templates */}
       <section className="mb-12">
         <div className="flex items-center gap-3 mb-6">
           <div className="w-1 h-6 bg-gradient-to-b from-violet-500 to-purple-500 rounded-full" />
           <h2 className="text-xl font-semibold text-gray-900 dark:text-white">
-            All Templates
+            Browse Templates
           </h2>
         </div>
 
@@ -257,7 +252,7 @@ export function TemplateGrid() {
           </h2>
         </div>
 
-        {communityTemplates.length > 0 ? (
+        {communityGrids.length > 0 ? (
           <>
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
               {paginatedCommunityTemplates.map((template, index) => (
@@ -346,8 +341,8 @@ export function TemplateGrid() {
             {/* Community Results count */}
             <div className="mt-4 text-center text-sm text-gray-500">
               Showing {communityStartIndex + 1}-
-              {Math.min(communityEndIndex, communityTemplates.length)} of{" "}
-              {communityTemplates.length} templates
+              {Math.min(communityEndIndex, communityGrids.length)} of{" "}
+              {communityGrids.length} templates
             </div>
           </>
         ) : (

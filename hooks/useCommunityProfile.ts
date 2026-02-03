@@ -6,30 +6,30 @@ import { luksoMainnet, luksoTestnet } from "@/lib/wagmi";
 import { useChainId } from "wagmi";
 
 interface CommunityProfileImages {
-  profileImage?: string;
-  backgroundImage?: string;
+    profileImage?: string;
+    backgroundImage?: string;
 }
 
 interface LSP3ProfileValue {
-  LSP3Profile?: {
-    name?: string;
-    description?: string;
-    profileImage?: Array<{ url?: string }>;
-    backgroundImage?: Array<{ url?: string }>;
-  };
+    LSP3Profile?: {
+        name?: string;
+        description?: string;
+        profileImage?: Array<{ url?: string }>;
+        backgroundImage?: Array<{ url?: string }>;
+    };
 }
 
 /**
  * Convert IPFS URL to HTTP gateway URL
  */
 function resolveIPFSUrl(url?: string): string | undefined {
-  if (!url) return undefined;
+    if (!url) return undefined;
 
-  if (url.startsWith("ipfs://")) {
-    return `https://api.universalprofile.cloud/ipfs/${url.slice(7)}`;
-  }
+    if (url.startsWith("ipfs://")) {
+        return `https://api.universalprofile.cloud/ipfs/${url.slice(7)}`;
+    }
 
-  return url;
+    return url;
 }
 
 // Cache for profile images to avoid re-fetching
@@ -39,69 +39,69 @@ const profileCache = new Map<string, CommunityProfileImages>();
  * Custom hook to fetch profile and background images for a Universal Profile address
  */
 export function useCommunityProfile(profileAddress?: string) {
-  const chainId = useChainId();
-  const chain = chainId == 42 ? luksoMainnet : luksoTestnet;
+    const chainId = useChainId();
+    const chain = chainId == 42 ? luksoMainnet : luksoTestnet;
 
-  const [images, setImages] = useState<CommunityProfileImages>(() => {
-    // Check cache on initial render
-    if (profileAddress && profileCache.has(profileAddress)) {
-      return profileCache.get(profileAddress)!;
-    }
-    return {};
-  });
-  const [isLoading, setIsLoading] = useState(() => {
-    // Start loading if we have an address and no cached data
-    return !!profileAddress && !profileCache.has(profileAddress);
-  });
-
-  useEffect(() => {
-    async function fetchImages() {
-      if (!profileAddress) {
-        setImages({});
-        setIsLoading(false);
-        return;
-      }
-
-      // Check cache first
-      if (profileCache.has(profileAddress)) {
-        setImages(profileCache.get(profileAddress)!);
-        setIsLoading(false);
-        return;
-      }
-
-      setIsLoading(true);
-
-      try {
-        // Community profiles are always on mainnet (42)
-        const metadata = (await fetchProfileMetadata(
-          profileAddress,
-          chain
-        )) as LSP3ProfileValue | null;
-
-        if (metadata?.LSP3Profile) {
-          const lsp3 = metadata.LSP3Profile;
-
-          const profileImageUrl = lsp3.profileImage?.[0]?.url;
-          const backgroundImageUrl = lsp3.backgroundImage?.[0]?.url;
-
-          const newImages = {
-            profileImage: resolveIPFSUrl(profileImageUrl),
-            backgroundImage: resolveIPFSUrl(backgroundImageUrl),
-          };
-
-          // Cache the result
-          profileCache.set(profileAddress, newImages);
-          setImages(newImages);
+    const [images, setImages] = useState<CommunityProfileImages>(() => {
+        // Check cache on initial render
+        if (profileAddress && profileCache.has(profileAddress)) {
+            return profileCache.get(profileAddress)!;
         }
-      } catch (err) {
-        console.error("Error fetching community profile images:", err);
-      } finally {
-        setIsLoading(false);
-      }
-    }
+        return {};
+    });
+    const [isLoading, setIsLoading] = useState(() => {
+        // Start loading if we have an address and no cached data
+        return !!profileAddress && !profileCache.has(profileAddress);
+    });
 
-    fetchImages();
-  }, [profileAddress]);
+    useEffect(() => {
+        async function fetchImages() {
+            if (!profileAddress) {
+                setImages({});
+                setIsLoading(false);
+                return;
+            }
 
-  return { images, isLoading };
+            // Check cache first
+            if (profileCache.has(profileAddress)) {
+                setImages(profileCache.get(profileAddress)!);
+                setIsLoading(false);
+                return;
+            }
+
+            setIsLoading(true);
+
+            try {
+                // Community profiles are always on mainnet (42)
+                const metadata = (await fetchProfileMetadata(
+                    profileAddress,
+                    chain
+                )) as LSP3ProfileValue | null;
+
+                if (metadata?.LSP3Profile) {
+                    const lsp3 = metadata.LSP3Profile;
+
+                    const profileImageUrl = lsp3.profileImage?.[0]?.url;
+                    const backgroundImageUrl = lsp3.backgroundImage?.[0]?.url;
+
+                    const newImages = {
+                        profileImage: resolveIPFSUrl(profileImageUrl),
+                        backgroundImage: resolveIPFSUrl(backgroundImageUrl),
+                    };
+
+                    // Cache the result
+                    profileCache.set(profileAddress, newImages);
+                    setImages(newImages);
+                }
+            } catch (err) {
+                console.error("Error fetching community profile images:", err);
+            } finally {
+                setIsLoading(false);
+            }
+        }
+
+        fetchImages();
+    }, [profileAddress]);
+
+    return { images, isLoading };
 }

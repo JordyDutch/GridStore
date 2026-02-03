@@ -3,7 +3,13 @@ export interface GridTemplate {
     name: string;
     description: string;
     preview: string; // URL to preview image or CSS gradient
-    category: "minimal" | "creative" | "professional" | "gaming" | "social" | "community";
+    category:
+        | "minimal"
+        | "creative"
+        | "professional"
+        | "gaming"
+        | "social"
+        | "community";
     gridConfig: {
         columns: number;
         rows: number;

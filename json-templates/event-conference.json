@@ -1,40 +1,40 @@
 {
-  "LSP28TheGrid": [
-    {
-      "title": "Event & Conference",
-      "gridColumns": 3,
-      "visibility": "public",
-      "grid": [
+    "LSP28TheGrid": [
         {
-          "width": 3,
-          "height": 1,
-          "type": "TEXT",
-          "properties": {
-            "title": "Future Forms 2024",
-            "text": "\ud83d\udccd Berlin \u00b7 June 12-14\nJoin creators, developers, and founders shaping Web3's cultural layer.",
-            "backgroundColor": "#d1f2ff"
-          }
-        },
-        {
-          "width": 2,
-          "height": 2,
-          "type": "IMAGES",
-          "properties": {
-            "images": [
-              "https://www.svgrepo.com/show/508699/landscape-placeholder.svg",
-              "https://www.svgrepo.com/show/508699/landscape-placeholder.svg"
+            "title": "Event & Conference",
+            "gridColumns": 3,
+            "visibility": "public",
+            "grid": [
+                {
+                    "width": 3,
+                    "height": 1,
+                    "type": "TEXT",
+                    "properties": {
+                        "title": "Future Forms 2024",
+                        "text": "\ud83d\udccd Berlin \u00b7 June 12-14\nJoin creators, developers, and founders shaping Web3's cultural layer.",
+                        "backgroundColor": "#d1f2ff"
+                    }
+                },
+                {
+                    "width": 2,
+                    "height": 2,
+                    "type": "IMAGES",
+                    "properties": {
+                        "images": [
+                            "https://www.svgrepo.com/show/508699/landscape-placeholder.svg",
+                            "https://www.svgrepo.com/show/508699/landscape-placeholder.svg"
+                        ]
+                    }
+                },
+                {
+                    "width": 1,
+                    "height": 2,
+                    "type": "QR_CODE",
+                    "properties": {
+                        "data": "https://example.com/event-tickets"
+                    }
+                }
             ]
-          }
-        },
-        {
-          "width": 1,
-          "height": 2,
-          "type": "QR_CODE",
-          "properties": {
-            "data": "https://example.com/event-tickets"
-          }
         }
-      ]
-    }
-  ]
+    ]
 }

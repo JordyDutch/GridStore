@@ -10,7 +10,7 @@ export const communityGrids: GridTemplate[] = [
         gridConfig: { columns: 3, rows: 3, gap: "12px" },
         featured: true,
         author: "Official LUKSO UP",
-        profileAddress: "0x8363cfe6c787218f0ada0a4abc289a8d9dfc2453"
+        profileAddress: "0x8363cfe6c787218f0ada0a4abc289a8d9dfc2453",
     },
     {
         id: "sleek",
@@ -47,7 +47,7 @@ export const communityGrids: GridTemplate[] = [
         gridConfig: { columns: 3, rows: 3, gap: "12px" },
         featured: true,
         author: "Pob Studio",
-        profileAddress: "0xf4db5f2acfad310f9c4203a121af445941704b39"
+        profileAddress: "0xf4db5f2acfad310f9c4203a121af445941704b39",
     },
     {
         id: "kat",
@@ -78,7 +78,8 @@ export const communityGrids: GridTemplate[] = [
     {
         id: "alexdiaconu",
         name: "Alex Diaconu",
-        description: "Alex Diaconu's portfolio grid showcasing work samples and projects.",
+        description:
+            "Alex Diaconu's portfolio grid showcasing work samples and projects.",
         preview: "linear-gradient(135deg, #4facfe 0%, #00f2fe 100%)",
         category: "community",
         gridConfig: {
@@ -99,7 +100,7 @@ export const communityGrids: GridTemplate[] = [
         gridConfig: { columns: 3, rows: 3, gap: "12px" },
         featured: true,
         author: "Phygicoil",
-        profileAddress: "0x8adc83bbe4e97d0eb6936dce3325a2bb04f6cb1a"
+        profileAddress: "0x8adc83bbe4e97d0eb6936dce3325a2bb04f6cb1a",
     },
     {
         id: "lyxbandit",
@@ -128,10 +129,11 @@ export const communityGrids: GridTemplate[] = [
         profileAddress: "0xb8afdf77d049bd052170c413029b23da2fb12922",
     },
     {
-        id: 'datzel',
+        id: "datzel",
         name: "Datzel",
         description: "Grid layout of Datzel, designer inspired.",
-        preview: "linear-gradient(135deg,rgb(115, 74, 142) 0%, #8b5cf6 50%, #a855f7 100%)",
+        preview:
+            "linear-gradient(135deg,rgb(115, 74, 142) 0%, #8b5cf6 50%, #a855f7 100%)",
         category: "community",
         gridConfig: {
             columns: 3,
@@ -141,15 +143,17 @@ export const communityGrids: GridTemplate[] = [
         featured: true,
         author: "Datzel",
         gridData: {
-            rawValue: "0x00006f357c6a0020ef6dadc0dddb6cc3a6641b221829c0da6a9b11ca7137e895e94e154b7d5ac353697066733a2f2f516d50615231726a5a36714e64477253523755456d7642697735593536325761747a704633394a41385666385775",
+            rawValue:
+                "0x00006f357c6a0020ef6dadc0dddb6cc3a6641b221829c0da6a9b11ca7137e895e94e154b7d5ac353697066733a2f2f516d50615231726a5a36714e64477253523755456d7642697735593536325761747a704633394a41385666385775",
         },
-        profileAddress: "0x24bCBa5b6E5010C6CC3c1272798854CE1dADBd71"
+        profileAddress: "0x24bCBa5b6E5010C6CC3c1272798854CE1dADBd71",
     },
     {
         id: "alexander-montes",
         name: "Alexander Modigell",
         description: "Grid of Alexander Modigell's profile.",
-        preview: "linear-gradient(135deg, #ff9a9e 0%, #fecfef 50%, #fecfef 100%)",
+        preview:
+            "linear-gradient(135deg, #ff9a9e 0%, #fecfef 50%, #fecfef 100%)",
         category: "community",
         gridConfig: {
             columns: 3,
@@ -164,7 +168,8 @@ export const communityGrids: GridTemplate[] = [
         id: "rip1599868",
         name: "rip1599868",
         description: "Grid of rip1599868's profile.",
-        preview: "linear-gradient(135deg,rgb(198, 229, 247) 0%,rgb(207, 223, 254) 50%,rgb(126, 165, 238) 100%)",
+        preview:
+            "linear-gradient(135deg,rgb(198, 229, 247) 0%,rgb(207, 223, 254) 50%,rgb(126, 165, 238) 100%)",
         category: "community",
         gridConfig: {
             columns: 3,
@@ -179,7 +184,8 @@ export const communityGrids: GridTemplate[] = [
         id: "jean-cavallera",
         name: "Jean Cavallera",
         description: "Developer oriented grid from Jean Cavallera.",
-        preview: "linear-gradient(135deg,rgb(100, 100, 100) 0%,rgb(71, 93, 187) 100%)",
+        preview:
+            "linear-gradient(135deg,rgb(100, 100, 100) 0%,rgb(71, 93, 187) 100%)",
         category: "community",
         gridConfig: {
             columns: 3,
@@ -188,12 +194,13 @@ export const communityGrids: GridTemplate[] = [
         },
         featured: true,
         author: "Jean Cavallera",
-        profileAddress: "0x927aAD446E3bF6eeB776387B3d7A89D8016fA54d"
+        profileAddress: "0x927aAD446E3bF6eeB776387B3d7A89D8016fA54d",
     },
     {
         id: "jordydutch",
         name: "JordyDutch",
-        description: "Custom grid from JordyDutch with LUKSO brand colors and styling.",
+        description:
+            "Custom grid from JordyDutch with LUKSO brand colors and styling.",
         preview: "linear-gradient(135deg, #FE005B 0%, #7B3FE4 100%)",
         category: "community",
         gridConfig: {
@@ -203,13 +210,14 @@ export const communityGrids: GridTemplate[] = [
         },
         featured: true,
         author: "Jordy",
-        profileAddress: "0x378Be8577ede94b9d4b9F45447F21B826501bab8"
+        profileAddress: "0x378Be8577ede94b9d4b9F45447F21B826501bab8",
     },
     {
         id: "alts-anonymous",
         name: "Alts Anonymous",
         description: "Grid of Alts Anonymous community and altcoin profiles.",
-        preview: "linear-gradient(135deg, #6366f1 0%, #8b5cf6 50%, #a855f7 100%)",
+        preview:
+            "linear-gradient(135deg, #6366f1 0%, #8b5cf6 50%, #a855f7 100%)",
         category: "community",
         gridConfig: {
             columns: 3,
@@ -218,13 +226,15 @@ export const communityGrids: GridTemplate[] = [
         },
         featured: false,
         author: "Alts Anonymous",
-        profileAddress: "0x29d7c7E4571a83B3eF5C867f75c81D736a9D58aa"
+        profileAddress: "0x29d7c7E4571a83B3eF5C867f75c81D736a9D58aa",
     },
     {
         id: "clubmulticulti",
         name: "Clubmulticulti's Grid",
-        description: "Music-focused grid featuring curated audiovibes, mood boards, and creative content with embedded YouTube videos.",
-        preview: "linear-gradient(135deg, #1e3a5f 0%, #4a7c9b 50%, #7fb3d5 100%)",
+        description:
+            "Music-focused grid featuring curated audiovibes, mood boards, and creative content with embedded YouTube videos.",
+        preview:
+            "linear-gradient(135deg, #1e3a5f 0%, #4a7c9b 50%, #7fb3d5 100%)",
         category: "community",
         gridConfig: {
             columns: 2,
@@ -233,13 +243,15 @@ export const communityGrids: GridTemplate[] = [
         },
         featured: false,
         author: "clubmulticulti",
-        profileAddress: "0x261564F5260369438bF7F8977CDFa75Fc0532422"
+        profileAddress: "0x261564F5260369438bF7F8977CDFa75Fc0532422",
     },
     {
         id: "speedracer",
         name: "SpeedRacer's Grid",
-        description: "Art gallery grid showcasing digital artwork, crypto market caps, dApps, and LUKSO ecosystem content. Perfect for collectors and decentralization maximalists.",
-        preview: "linear-gradient(135deg, #ff6b9d 0%, #c44569 50%, #1e3799 100%)",
+        description:
+            "Art gallery grid showcasing digital artwork, crypto market caps, dApps, and LUKSO ecosystem content. Perfect for collectors and decentralization maximalists.",
+        preview:
+            "linear-gradient(135deg, #ff6b9d 0%, #c44569 50%, #1e3799 100%)",
         category: "community",
         gridConfig: {
             columns: 2,
@@ -248,13 +260,15 @@ export const communityGrids: GridTemplate[] = [
         },
         featured: false,
         author: "SpeedRacer",
-        profileAddress: '0x7D817EF6adB23A038Bbae352D4E838CabB6454D0'
+        profileAddress: "0x7D817EF6adB23A038Bbae352D4E838CabB6454D0",
     },
     {
         id: "t-mass",
         name: "t-mass's Grid",
-        description: "Meme culture grid featuring Pepito themes, embedded tweets, NFT art, and dApp integrations like UniversalSwaps.",
-        preview: "linear-gradient(135deg, #ff69b4 0%, #ff1493 50%, #c71585 100%)",
+        description:
+            "Meme culture grid featuring Pepito themes, embedded tweets, NFT art, and dApp integrations like UniversalSwaps.",
+        preview:
+            "linear-gradient(135deg, #ff69b4 0%, #ff1493 50%, #c71585 100%)",
         category: "community",
         gridConfig: {
             columns: 3,
@@ -263,7 +277,7 @@ export const communityGrids: GridTemplate[] = [
         },
         featured: false,
         author: "t-mass",
-        profileAddress: "0xcEcD1798420A533c9627770e052f49aa127c3B3B"
+        profileAddress: "0xcEcD1798420A533c9627770e052f49aa127c3B3B",
     },
     {
         id: "wissam",
@@ -314,7 +328,8 @@ export const communityGrids: GridTemplate[] = [
         id: "prazen",
         name: "Prazen's Grid",
         description: "Grid layout by Prazen showcasing featured content.",
-        preview: "linear-gradient(135deg, #ff9a9e 0%, #fecfef 50%, #fecfef 100%)",
+        preview:
+            "linear-gradient(135deg, #ff9a9e 0%, #fecfef 50%, #fecfef 100%)",
         category: "community",
         gridConfig: {
             columns: 3,
@@ -417,7 +432,8 @@ export const communityGrids: GridTemplate[] = [
         id: "metaversal",
         name: "Metaversal",
         description: "Grid of Metaversal's profile.",
-        preview: "linear-gradient(135deg, #1e3a5f 0%, #4a7c9b 50%, #7fb3d5 100%)",
+        preview:
+            "linear-gradient(135deg, #1e3a5f 0%, #4a7c9b 50%, #7fb3d5 100%)",
         category: "community",
         gridConfig: { columns: 3, rows: 3, gap: "12px" },
         featured: false,
@@ -433,7 +449,7 @@ export const communityGrids: GridTemplate[] = [
         gridConfig: { columns: 3, rows: 3, gap: "12px" },
         featured: false,
         author: "ferroresonance",
-        profileAddress: "0xa5118f0524c14ef9bfb7ceec73d5cbdc2838dfe0"
+        profileAddress: "0xa5118f0524c14ef9bfb7ceec73d5cbdc2838dfe0",
     },
     {
         id: "buddyk",
@@ -444,7 +460,7 @@ export const communityGrids: GridTemplate[] = [
         gridConfig: { columns: 3, rows: 3, gap: "12px" },
         featured: false,
         author: "buddyk",
-        profileAddress: "0x3c33871d7ff685433cdba55a85a5960fd9feb007"
+        profileAddress: "0x3c33871d7ff685433cdba55a85a5960fd9feb007",
     },
     {
         id: "forever-moments",
@@ -455,7 +471,7 @@ export const communityGrids: GridTemplate[] = [
         gridConfig: { columns: 3, rows: 3, gap: "12px" },
         featured: false,
         author: "Forever moments",
-        profileAddress: "0x7de347be3ebaed43065182fcaba462796d6f2a83"
+        profileAddress: "0x7de347be3ebaed43065182fcaba462796d6f2a83",
     },
     {
         id: "pharaoh",
@@ -466,7 +482,7 @@ export const communityGrids: GridTemplate[] = [
         gridConfig: { columns: 3, rows: 3, gap: "12px" },
         featured: false,
         author: "pharaoh",
-        profileAddress: "0xd72251143cbcb6fee8295dec34633231497c1111"
+        profileAddress: "0xd72251143cbcb6fee8295dec34633231497c1111",
     },
     {
         id: "fawn",
@@ -477,7 +493,7 @@ export const communityGrids: GridTemplate[] = [
         gridConfig: { columns: 3, rows: 3, gap: "12px" },
         featured: false,
         author: "Fawn",
-        profileAddress: "0x4d26f3e69973de843e3446f641b46384701b4217"
+        profileAddress: "0x4d26f3e69973de843e3446f641b46384701b4217",
     },
     {
         id: "roland-carter",
@@ -488,7 +504,7 @@ export const communityGrids: GridTemplate[] = [
         gridConfig: { columns: 3, rows: 3, gap: "12px" },
         featured: true,
         author: "Roland Carter",
-        profileAddress: "0x86c6f4ab31a31497694108b82d827797019719b8"
+        profileAddress: "0x86c6f4ab31a31497694108b82d827797019719b8",
     },
     {
         id: "aratta-labs",
@@ -499,7 +515,7 @@ export const communityGrids: GridTemplate[] = [
         gridConfig: { columns: 3, rows: 3, gap: "12px" },
         featured: false,
         author: "Aratta Labs",
-        profileAddress: "0x0d5c8b7cc12ed8486e1e0147cc0c3395739f138d"
+        profileAddress: "0x0d5c8b7cc12ed8486e1e0147cc0c3395739f138d",
     },
     {
         id: "stakingverse",
@@ -510,6 +526,6 @@ export const communityGrids: GridTemplate[] = [
         gridConfig: { columns: 3, rows: 3, gap: "12px" },
         featured: true,
         author: "Stakingverse",
-        profileAddress: "0x900be67854a47282211844bbdf5cc0f332620513"
+        profileAddress: "0x900be67854a47282211844bbdf5cc0f332620513",
     },
-]
+];

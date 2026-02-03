@@ -25,29 +25,33 @@ A marketplace for Universal Profile grid templates built on LUKSO. Browse, previ
 
 ### Prerequisites
 
-- Node.js 18+ 
+- Node.js 18+
 - A LUKSO Universal Profile (create one at [universaleverything.io](https://universaleverything.io))
 - UP Browser Extension installed ([download here](https://docs.lukso.tech/install-up-browser-extension))
 
 ### Installation
 
 1. Clone the repository:
+
 ```bash
 git clone https://github.com/yourusername/gridstore.git
 cd gridstore
 ```
 
 2. Install dependencies:
+
 ```bash
 npm install
 ```
 
 3. Create environment file:
+
 ```bash
 cp .env.example .env.local
 ```
 
 4. Add your WalletConnect Project ID to `.env.local`:
+
 ```
 NEXT_PUBLIC_WALLET_CONNECT_PROJECT_ID=your_project_id_here
 ```
@@ -55,6 +59,7 @@ NEXT_PUBLIC_WALLET_CONNECT_PROJECT_ID=your_project_id_here
 Get a free Project ID at [WalletConnect Cloud](https://cloud.walletconnect.com).
 
 5. Start the development server:
+
 ```bash
 npm run dev
 ```

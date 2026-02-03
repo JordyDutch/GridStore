@@ -1,6 +1,11 @@
-import { ERC725, ERC725JSONSchema } from "@erc725/erc725.js";
+import {
+    ERC725,
+    ERC725JSONSchema,
+    decodeDataSourceWithHash,
+} from "@erc725/erc725.js";
 import LSP3Schema from "@erc725/erc725.js/schemas/LSP3ProfileMetadata.json";
 import { Chain, createPublicClient, http } from "viem";
+import type { GridLayoutData } from "./types";
 
 const DEFAULT_RPC_ENDPOINT = "https://rpc.mainnet.lukso.network";
 
@@ -206,3 +211,94 @@ export const UniversalProfileABI = [
         type: "function",
     },
 ] as const;
+
+// ============================================
+// Grid Data Decoding & Fetching Utilities
+// ============================================
+
+const IPFS_GATEWAY = "https://api.universalprofile.cloud/ipfs/";
+
+/**
+ * Resolve an IPFS URL to a HTTP gateway URL
+ * @param url - The URL to resolve (can be ipfs:// or http(s)://)
+ */
+export function resolveIPFSUrl(url: string): string {
+    if (!url) return "";
+
+    if (url.startsWith("ipfs://")) {
+        const cid = url.replace("ipfs://", "");
+        return `${IPFS_GATEWAY}${cid}`;
+    }
+
+    // Already a gateway URL or regular HTTP URL
+    return url;
+}
+
+/**
+ * Decoded result from a VerifiableURI
+ */
+export interface DecodedVerifiableURI {
+    verification: {
+        method: string;
+        data: string;
+    };
+    url: string;
+}
+
+/**
+ * Decode a raw hex value (VerifiableURI) to get the IPFS URL and verification data
+ * @param rawValue - The raw hex string (e.g., from gridData.rawValue)
+ * @returns Decoded object with verification info and URL
+ */
+export function decodeGridRawValue(rawValue: string): DecodedVerifiableURI {
+    return decodeDataSourceWithHash(rawValue) as DecodedVerifiableURI;
+}
+
+/**
+ * Fetch the grid layout JSON from an IPFS URL
+ * @param ipfsUrl - The IPFS URL (ipfs://...) or HTTP URL
+ * @returns The parsed GridLayoutData or null if fetch fails
+ */
+export async function fetchGridJSON(
+    ipfsUrl: string
+): Promise<GridLayoutData | null> {
+    try {
+        const resolvedUrl = resolveIPFSUrl(ipfsUrl);
+        const response = await fetch(resolvedUrl);
+
+        if (!response.ok) {
+            console.error(
+                `Failed to fetch grid JSON: ${response.status} ${response.statusText}`
+            );
+            return null;
+        }
+
+        const data = await response.json();
+        return data as GridLayoutData;
+    } catch (error) {
+        console.error("Error fetching grid JSON:", error);
+        return null;
+    }
+}
+
+/**
+ * Decode a raw grid value and fetch the grid layout JSON in one step
+ * @param rawValue - The raw hex string (VerifiableURI encoded)
+ * @returns The parsed GridLayoutData or null if decode/fetch fails
+ */
+export async function decodeAndFetchGridData(
+    rawValue: string
+): Promise<GridLayoutData | null> {
+    try {
+        const decoded = decodeGridRawValue(rawValue);
+        if (!decoded?.url) {
+            console.error("No URL found in decoded raw value");
+            return null;
+        }
+
+        return await fetchGridJSON(decoded.url);
+    } catch (error) {
+        console.error("Error decoding and fetching grid data:", error);
+        return null;
+    }
+}

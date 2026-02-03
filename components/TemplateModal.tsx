@@ -27,6 +27,7 @@ import {
 import { useState, useEffect } from "react";
 import { luksoMainnet, luksoTestnet } from "@/lib/wagmi";
 import { useCommunityProfile } from "@/hooks/useCommunityProfile";
+import { GridPreview } from "./GridPreview";
 
 interface TemplateModalProps {
     template: GridTemplate;
@@ -165,6 +166,13 @@ export function TemplateModal({ template, onClose }: TemplateModalProps) {
         ? `https://universaleverything.io/${template.profileAddress}`
         : null;
 
+    // Determine if we can show a grid preview (non-community templates with rawValue)
+    const canShowGridPreview =
+        template.category !== "community" && !!template.gridData?.rawValue;
+
+    // Show two-column layout if either preview type is available
+    const hasTwoColumnLayout = canShowLivePreview || canShowGridPreview;
+
     return (
         <div className="fixed inset-0 z-50 flex items-center justify-center p-4">
             {/* Backdrop */}
@@ -176,7 +184,7 @@ export function TemplateModal({ template, onClose }: TemplateModalProps) {
             {/* Modal - two columns when preview available */}
             <div
                 className={`relative flex flex-col lg:flex-row gap-4 animate-fadeIn ${
-                    canShowLivePreview ? "max-w-[90vw]" : "max-w-lg"
+                    hasTwoColumnLayout ? "max-w-[90vw]" : "max-w-lg"
                 } w-full max-h-[90vh]`}
             >
                 {/* Close Button - high contrast in light and dark mode */}
@@ -191,7 +199,7 @@ export function TemplateModal({ template, onClose }: TemplateModalProps) {
                 {/* Left Card - Template Info */}
                 <div
                     className={`card rounded-2xl overflow-hidden flex flex-col ${
-                        canShowLivePreview ? "lg:w-1/4" : "w-full"
+                        hasTwoColumnLayout ? "lg:w-1/3" : "w-full"
                     } max-h-[90vh] overflow-y-auto`}
                 >
                     {/* Preview: profile/background for community, else gradient + grid */}
@@ -494,27 +502,43 @@ export function TemplateModal({ template, onClose }: TemplateModalProps) {
                     </div>
                 </div>
 
-                {/* Right Card - Live Preview (only when profileAddress is available) */}
-                {canShowLivePreview && previewUrl && (
-                    <div className="card rounded-2xl overflow-hidden lg:w-3/4 flex flex-col min-h-[400px] lg:min-h-0 lg:max-h-[90vh]">
-                        <div className="p-4 border-b border-gray-200 dark:border-white/10 shrink-0">
-                            <h3 className="text-sm font-semibold text-gray-900 dark:text-white flex items-center gap-2">
-                                <Grid3X3 className="w-4 h-4" />
-                                Live Preview
-                            </h3>
-                            <p className="text-xs text-gray-500 dark:text-gray-400 mt-1">
-                                This is how the grid looks on Universal
-                                Everything
-                            </p>
-                        </div>
-                        <div className="flex-1 relative bg-gray-100 dark:bg-gray-900">
-                            <iframe
-                                src={previewUrl}
-                                title={`Grid preview for ${template.name}`}
-                                className="absolute inset-0 w-full h-full border-0"
-                                sandbox="allow-scripts allow-same-origin"
-                            />
-                        </div>
+                {/* Right Card - Preview Panel */}
+                {hasTwoColumnLayout && (
+                    <div className="card rounded-2xl overflow-hidden lg:w-2/3 flex flex-col min-h-[400px] lg:min-h-0 lg:max-h-[90vh]">
+                        {/* Live Preview - iframe for community templates with profileAddress */}
+                        {canShowLivePreview && previewUrl && (
+                            <>
+                                <div className="p-4 border-b border-gray-200 dark:border-white/10 shrink-0">
+                                    <h3 className="text-sm font-semibold text-gray-900 dark:text-white flex items-center gap-2">
+                                        <Grid3X3 className="w-4 h-4" />
+                                        Live Preview
+                                    </h3>
+                                    <p className="text-xs text-gray-500 dark:text-gray-400 mt-1">
+                                        This is how the grid looks on Universal
+                                        Everything
+                                    </p>
+                                </div>
+                                <div className="flex-1 relative bg-gray-100 dark:bg-gray-900">
+                                    <iframe
+                                        src={previewUrl}
+                                        title={`Grid preview for ${template.name}`}
+                                        className="absolute inset-0 w-full h-full border-0"
+                                        sandbox="allow-scripts allow-same-origin"
+                                    />
+                                </div>
+                            </>
+                        )}
+
+                        {/* Grid Preview - custom component for non-community templates */}
+                        {canShowGridPreview && template.gridData?.rawValue && (
+                            <div className="flex-1 p-2 min-h-0">
+                                <GridPreview
+                                    rawValue={template.gridData.rawValue}
+                                    title={template.name}
+                                    className="h-full"
+                                />
+                            </div>
+                        )}
                     </div>
                 )}
             </div>

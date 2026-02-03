@@ -166,6 +166,114 @@ export const gridTemplates: GridTemplate[] = [
 
   // Community templates
   {
+    id: "sleek",
+    name: "Sleek",
+    description: "Grid of Sleek magazine.",
+    preview: "linear-gradient(135deg, #667eea 0%, #764ba2 100%)",
+    category: "community",
+    gridConfig: {
+      columns: 3,
+      rows: 3,
+      gap: "12px",
+    },
+    featured: true,
+    author: "Community",
+    profileAddress: "0x8CeF7Ca98BddCaB3ead366B5037817E7D11D99d4",
+  },
+  {
+    id: "devconnect-2025",
+    name: "Devconnect 2025",
+    description: "Grid of Devconnect 2025 side event lists.",
+    preview: "linear-gradient(135deg, #fa709a 0%, #fee140 100%)",
+    category: "community",
+    gridConfig: {
+      columns: 3,
+      rows: 3,
+      gap: "12px",
+    },
+    featured: true,
+    author: "Community",
+    profileAddress: "0xa561a63d8BD44C3f396E722A981f5F8819fADd9E",
+  },
+  {
+    id: "lyxbandit",
+    name: "LYX Bandit'",
+    description: "Grid of LYX Bandit's profile.",
+    preview: "linear-gradient(135deg, #a8edea 0%, #fed6e3 100%)",
+    category: "community",
+    gridConfig: {
+      columns: 3,
+      rows: 3,
+      gap: "12px",
+    },
+    featured: false,
+    author: "Community",
+    profileAddress: "0xAaC561C01ab461e7dF55F01bc481298B2305DA39",
+  },
+  {
+    id: "alexdiaconu",
+    name: "Alex Diaconu",
+    description: "Alex Diaconu's portfolio grid showcasing work samples and projects.",
+    preview: "linear-gradient(135deg, #4facfe 0%, #00f2fe 100%)",
+    category: "community",
+    gridConfig: {
+      columns: 3,
+      rows: 3,
+      gap: "12px",
+    },
+    featured: true,
+    author: "Community",
+    profileAddress: "0xc0c3Da2590d26E275a1D87bC24997cc4E209A714",
+  },
+  {
+    id: 'datzel',
+    name: "Datzel",
+    description: "Grid layout of Datzel, designer inspired.",
+    preview: "linear-gradient(135deg,rgb(115, 74, 142) 0%, #8b5cf6 50%, #a855f7 100%)",
+    category: "community",
+    gridConfig: {
+      columns: 3,
+      rows: 3,
+      gap: "12px",
+    },
+    featured: true,
+    author: "Datzel",
+    gridData: {
+      rawValue: "0x00006f357c6a0020ef6dadc0dddb6cc3a6641b221829c0da6a9b11ca7137e895e94e154b7d5ac353697066733a2f2f516d50615231726a5a36714e64477253523755456d7642697735593536325761747a704633394a41385666385775",
+    },
+    profileAddress: "0x24bCBa5b6E5010C6CC3c1272798854CE1dADBd71"
+  },
+  {
+    id: "alexander-montes",
+    name: "Alexander Modigell",
+    description: "Grid of Alexander Modigell's profile.",
+    preview: "linear-gradient(135deg, #ff9a9e 0%, #fecfef 50%, #fecfef 100%)",
+    category: "community",
+    gridConfig: {
+      columns: 3,
+      rows: 3,
+      gap: "12px",
+    },
+    featured: true,
+    author: "Community",
+    profileAddress: "0xd27E3C5ab6b8C9686779119B79dDb7ae3d09485d",
+  },
+  {
+    id: "rip1599868",
+    name: "rip1599868",
+    description: "Grid of rip1599868's profile.",
+    preview: "linear-gradient(135deg,rgb(198, 229, 247) 0%,rgb(207, 223, 254) 50%,rgb(126, 165, 238) 100%)",
+    category: "community",
+    gridConfig: {
+      columns: 3,
+      rows: 3,
+      gap: "12px",
+    },
+    featured: true,
+    author: "rip1599868",
+    profileAddress: "0x04C5B5F240E79A7aEC91899a8ECC2467dD637B9c",
+  },
+  {
     id: "jean-cavallera",
     name: "Jean Cavallera",
     description: "Developer oriented grid from Jean Cavallera.",
@@ -209,24 +317,6 @@ export const gridTemplates: GridTemplate[] = [
     featured: false,
     author: "Alts Anonymous",
     profileAddress: "0x29d7c7E4571a83B3eF5C867f75c81D736a9D58aa"
-  },
-  {
-    id: 'datzel',
-    name: "Datzel",
-    description: "Grid layout of Datzel, designer inspired.",
-    preview: "linear-gradient(135deg,rgb(115, 74, 142) 0%, #8b5cf6 50%, #a855f7 100%)",
-    category: "community",
-    gridConfig: {
-      columns: 3,
-      rows: 3,
-      gap: "12px",
-    },
-    featured: true,
-    author: "Datzel",
-    gridData: {
-      rawValue: "0x00006f357c6a0020ef6dadc0dddb6cc3a6641b221829c0da6a9b11ca7137e895e94e154b7d5ac353697066733a2f2f516d50615231726a5a36714e64477253523755456d7642697735593536325761747a704633394a41385666385775",
-    },
-    profileAddress: "0x24bCBa5b6E5010C6CC3c1272798854CE1dADBd71"
   },
   {
     id: "clubmulticulti",
@@ -274,21 +364,6 @@ export const gridTemplates: GridTemplate[] = [
     profileAddress: "0xcEcD1798420A533c9627770e052f49aa127c3B3B"
   },
   {
-    id: "sleek",
-    name: "Sleek",
-    description: "Grid of Sleek magazine.",
-    preview: "linear-gradient(135deg, #667eea 0%, #764ba2 100%)",
-    category: "community",
-    gridConfig: {
-      columns: 3,
-      rows: 3,
-      gap: "12px",
-    },
-    featured: true,
-    author: "Community",
-    profileAddress: "0x8CeF7Ca98BddCaB3ead366B5037817E7D11D99d4",
-  },
-  {
     id: "wissam",
     name: "Wissam's Grid",
     description: "Grid of Wissam's profile.",
@@ -304,36 +379,6 @@ export const gridTemplates: GridTemplate[] = [
     profileAddress: "0x89e0B0Fa7181566564b1A7eef67CdC4212a14852",
   },
   {
-    id: "alexdiaconu",
-    name: "Alex Diaconu's Grid",
-    description: "Alex Diaconu's portfolio grid showcasing work samples and projects.",
-    preview: "linear-gradient(135deg, #4facfe 0%, #00f2fe 100%)",
-    category: "community",
-    gridConfig: {
-      columns: 3,
-      rows: 3,
-      gap: "12px",
-    },
-    featured: true,
-    author: "Community",
-    profileAddress: "0xc0c3Da2590d26E275a1D87bC24997cc4E209A714",
-  },
-  {
-    id: "devconnect-2025",
-    name: "Devconnect 2025",
-    description: "Grid of Devconnect 2025 side event lists.",
-    preview: "linear-gradient(135deg, #fa709a 0%, #fee140 100%)",
-    category: "community",
-    gridConfig: {
-      columns: 3,
-      rows: 3,
-      gap: "12px",
-    },
-    featured: true,
-    author: "Community",
-    profileAddress: "0xa561a63d8BD44C3f396E722A981f5F8819fADd9E",
-  },
-  {
     id: "luksocat",
     name: "LUKSO x The Block",
     description: "Grid of luksocat user with music content.",
@@ -347,36 +392,6 @@ export const gridTemplates: GridTemplate[] = [
     featured: false,
     author: "Community",
     profileAddress: "0x0000d4659E5B1Da00C48b9D15Cf2aABA5A0f7Ece",
-  },
-  {
-    id: "lyxbandit",
-    name: "LYX Bandit's Grid",
-    description: "Grid of LYX Bandit's profile.",
-    preview: "linear-gradient(135deg, #a8edea 0%, #fed6e3 100%)",
-    category: "community",
-    gridConfig: {
-      columns: 3,
-      rows: 3,
-      gap: "12px",
-    },
-    featured: false,
-    author: "Community",
-    profileAddress: "0xAaC561C01ab461e7dF55F01bc481298B2305DA39",
-  },
-  {
-    id: "alexander-montes",
-    name: "Alexander Modigell's Grid",
-    description: "Grid of Alexander Modigell's profile.",
-    preview: "linear-gradient(135deg, #ff9a9e 0%, #fecfef 50%, #fecfef 100%)",
-    category: "community",
-    gridConfig: {
-      columns: 3,
-      rows: 3,
-      gap: "12px",
-    },
-    featured: true,
-    author: "Community",
-    profileAddress: "0xd27E3C5ab6b8C9686779119B79dDb7ae3d09485d",
   },
   {
     id: "prz",
@@ -408,21 +423,6 @@ export const gridTemplates: GridTemplate[] = [
     author: "Prazen",
     profileAddress: "0x1c02B51C435b3F1336eAAb3C4eFA5cB75A49976a",
   },
-  {
-    id: "rip1599868",
-    name: "rip1599868's Grid",
-    description: "Grid of rip1599868's profile.",
-    preview: "linear-gradient(135deg,rgb(198, 229, 247) 0%,rgb(207, 223, 254) 50%,rgb(126, 165, 238) 100%)",
-    category: "community",
-    gridConfig: {
-      columns: 3,
-      rows: 3,
-      gap: "12px",
-    },
-    featured: true,
-    author: "rip1599868",
-    profileAddress: "0x04C5B5F240E79A7aEC91899a8ECC2467dD637B9c",
-  }
 ];
 
 export const categories = [

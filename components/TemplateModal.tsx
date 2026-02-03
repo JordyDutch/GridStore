@@ -158,10 +158,11 @@ export function TemplateModal({ template, onClose }: TemplateModalProps) {
 
       {/* Modal */}
       <div className="relative card rounded-2xl max-w-lg w-full max-h-[90vh] overflow-hidden animate-fadeIn">
-        {/* Close Button */}
+        {/* Close Button - high contrast in light and dark mode */}
         <button
           onClick={onClose}
-          className="absolute top-4 right-4 z-10 p-2 rounded-lg bg-white/5 text-gray-400 hover:text-white hover:bg-white/10 transition-colors"
+          className="absolute top-4 right-4 z-10 p-2 rounded-lg bg-gray-800/90 text-white hover:bg-gray-700 dark:bg-white/90 dark:text-gray-900 dark:hover:bg-white transition-colors shadow-md"
+          aria-label="Close modal"
         >
           <X className="w-5 h-5" />
         </button>
@@ -326,10 +327,10 @@ export function TemplateModal({ template, onClose }: TemplateModalProps) {
             </div>
           )}
 
-          {/* Warning about replacing existing grid */}
+          {/* Warning about replacing existing grid - readable in light and dark */}
           {isConnected && (
-            <div className="mb-5 p-4 bg-yellow-500/10 border border-yellow-500/20 rounded-xl text-yellow-400 text-sm flex items-center gap-3">
-              <AlertTriangle className="w-5 h-5 flex-shrink-0" />
+            <div className="mb-5 p-4 bg-amber-50 border border-amber-300 rounded-xl text-amber-900 dark:bg-amber-500/10 dark:border-amber-500/30 dark:text-amber-200 text-sm flex items-center gap-3">
+              <AlertTriangle className="w-5 h-5 flex-shrink-0 text-amber-600 dark:text-amber-400" />
               <span>
                 If you have an existing grid setup, by clicking the button
                 below, you are aware that this will replace entirely your

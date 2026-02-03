@@ -4,7 +4,7 @@ import { useState, useMemo, useEffect } from "react";
 import { gridTemplates, Category } from "@/templates/templates";
 import { CategoryFilter } from "./CategoryFilter";
 import { TemplateCard } from "./TemplateCard";
-import { TemplateModal } from "./TemplateModal";
+import { SearchUPSection } from "./SearchUPSection";
 import type { GridTemplate } from "@/lib/types";
 import {
   Search,
@@ -23,7 +23,11 @@ const COMMUNITY_ITEMS_PER_PAGE = 9;
 
 type CommunityFeaturedFilter = "all" | "featured" | "exclude-featured";
 
-export function TemplateGrid() {
+interface TemplateGridProps {
+  onSelectTemplate: (template: GridTemplate) => void;
+}
+
+export function TemplateGrid({ onSelectTemplate }: TemplateGridProps) {
   const [selectedCategory, setSelectedCategory] = useState<Category>("all");
   const [searchQuery, setSearchQuery] = useState("");
   const [currentPage, setCurrentPage] = useState(1);
@@ -34,9 +38,6 @@ export function TemplateGrid() {
     null,
   );
   const [tagDropdownOpen, setTagDropdownOpen] = useState(false);
-  const [selectedTemplate, setSelectedTemplate] = useState<GridTemplate | null>(
-    null,
-  );
 
   const communityProfileAddresses = useMemo(
     () =>
@@ -185,8 +186,7 @@ export function TemplateGrid() {
                 >
                   <TemplateCard
                     template={template}
-                    onSelect={setSelectedTemplate}
-                    isSelected={selectedTemplate?.id === template.id}
+                    onSelect={onSelectTemplate}
                   />
                 </div>
               ))}
@@ -272,6 +272,9 @@ export function TemplateGrid() {
           </div>
         )}
       </section>
+
+      {/* Search Universal Profile Section */}
+      <SearchUPSection onSelectTemplate={onSelectTemplate} />
 
       {/* Community Section */}
       <section id="community" className="mb-12">
@@ -404,8 +407,7 @@ export function TemplateGrid() {
                 >
                   <TemplateCard
                     template={template}
-                    onSelect={setSelectedTemplate}
-                    isSelected={selectedTemplate?.id === template.id}
+                    onSelect={onSelectTemplate}
                   />
                 </div>
               ))}
@@ -498,14 +500,6 @@ export function TemplateGrid() {
           </div>
         )}
       </section>
-
-      {/* Template Modal */}
-      {selectedTemplate && (
-        <TemplateModal
-          template={selectedTemplate}
-          onClose={() => setSelectedTemplate(null)}
-        />
-      )}
     </div>
   );
 }

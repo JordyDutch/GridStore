@@ -5,3 +5,4 @@ export { CategoryFilter } from "./CategoryFilter";
 export { TemplateCard } from "./TemplateCard";
 export { TemplateGrid } from "./TemplateGrid";
 export { TemplateModal } from "./TemplateModal";
+export { SearchUPSection } from "./SearchUPSection";

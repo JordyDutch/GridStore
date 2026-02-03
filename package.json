@@ -1,38 +1,40 @@
 {
-  "name": "gridstore",
-  "version": "0.1.0",
-  "private": true,
-  "scripts": {
-    "dev": "next dev",
-    "build": "next build",
-    "start": "next start",
-    "lint": "next lint"
-  },
-  "dependencies": {
-    "@erc725/erc725.js": "^0.28.2",
-    "@lukso/lsp-smart-contracts": "^0.16.0",
-    "@rainbow-me/rainbowkit": "^2.2.9",
-    "@tanstack/react-query": "^5.62.0",
-    "@vercel/analytics": "^1.6.1",
-    "ethers": "^6.13.4",
-    "lucide-react": "^0.468.0",
-    "next": "15.1.11",
-    "react": "^19.0.0",
-    "react-dom": "^19.0.0",
-    "viem": "^2.22.0",
-    "wagmi": "^2.14.0"
-  },
-  "devDependencies": {
-    "@types/node": "^22.10.2",
-    "@types/react": "^19.0.2",
-    "@types/react-dom": "^19.0.2",
-    "autoprefixer": "^10.4.20",
-    "eslint": "^9.17.0",
-    "eslint-config-next": "15.1.11",
-    "postcss": "^8.4.49",
-    "tailwindcss": "^3.4.17",
-    "ts-node": "^10.9.2",
-    "tsx": "^4.21.0",
-    "typescript": "^5.7.2"
-  }
+    "name": "gridstore",
+    "version": "0.1.0",
+    "private": true,
+    "scripts": {
+        "dev": "next dev",
+        "build": "next build",
+        "start": "next start",
+        "lint": "next lint",
+        "format": "prettier --write ."
+    },
+    "dependencies": {
+        "@erc725/erc725.js": "^0.28.2",
+        "@lukso/lsp-smart-contracts": "^0.16.0",
+        "@rainbow-me/rainbowkit": "^2.2.9",
+        "@tanstack/react-query": "^5.62.0",
+        "@vercel/analytics": "^1.6.1",
+        "ethers": "^6.13.4",
+        "lucide-react": "^0.468.0",
+        "next": "15.1.11",
+        "react": "^19.0.0",
+        "react-dom": "^19.0.0",
+        "viem": "^2.22.0",
+        "wagmi": "^2.14.0"
+    },
+    "devDependencies": {
+        "@types/node": "^22.10.2",
+        "@types/react": "^19.0.2",
+        "@types/react-dom": "^19.0.2",
+        "autoprefixer": "^10.4.20",
+        "eslint": "^9.17.0",
+        "eslint-config-next": "15.1.11",
+        "postcss": "^8.4.49",
+        "prettier": "^3.8.1",
+        "tailwindcss": "^3.4.17",
+        "ts-node": "^10.9.2",
+        "tsx": "^4.21.0",
+        "typescript": "^5.7.2"
+    }
 }

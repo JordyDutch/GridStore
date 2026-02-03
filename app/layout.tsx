@@ -5,45 +5,45 @@ import "./globals.css";
 import { Providers } from "./providers";
 
 const inter = Inter({
-  subsets: ["latin"],
-  display: "swap",
+    subsets: ["latin"],
+    display: "swap",
 });
 
 export const metadata: Metadata = {
-  title: "GridStore - Grid Templates for Universal Profiles",
-  description:
-    "Discover and apply beautiful grid templates to your LUKSO Universal Profile. Connect your UP and customize your Grid layout.",
-  keywords: [
-    "LUKSO",
-    "Universal Profile",
-    "Grid",
-    "Templates",
-    "Web3",
-    "Blockchain",
-  ],
-  authors: [{ name: "GridStore" }],
-  icons: {
-    icon: "/favicon.ico",
-  },
-  openGraph: {
     title: "GridStore - Grid Templates for Universal Profiles",
     description:
-      "Discover and apply beautiful grid templates to your LUKSO Universal Profile.",
-    type: "website",
-  },
+        "Discover and apply beautiful grid templates to your LUKSO Universal Profile. Connect your UP and customize your Grid layout.",
+    keywords: [
+        "LUKSO",
+        "Universal Profile",
+        "Grid",
+        "Templates",
+        "Web3",
+        "Blockchain",
+    ],
+    authors: [{ name: "GridStore" }],
+    icons: {
+        icon: "/favicon.ico",
+    },
+    openGraph: {
+        title: "GridStore - Grid Templates for Universal Profiles",
+        description:
+            "Discover and apply beautiful grid templates to your LUKSO Universal Profile.",
+        type: "website",
+    },
 };
 
 export default function RootLayout({
-  children,
+    children,
 }: Readonly<{
-  children: React.ReactNode;
+    children: React.ReactNode;
 }>) {
-  return (
-    <html lang="en">
-      <body className={inter.className}>
-        <Providers>{children}</Providers>
-        <Analytics />
-      </body>
-    </html>
-  );
+    return (
+        <html lang="en">
+            <body className={inter.className}>
+                <Providers>{children}</Providers>
+                <Analytics />
+            </body>
+        </html>
+    );
 }

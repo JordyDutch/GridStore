@@ -1,43 +1,43 @@
 {
-  "LSP28TheGrid": [
-    {
-      "title": "Photography Portfolio",
-      "gridColumns": 3,
-      "visibility": "public",
-      "grid": [
+    "LSP28TheGrid": [
         {
-          "width": 3,
-          "height": 2,
-          "type": "IMAGES",
-          "properties": {
-            "type": "grid",
-            "images": [
-              "https://www.svgrepo.com/show/508699/landscape-placeholder.svg",
-              "https://www.svgrepo.com/show/508699/landscape-placeholder.svg",
-              "https://www.svgrepo.com/show/508699/landscape-placeholder.svg"
+            "title": "Photography Portfolio",
+            "gridColumns": 3,
+            "visibility": "public",
+            "grid": [
+                {
+                    "width": 3,
+                    "height": 2,
+                    "type": "IMAGES",
+                    "properties": {
+                        "type": "grid",
+                        "images": [
+                            "https://www.svgrepo.com/show/508699/landscape-placeholder.svg",
+                            "https://www.svgrepo.com/show/508699/landscape-placeholder.svg",
+                            "https://www.svgrepo.com/show/508699/landscape-placeholder.svg"
+                        ]
+                    }
+                },
+                {
+                    "width": 2,
+                    "height": 1,
+                    "type": "TEXT",
+                    "properties": {
+                        "title": "Selected Work",
+                        "text": "Documenting light, space, and solitude.\n\n\ud83d\udcf7 Leica M6 | 35mm | Kyoto, Iceland, Berlin",
+                        "backgroundColor": "#ffffff"
+                    }
+                },
+                {
+                    "width": 1,
+                    "height": 1,
+                    "type": "INSTAGRAM",
+                    "properties": {
+                        "type": "p",
+                        "id": "examplepostid"
+                    }
+                }
             ]
-          }
-        },
-        {
-          "width": 2,
-          "height": 1,
-          "type": "TEXT",
-          "properties": {
-            "title": "Selected Work",
-            "text": "Documenting light, space, and solitude.\n\n\ud83d\udcf7 Leica M6 | 35mm | Kyoto, Iceland, Berlin",
-            "backgroundColor": "#ffffff"
-          }
-        },
-        {
-          "width": 1,
-          "height": 1,
-          "type": "INSTAGRAM",
-          "properties": {
-            "type": "p",
-            "id": "examplepostid"
-          }
         }
-      ]
-    }
-  ]
+    ]
 }

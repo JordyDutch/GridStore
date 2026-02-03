@@ -178,9 +178,6 @@ export const gridTemplates: GridTemplate[] = [
     },
     featured: true,
     author: "Jean Cavallera",
-    gridData: {
-      rawValue: "0x00006f357c6a00202d141067a502dce141bea99be776f090d08b9b7f68ca09c6bdf23df1bd0773de697066733a2f2f516d616e4873644576526f6a567a613670736352636e6a6a64597931764367566431577242586861587255487361",
-    },
     profileAddress: "0x927aAD446E3bF6eeB776387B3d7A89D8016fA54d"
   },
   {
@@ -196,9 +193,6 @@ export const gridTemplates: GridTemplate[] = [
     },
     featured: true,
     author: "Jordy",
-    gridData: {
-      rawValue: "0x00006f357c6a002066340de3fa939c35952afeb01bb1bc0c411160a548a8f39457d03414698e35b6697066733a2f2f516d62547462397a6e57646f436a77397143355a7872374b4767755741746a377162726535676e79616951357245",
-    },
     profileAddress: "0x378Be8577ede94b9d4b9F45447F21B826501bab8"
   },
   {
@@ -214,9 +208,6 @@ export const gridTemplates: GridTemplate[] = [
     },
     featured: false,
     author: "Alts Anonymous",
-    gridData: {
-      rawValue: "0x00006f357c6a0020e1c516b43480cdf31791fa8faa71cbd5de7c319cea06260eab6731ac74190b47697066733a2f2f516d635a36513133774d69586635725953456b316b47486d6e53566854765272684a383734525934794678624846",
-    },
     profileAddress: "0x29d7c7E4571a83B3eF5C867f75c81D736a9D58aa"
   },
   {
@@ -250,9 +241,6 @@ export const gridTemplates: GridTemplate[] = [
     },
     featured: false,
     author: "clubmulticulti",
-    gridData: {
-      rawValue: "0x00006f357c6a002010b49e9944ad42099fb5f87acf691b11404bd03d850b593064c71013ceffd26e697066733a2f2f516d5556595862625950414e4a797850345732645a757578505a4d5264464837744255486b6e327450486d4b4337"
-    },
     profileAddress: "0x261564F5260369438bF7F8977CDFa75Fc0532422"
   },
   {
@@ -268,9 +256,6 @@ export const gridTemplates: GridTemplate[] = [
     },
     featured: false,
     author: "SpeedRacer",
-    gridData: {
-      rawValue: "0x00006f357c6a00205be58b4d30d3919837acf4b9e3b474c883212f7403dbc7b2e1bde8d4f6a9761e697066733a2f2f516d5474563777753872737861754c697061523370347a754e72797852417464674263764351334d6a7a75456636"
-    },
     profileAddress: '0x7D817EF6adB23A038Bbae352D4E838CabB6454D0'
   },
   {
@@ -286,9 +271,6 @@ export const gridTemplates: GridTemplate[] = [
     },
     featured: false,
     author: "t-mass",
-    gridData: {
-      rawValue: "0x00006f357c6a002058adc7380790706163e57037ad418e23c50c32552285e69ffb8be28645c33cef697066733a2f2f516d53363563374a62654d353643315434384b575370716b354d5a484c34556d4175516f6e7a6b546a5534454a6e"
-    },
     profileAddress: "0xcEcD1798420A533c9627770e052f49aa127c3B3B"
   },
   {
@@ -304,7 +286,6 @@ export const gridTemplates: GridTemplate[] = [
     },
     featured: true,
     author: "Community",
-    profileLink: "https://universaleverything.io/0x8CeF7Ca98BddCaB3ead366B5037817E7D11D99d4?grid=about",
     profileAddress: "0x8CeF7Ca98BddCaB3ead366B5037817E7D11D99d4",
   },
   {
@@ -320,7 +301,6 @@ export const gridTemplates: GridTemplate[] = [
     },
     featured: true,
     author: "Community",
-    profileLink: "https://universaleverything.io/0x89e0B0Fa7181566564b1A7eef67CdC4212a14852?grid=main",
     profileAddress: "0x89e0B0Fa7181566564b1A7eef67CdC4212a14852",
   },
   {
@@ -336,7 +316,6 @@ export const gridTemplates: GridTemplate[] = [
     },
     featured: true,
     author: "Community",
-    profileLink: "https://universaleverything.io/0xc0c3Da2590d26E275a1D87bC24997cc4E209A714",
     profileAddress: "0xc0c3Da2590d26E275a1D87bC24997cc4E209A714",
   },
   {
@@ -352,7 +331,6 @@ export const gridTemplates: GridTemplate[] = [
     },
     featured: true,
     author: "Community",
-    profileLink: "https://universaleverything.io/0xa561a63d8BD44C3f396E722A981f5F8819fADd9E",
     profileAddress: "0xa561a63d8BD44C3f396E722A981f5F8819fADd9E",
   },
   {
@@ -368,7 +346,6 @@ export const gridTemplates: GridTemplate[] = [
     },
     featured: false,
     author: "Community",
-    profileLink: "https://universaleverything.io/0x0000d4659E5B1Da00C48b9D15Cf2aABA5A0f7Ece",
     profileAddress: "0x0000d4659E5B1Da00C48b9D15Cf2aABA5A0f7Ece",
   },
   {
@@ -384,7 +361,6 @@ export const gridTemplates: GridTemplate[] = [
     },
     featured: false,
     author: "Community",
-    profileLink: "https://universaleverything.io/0xAaC561C01ab461e7dF55F01bc481298B2305DA39?grid=home",
     profileAddress: "0xAaC561C01ab461e7dF55F01bc481298B2305DA39",
   },
   {
@@ -400,7 +376,6 @@ export const gridTemplates: GridTemplate[] = [
     },
     featured: true,
     author: "Community",
-    profileLink: "https://universaleverything.io/0xd27E3C5ab6b8C9686779119B79dDb7ae3d09485d",
     profileAddress: "0xd27E3C5ab6b8C9686779119B79dDb7ae3d09485d",
   },
   {
@@ -416,7 +391,6 @@ export const gridTemplates: GridTemplate[] = [
     },
     featured: false,
     author: "Prz",
-    profileLink: "https://universaleverything.io/0xaacc1df3313729b7a8312ad00a294d1762097222?grid=main",
     profileAddress: "0xaacc1df3313729b7a8312ad00a294d1762097222",
   },
   {
@@ -432,8 +406,22 @@ export const gridTemplates: GridTemplate[] = [
     },
     featured: true,
     author: "Prazen",
-    profileLink: "https://universaleverything.io/0x1c02B51C435b3F1336eAAb3C4eFA5cB75A49976a?grid=main",
     profileAddress: "0x1c02B51C435b3F1336eAAb3C4eFA5cB75A49976a",
+  },
+  {
+    id: "rip1599868",
+    name: "rip1599868's Grid",
+    description: "Grid of rip1599868's profile.",
+    preview: "linear-gradient(135deg,rgb(198, 229, 247) 0%,rgb(207, 223, 254) 50%,rgb(126, 165, 238) 100%)",
+    category: "community",
+    gridConfig: {
+      columns: 3,
+      rows: 3,
+      gap: "12px",
+    },
+    featured: true,
+    author: "rip1599868",
+    profileAddress: "0x04C5B5F240E79A7aEC91899a8ECC2467dD637B9c",
   }
 ];
 

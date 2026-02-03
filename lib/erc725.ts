@@ -1,16 +1,8 @@
 import { ERC725, ERC725JSONSchema } from "@erc725/erc725.js";
 import LSP3Schema from "@erc725/erc725.js/schemas/LSP3ProfileMetadata.json";
-import { createPublicClient, http } from "viem";
-import { lukso } from "viem/chains";
+import { Chain, createPublicClient, http } from "viem";
 
-// RPC endpoint for LUKSO
-const RPC_ENDPOINT = "https://rpc.mainnet.lukso.network";
-
-// Public client for direct contract calls
-const publicClient = createPublicClient({
-  chain: lukso,
-  transport: http(RPC_ENDPOINT),
-});
+const DEFAULT_RPC_ENDPOINT = "https://rpc.mainnet.lukso.network";
 
 // Official Universal Everything Grid data key
 export const GRID_DATA_KEY = "0x724141d9918ce69e6b8afcf53a91748466086ba2c74b94cab43c649ae2ac23ff";
@@ -34,19 +26,25 @@ export const CombinedSchema: ERC725JSONSchema[] = [
 
 /**
  * Create an ERC725 instance for a Universal Profile
+ * @param profileAddress - The Universal Profile address
+ * @param chain - Optional chain. Defaults to mainnet.
  */
-export function createERC725Instance(profileAddress: string) {
-  return new ERC725(CombinedSchema, profileAddress, RPC_ENDPOINT, {
+export function createERC725Instance(profileAddress: string, chain?: Chain) {
+  const rpcEndpoint = chain?.rpcUrls.default.http[0] || DEFAULT_RPC_ENDPOINT;
+
+  return new ERC725(CombinedSchema, profileAddress, rpcEndpoint, {
     ipfsGateway: "https://api.universalprofile.cloud/ipfs",
   });
 }
 
 /**
  * Fetch the current grid data from a Universal Profile
+ * @param profileAddress - The Universal Profile address
+ * @param chain - Optional chain. Defaults to mainnet.
  */
-export async function fetchGridData(profileAddress: string) {
+export async function fetchGridData(profileAddress: string, chain?: Chain) {
   try {
-    const erc725 = createERC725Instance(profileAddress);
+    const erc725 = createERC725Instance(profileAddress, chain);
     const result = await erc725.fetchData("LSP28TheGrid");
     return result?.value;
   } catch (error) {
@@ -59,9 +57,21 @@ export async function fetchGridData(profileAddress: string) {
  * Fetch the raw grid data value (hex string) from a Universal Profile
  * This returns the raw bytes that can be used directly in setData
  * Uses a direct contract call to getData(bytes32) instead of erc725.js
+ * @param profileAddress - The Universal Profile address
+ * @param chain - Optional chain. Defaults to mainnet.
  */
-export async function fetchRawGridData(profileAddress: string): Promise<string | null> {
+export async function fetchRawGridData(
+  profileAddress: string,
+  chain?: Chain
+): Promise<string | null> {
   try {
+    // Create a public client for the specific chain
+    const rpcEndpoint = chain ? chain.rpcUrls.default.http[0] : DEFAULT_RPC_ENDPOINT;
+    const publicClient = createPublicClient({
+      chain,
+      transport: http(rpcEndpoint),
+    });
+
     // Direct contract call to getData(bytes32) function
     const rawData = (await publicClient.readContract({
       address: profileAddress as `0x${string}`,
@@ -80,10 +90,15 @@ export async function fetchRawGridData(profileAddress: string): Promise<string |
 
 /**
  * Fetch profile metadata from a Universal Profile
+ * @param profileAddress - The Universal Profile address
+ * @param chain - Optional chain. Defaults to mainnet.
  */
-export async function fetchProfileMetadata(profileAddress: string) {
+export async function fetchProfileMetadata(
+  profileAddress: string,
+  chain?: Chain
+) {
   try {
-    const erc725 = createERC725Instance(profileAddress);
+    const erc725 = createERC725Instance(profileAddress, chain);
     const result = await erc725.fetchData("LSP3Profile");
     return result?.value;
   } catch (error) {

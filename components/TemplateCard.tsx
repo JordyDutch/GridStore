@@ -92,14 +92,16 @@ export function TemplateCard({
 
       {/* Content */}
       <div className="p-4 flex flex-col flex-1 min-h-0">
-        <h3 className="font-medium text-white mb-1.5">{template.name}</h3>
-        <p className="text-gray-400 text-sm line-clamp-2 mb-4 leading-relaxed min-h-[2.5rem]">
+        <h3 className="font-medium text-gray-900 dark:text-white mb-1.5">
+          {template.name}
+        </h3>
+        <p className="text-gray-700 dark:text-gray-400 text-sm line-clamp-2 mb-4 leading-relaxed min-h-[2.5rem]">
           {template.description}
         </p>
 
         {/* Meta & Tags */}
         <div className="flex items-center justify-between mt-auto">
-          <div className="flex items-center gap-1.5 text-xs text-gray-500">
+          <div className="flex items-center gap-1.5 text-xs text-gray-600 dark:text-gray-500">
             <User className="w-3.5 h-3.5" />
             <span>{template.author}</span>
           </div>
@@ -110,13 +112,13 @@ export function TemplateCard({
                 target="_blank"
                 rel="noopener noreferrer"
                 onClick={(e) => e.stopPropagation()}
-                className="flex items-center gap-1 px-2.5 py-1 rounded-md bg-violet-500/10 border border-violet-500/20 text-violet-400 hover:bg-violet-500/20 transition-colors"
+                className="flex items-center gap-1 px-2.5 py-1 rounded-md bg-violet-500/10 border border-violet-500/20 text-violet-600 dark:text-violet-400 hover:bg-violet-500/20 transition-colors"
               >
                 <ExternalLink className="w-3 h-3" />
                 View Grid
               </a>
             )}
-            <span className="px-2.5 py-1 rounded-md bg-white/5 border border-white/10 text-gray-300">
+            <span className="px-2.5 py-1 rounded-md bg-gray-100 dark:bg-white/5 border border-gray-200 dark:border-white/10 text-gray-700 dark:text-gray-300">
               {template.gridConfig.columns}×{template.gridConfig.rows}
             </span>
           </div>

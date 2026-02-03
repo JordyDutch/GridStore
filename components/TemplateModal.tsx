@@ -21,8 +21,10 @@ import {
   useAccount,
   useWriteContract,
   useWaitForTransactionReceipt,
+  useChainId,
 } from "wagmi";
 import { useState, useEffect } from "react";
+import { luksoMainnet, luksoTestnet } from "@/lib/wagmi";
 
 interface TemplateModalProps {
   template: GridTemplate;
@@ -31,6 +33,9 @@ interface TemplateModalProps {
 
 export function TemplateModal({ template, onClose }: TemplateModalProps) {
   const { address, isConnected } = useAccount();
+  const chainId = useChainId();
+  const chain = chainId == 42 ? luksoMainnet : luksoTestnet;
+
   const [txSuccess, setTxSuccess] = useState(false);
   const [fetchedRawValue, setFetchedRawValue] = useState<string | null>(null);
   const [isFetchingGridData, setIsFetchingGridData] = useState(false);
@@ -59,7 +64,11 @@ export function TemplateModal({ template, onClose }: TemplateModalProps) {
         setIsFetchingGridData(true);
         setFetchError(null);
         try {
-          const rawValue = await fetchRawGridData(template.profileAddress);
+          // Community templates are always on mainnet (42)
+          const rawValue = await fetchRawGridData(
+            template.profileAddress,
+            chain,
+          );
           if (rawValue) {
             setFetchedRawValue(rawValue);
           } else {
@@ -172,50 +181,50 @@ export function TemplateModal({ template, onClose }: TemplateModalProps) {
 
         {/* Content */}
         <div className="p-6">
-          <h2 className="text-xl font-semibold text-white mb-2">
+          <h2 className="text-xl font-semibold text-gray-900 dark:text-white mb-2">
             {template.name}
           </h2>
-          <p className="text-gray-400 text-sm leading-relaxed mb-5">
+          <p className="text-gray-700 dark:text-gray-400 text-sm leading-relaxed mb-5">
             {template.description}
           </p>
 
           {/* Stats */}
           <div className="grid grid-cols-3 gap-3 mb-5">
             <div className="stat-card">
-              <div className="flex items-center gap-2 text-gray-400 text-xs mb-1">
+              <div className="flex items-center gap-2 text-gray-600 dark:text-gray-400 text-xs mb-1">
                 <User className="w-3.5 h-3.5" />
                 Author
               </div>
-              <p className="text-white font-medium text-sm">
+              <p className="text-gray-900 dark:text-white font-medium text-sm">
                 {template.author}
               </p>
             </div>
             <div className="stat-card">
-              <div className="flex items-center gap-2 text-gray-400 text-xs mb-1">
+              <div className="flex items-center gap-2 text-gray-600 dark:text-gray-400 text-xs mb-1">
                 <Grid3X3 className="w-3.5 h-3.5" />
                 Grid Size
               </div>
-              <p className="text-white font-medium text-sm">
+              <p className="text-gray-900 dark:text-white font-medium text-sm">
                 {template.gridConfig.columns}x{template.gridConfig.rows}
               </p>
             </div>
             <div className="stat-card">
-              <div className="flex items-center gap-2 text-gray-400 text-xs mb-1">
+              <div className="flex items-center gap-2 text-gray-600 dark:text-gray-400 text-xs mb-1">
                 <Layers className="w-3.5 h-3.5" />
                 Category
               </div>
-              <p className="text-white font-medium text-sm capitalize">
+              <p className="text-gray-900 dark:text-white font-medium text-sm capitalize">
                 {template.category}
               </p>
             </div>
           </div>
 
           {/* Grid Data Key & Value Infos */}
-          <p className="text-gray-400 text-sm leading-relaxed mb-1">
+          <p className="text-gray-700 dark:text-gray-400 text-sm leading-relaxed mb-1">
             LSP28TheGrid Data Key
           </p>
-          <div className="mb-4 p-3 bg-white/5 rounded-lg border border-white/5">
-            <code className="text-xs text-gray-400 font-mono break-all">
+          <div className="mb-4 p-3 bg-gray-100 dark:bg-white/5 rounded-lg border border-gray-200 dark:border-white/5">
+            <code className="text-xs text-gray-800 dark:text-gray-400 font-mono break-all">
               {GRID_DATA_KEY}
             </code>
           </div>
@@ -223,19 +232,19 @@ export function TemplateModal({ template, onClose }: TemplateModalProps) {
           {/* Value to set - show rawValue or fetched value for community templates */}
           {hasGridData && (template.gridData?.rawValue || fetchedRawValue) && (
             <>
-              <p className="text-gray-400 text-sm leading-relaxed mb-1">
+              <p className="text-gray-700 dark:text-gray-400 text-sm leading-relaxed mb-1">
                 Value to set
               </p>
               {isFetchingGridData ? (
-                <div className="mb-4 p-3 bg-white/5 rounded-lg border border-white/5 flex items-center justify-center">
-                  <Loader2 className="w-4 h-4 text-gray-400 animate-spin" />
-                  <span className="ml-2 text-xs text-gray-400">
+                <div className="mb-4 p-3 bg-gray-100 dark:bg-white/5 rounded-lg border border-gray-200 dark:border-white/5 flex items-center justify-center">
+                  <Loader2 className="w-4 h-4 text-gray-600 dark:text-gray-400 animate-spin" />
+                  <span className="ml-2 text-xs text-gray-700 dark:text-gray-400">
                     Fetching grid data...
                   </span>
                 </div>
               ) : (
-                <div className="mb-4 p-3 bg-white/5 rounded-lg border border-white/5 overflow-x-auto">
-                  <pre className="text-xs text-gray-400 font-mono break-all whitespace-pre-wrap">
+                <div className="mb-4 p-3 bg-gray-100 dark:bg-white/5 rounded-lg border border-gray-200 dark:border-white/5 overflow-x-auto">
+                  <pre className="text-xs text-gray-800 dark:text-gray-400 font-mono break-all whitespace-pre-wrap">
                     {template.gridData?.rawValue || fetchedRawValue}
                   </pre>
                 </div>
@@ -244,10 +253,10 @@ export function TemplateModal({ template, onClose }: TemplateModalProps) {
           )}
 
           {/* How to use this template */}
-          <p className="text-gray-400 text-sm font-medium mb-1">
+          <p className="text-gray-700 dark:text-gray-400 text-sm font-medium mb-1">
             How to use this template?
           </p>
-          <p className="text-gray-500 text-xs leading-relaxed mb-5">
+          <p className="text-gray-600 dark:text-gray-500 text-xs leading-relaxed mb-5">
             Click on the Apply to Profile button below or set the metadata above
             via <code>setData(bytes32,bytes)</code> through a block explorer or
             a dApp.

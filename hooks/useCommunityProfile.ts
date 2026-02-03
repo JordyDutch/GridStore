@@ -2,6 +2,8 @@
 
 import { useState, useEffect } from "react";
 import { fetchProfileMetadata } from "@/lib/erc725";
+import { luksoMainnet, luksoTestnet } from "@/lib/wagmi";
+import { useChainId } from "wagmi";
 
 interface CommunityProfileImages {
   profileImage?: string;
@@ -37,6 +39,9 @@ const profileCache = new Map<string, CommunityProfileImages>();
  * Custom hook to fetch profile and background images for a Universal Profile address
  */
 export function useCommunityProfile(profileAddress?: string) {
+  const chainId = useChainId();
+  const chain = chainId == 42 ? luksoMainnet : luksoTestnet;
+
   const [images, setImages] = useState<CommunityProfileImages>(() => {
     // Check cache on initial render
     if (profileAddress && profileCache.has(profileAddress)) {
@@ -67,8 +72,10 @@ export function useCommunityProfile(profileAddress?: string) {
       setIsLoading(true);
 
       try {
+        // Community profiles are always on mainnet (42)
         const metadata = (await fetchProfileMetadata(
-          profileAddress
+          profileAddress,
+          chain
         )) as LSP3ProfileValue | null;
 
         if (metadata?.LSP3Profile) {

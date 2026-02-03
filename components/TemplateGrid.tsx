@@ -1,23 +1,52 @@
 "use client";
 
 import { useState, useMemo, useEffect } from "react";
-import { gridTemplates, Category } from "@/lib/templates";
+import { gridTemplates, Category } from "@/templates/templates";
 import { CategoryFilter } from "./CategoryFilter";
 import { TemplateCard } from "./TemplateCard";
 import { TemplateModal } from "./TemplateModal";
-import { GridTemplate } from "@/lib/templates";
-import { Search, ChevronLeft, ChevronRight } from "lucide-react";
+import type { GridTemplate } from "@/lib/types";
+import {
+  Search,
+  ChevronLeft,
+  ChevronRight,
+  Star,
+  StarOff,
+  Tag,
+  ChevronDown,
+} from "lucide-react";
+import { communityGrids } from "@/templates/community";
+import { useCommunityTags } from "@/hooks/useCommunityTags";
 
 const FEATURED_ITEMS_PER_PAGE = 8;
 const COMMUNITY_ITEMS_PER_PAGE = 9;
+
+type CommunityFeaturedFilter = "all" | "featured" | "exclude-featured";
 
 export function TemplateGrid() {
   const [selectedCategory, setSelectedCategory] = useState<Category>("all");
   const [searchQuery, setSearchQuery] = useState("");
   const [currentPage, setCurrentPage] = useState(1);
   const [communityPage, setCommunityPage] = useState(1);
+  const [communityFeaturedFilter, setCommunityFeaturedFilter] =
+    useState<CommunityFeaturedFilter>("all");
+  const [communityTagFilter, setCommunityTagFilter] = useState<string | null>(
+    null,
+  );
+  const [tagDropdownOpen, setTagDropdownOpen] = useState(false);
   const [selectedTemplate, setSelectedTemplate] = useState<GridTemplate | null>(
     null,
+  );
+
+  const communityProfileAddresses = useMemo(
+    () =>
+      communityGrids
+        .map((t) => t.profileAddress)
+        .filter((a): a is string => !!a),
+    [],
+  );
+  const { allTags, tagsByAddress } = useCommunityTags(
+    communityProfileAddresses,
   );
 
   const filteredTemplates = useMemo(() => {
@@ -39,6 +68,11 @@ export function TemplateGrid() {
     setCurrentPage(1);
   }, [selectedCategory, searchQuery]);
 
+  // Reset community page when featured or tag filter changes
+  useEffect(() => {
+    setCommunityPage(1);
+  }, [communityFeaturedFilter, communityTagFilter]);
+
   // Calculate pagination
   const totalPages = Math.ceil(
     filteredTemplates.length / FEATURED_ITEMS_PER_PAGE,
@@ -55,22 +89,42 @@ export function TemplateGrid() {
   };
 
   const featuredTemplates = useMemo(() => {
-    return gridTemplates.filter(
-      (t) => t.featured && t.category !== "community",
+    return gridTemplates.filter((t) => t.featured);
+  }, []);
+
+  // Enrich community templates with tags from LSP3Profile, then filter by tag and featured
+  const communityTemplatesSorted = useMemo(() => {
+    const enriched = communityGrids.map((t) => ({
+      ...t,
+      tags:
+        t.profileAddress && tagsByAddress.has(t.profileAddress)
+          ? tagsByAddress.get(t.profileAddress)!
+          : [],
+    }));
+    let list = enriched;
+    if (communityTagFilter) {
+      list = list.filter((t) =>
+        t.tags?.some(
+          (tag) => tag.toLowerCase() === communityTagFilter.toLowerCase(),
+        ),
+      );
+    }
+    if (communityFeaturedFilter === "featured") {
+      list = list.filter((t) => t.featured);
+    } else if (communityFeaturedFilter === "exclude-featured") {
+      list = list.filter((t) => !t.featured);
+    }
+    return [...list].sort((a, b) =>
+      a.featured === b.featured ? 0 : a.featured ? -1 : 1,
     );
-  }, []);
+  }, [communityFeaturedFilter, communityTagFilter, tagsByAddress]);
 
-  const communityTemplates = useMemo(() => {
-    return gridTemplates.filter((t) => t.category === "community");
-  }, []);
-
-  // Community templates pagination
   const communityTotalPages = Math.ceil(
-    communityTemplates.length / COMMUNITY_ITEMS_PER_PAGE,
+    communityTemplatesSorted.length / COMMUNITY_ITEMS_PER_PAGE,
   );
   const communityStartIndex = (communityPage - 1) * COMMUNITY_ITEMS_PER_PAGE;
   const communityEndIndex = communityStartIndex + COMMUNITY_ITEMS_PER_PAGE;
-  const paginatedCommunityTemplates = communityTemplates.slice(
+  const paginatedCommunityTemplates = communityTemplatesSorted.slice(
     communityStartIndex,
     communityEndIndex,
   );
@@ -88,12 +142,12 @@ export function TemplateGrid() {
 
   return (
     <div>
-      {/* All Templates */}
+      {/* Browse Templates */}
       <section className="mb-12">
         <div className="flex items-center gap-3 mb-6">
           <div className="w-1 h-6 bg-gradient-to-b from-violet-500 to-purple-500 rounded-full" />
           <h2 className="text-xl font-semibold text-gray-900 dark:text-white">
-            All Templates
+            Browse Templates
           </h2>
         </div>
 
@@ -250,14 +304,123 @@ export function TemplateGrid() {
 
       {/* Community Section */}
       <section id="community" className="mb-12">
-        <div className="flex items-center gap-3 mb-6">
-          <div className="w-1 h-6 bg-gradient-to-b from-violet-500 to-purple-500 rounded-full" />
-          <h2 className="text-xl font-semibold text-gray-900 dark:text-white">
-            Community Templates
-          </h2>
+        <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 mb-6">
+          <div className="flex items-center gap-3">
+            <div className="w-1 h-6 bg-gradient-to-b from-violet-500 to-purple-500 rounded-full" />
+            <h2 className="text-xl font-semibold text-gray-900 dark:text-white">
+              Community Templates
+            </h2>
+          </div>
+          <div className="flex flex-wrap items-center gap-2">
+            <div className="relative" role="group" aria-label="Filter by tag">
+              <button
+                type="button"
+                onClick={() => setTagDropdownOpen((o) => !o)}
+                className={`flex items-center gap-2 px-3.5 py-2 rounded-lg text-sm font-medium transition-all border ${
+                  communityTagFilter
+                    ? "bg-violet-500/20 border-violet-500/50 text-violet-600 dark:text-violet-400"
+                    : "bg-gray-100 dark:bg-white/5 text-gray-700 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white hover:bg-gray-200 dark:hover:bg-white/10 border-gray-200 dark:border-white/5"
+                }`}
+              >
+                <Tag className="w-4 h-4 shrink-0" />
+                <span>{communityTagFilter ?? "Filter by tag"}</span>
+                <ChevronDown
+                  className={`w-4 h-4 shrink-0 transition-transform ${
+                    tagDropdownOpen ? "rotate-180" : ""
+                  }`}
+                />
+              </button>
+              {tagDropdownOpen && (
+                <>
+                  <div
+                    className="fixed inset-0 z-10"
+                    aria-hidden="true"
+                    onClick={() => setTagDropdownOpen(false)}
+                  />
+                  <div className="absolute right-0 top-full mt-1 z-20 min-w-[12rem] max-h-64 overflow-y-auto rounded-xl border border-gray-200 dark:border-white/10 bg-white dark:bg-gray-900 shadow-lg py-1">
+                    <button
+                      type="button"
+                      onClick={() => {
+                        setCommunityTagFilter(null);
+                        setTagDropdownOpen(false);
+                      }}
+                      className={`w-full text-left px-4 py-2 text-sm ${
+                        !communityTagFilter
+                          ? "bg-violet-500/10 text-violet-600 dark:text-violet-400 font-medium"
+                          : "text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-white/5"
+                      }`}
+                    >
+                      All tags
+                    </button>
+                    {allTags.length === 0 ? (
+                      <div className="px-4 py-2 text-sm text-gray-500">
+                        No tags yet
+                      </div>
+                    ) : (
+                      allTags.map((tag) => (
+                        <button
+                          key={tag}
+                          type="button"
+                          onClick={() => {
+                            setCommunityTagFilter(tag);
+                            setTagDropdownOpen(false);
+                          }}
+                          className={`w-full text-left px-4 py-2 text-sm ${
+                            communityTagFilter === tag
+                              ? "bg-violet-500/10 text-violet-600 dark:text-violet-400 font-medium"
+                              : "text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-white/5"
+                          }`}
+                        >
+                          {tag}
+                        </button>
+                      ))
+                    )}
+                  </div>
+                </>
+              )}
+            </div>
+            <div
+              className="flex flex-wrap gap-2"
+              role="group"
+              aria-label="Filter by featured status"
+            >
+              {(
+                [
+                  { value: "all" as const, label: "All", icon: null },
+                  {
+                    value: "featured" as const,
+                    label: "Featured only",
+                    icon: Star,
+                  },
+                  {
+                    value: "exclude-featured" as const,
+                    label: "Exclude featured",
+                    icon: StarOff,
+                  },
+                ] as const
+              ).map(({ value, label, icon: Icon }) => {
+                const isSelected = communityFeaturedFilter === value;
+                return (
+                  <button
+                    key={value}
+                    type="button"
+                    onClick={() => setCommunityFeaturedFilter(value)}
+                    className={`flex items-center gap-2 px-3.5 py-2 rounded-lg text-sm font-medium transition-all ${
+                      isSelected
+                        ? "bg-violet-500 text-white"
+                        : "bg-gray-100 dark:bg-white/5 text-gray-700 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white hover:bg-gray-200 dark:hover:bg-white/10 border border-gray-200 dark:border-white/5"
+                    }`}
+                  >
+                    {Icon && <Icon className="w-4 h-4 shrink-0" />}
+                    <span>{label}</span>
+                  </button>
+                );
+              })}
+            </div>
+          </div>
         </div>
 
-        {communityTemplates.length > 0 ? (
+        {communityTemplatesSorted.length > 0 ? (
           <>
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
               {paginatedCommunityTemplates.map((template, index) => (
@@ -346,13 +509,21 @@ export function TemplateGrid() {
             {/* Community Results count */}
             <div className="mt-4 text-center text-sm text-gray-500">
               Showing {communityStartIndex + 1}-
-              {Math.min(communityEndIndex, communityTemplates.length)} of{" "}
-              {communityTemplates.length} templates
+              {Math.min(communityEndIndex, communityTemplatesSorted.length)} of{" "}
+              {communityTemplatesSorted.length} templates
             </div>
           </>
         ) : (
           <div className="card rounded-2xl p-12 text-center">
-            <p className="text-gray-500">No community templates available.</p>
+            <p className="text-gray-500">
+              {communityTagFilter
+                ? `No community templates with tag "${communityTagFilter}".`
+                : communityFeaturedFilter === "featured"
+                ? "No featured community templates."
+                : communityFeaturedFilter === "exclude-featured"
+                ? "No non-featured community templates."
+                : "No community templates available."}
+            </p>
           </div>
         )}
       </section>

@@ -1,6 +1,6 @@
 "use client";
 
-import { GridTemplate } from "@/lib/templates";
+import type { GridTemplate } from "@/lib/types";
 import {
   encodeVerifiableURI,
   GRID_DATA_KEY,

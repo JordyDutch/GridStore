@@ -1,6 +1,6 @@
 "use client";
 
-import { GridTemplate } from "@/templates/templates";
+import type { GridTemplate } from "@/lib/types";
 import { useCommunityProfile } from "@/hooks/useCommunityProfile";
 import { User, Star, ExternalLink, Loader2 } from "lucide-react";
 
@@ -98,6 +98,25 @@ export function TemplateCard({
         <p className="text-gray-700 dark:text-gray-400 text-sm line-clamp-2 mb-4 leading-relaxed min-h-[2.5rem]">
           {template.description}
         </p>
+
+        {/* LSP3Profile tags (community templates only) */}
+        {template.tags && template.tags.length > 0 && (
+          <div className="flex flex-wrap gap-1.5 mb-3">
+            {template.tags.slice(0, 5).map((tag) => (
+              <span
+                key={tag}
+                className="inline-flex items-center px-2 py-0.5 rounded-md text-xs font-medium bg-violet-500/10 text-violet-600 dark:text-violet-400 border border-violet-500/20"
+              >
+                {tag}
+              </span>
+            ))}
+            {template.tags.length > 5 && (
+              <span className="inline-flex items-center px-2 py-0.5 rounded-md text-xs text-gray-500 dark:text-gray-400">
+                +{template.tags.length - 5}
+              </span>
+            )}
+          </div>
+        )}
 
         {/* Meta & Tags */}
         <div className="flex items-center justify-between mt-auto">

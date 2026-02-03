@@ -23,4 +23,6 @@ export interface GridTemplate {
     profileLink?: string;
     // Universal Profile address for fetching profile/background images
     profileAddress?: string;
+    // LSP3Profile tags (fetched from UP metadata, used for display and filter)
+    tags?: string[];
 }

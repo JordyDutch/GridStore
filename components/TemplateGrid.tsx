@@ -6,8 +6,17 @@ import { CategoryFilter } from "./CategoryFilter";
 import { TemplateCard } from "./TemplateCard";
 import { TemplateModal } from "./TemplateModal";
 import type { GridTemplate } from "@/lib/types";
-import { Search, ChevronLeft, ChevronRight, Star, StarOff } from "lucide-react";
+import {
+  Search,
+  ChevronLeft,
+  ChevronRight,
+  Star,
+  StarOff,
+  Tag,
+  ChevronDown,
+} from "lucide-react";
 import { communityGrids } from "@/templates/community";
+import { useCommunityTags } from "@/hooks/useCommunityTags";
 
 const FEATURED_ITEMS_PER_PAGE = 8;
 const COMMUNITY_ITEMS_PER_PAGE = 9;
@@ -21,8 +30,23 @@ export function TemplateGrid() {
   const [communityPage, setCommunityPage] = useState(1);
   const [communityFeaturedFilter, setCommunityFeaturedFilter] =
     useState<CommunityFeaturedFilter>("all");
+  const [communityTagFilter, setCommunityTagFilter] = useState<string | null>(
+    null,
+  );
+  const [tagDropdownOpen, setTagDropdownOpen] = useState(false);
   const [selectedTemplate, setSelectedTemplate] = useState<GridTemplate | null>(
     null,
+  );
+
+  const communityProfileAddresses = useMemo(
+    () =>
+      communityGrids
+        .map((t) => t.profileAddress)
+        .filter((a): a is string => !!a),
+    [],
+  );
+  const { allTags, tagsByAddress } = useCommunityTags(
+    communityProfileAddresses,
   );
 
   const filteredTemplates = useMemo(() => {
@@ -44,10 +68,10 @@ export function TemplateGrid() {
     setCurrentPage(1);
   }, [selectedCategory, searchQuery]);
 
-  // Reset community page when featured filter changes
+  // Reset community page when featured or tag filter changes
   useEffect(() => {
     setCommunityPage(1);
-  }, [communityFeaturedFilter]);
+  }, [communityFeaturedFilter, communityTagFilter]);
 
   // Calculate pagination
   const totalPages = Math.ceil(
@@ -68,18 +92,32 @@ export function TemplateGrid() {
     return gridTemplates.filter((t) => t.featured);
   }, []);
 
-  // Community templates: filter by featured preference, then sort (featured first when showing all)
+  // Enrich community templates with tags from LSP3Profile, then filter by tag and featured
   const communityTemplatesSorted = useMemo(() => {
-    let list = communityGrids;
+    const enriched = communityGrids.map((t) => ({
+      ...t,
+      tags:
+        t.profileAddress && tagsByAddress.has(t.profileAddress)
+          ? tagsByAddress.get(t.profileAddress)!
+          : [],
+    }));
+    let list = enriched;
+    if (communityTagFilter) {
+      list = list.filter((t) =>
+        t.tags?.some(
+          (tag) => tag.toLowerCase() === communityTagFilter.toLowerCase(),
+        ),
+      );
+    }
     if (communityFeaturedFilter === "featured") {
-      list = communityGrids.filter((t) => t.featured);
+      list = list.filter((t) => t.featured);
     } else if (communityFeaturedFilter === "exclude-featured") {
-      list = communityGrids.filter((t) => !t.featured);
+      list = list.filter((t) => !t.featured);
     }
     return [...list].sort((a, b) =>
       a.featured === b.featured ? 0 : a.featured ? -1 : 1,
     );
-  }, [communityFeaturedFilter]);
+  }, [communityFeaturedFilter, communityTagFilter, tagsByAddress]);
 
   const communityTotalPages = Math.ceil(
     communityTemplatesSorted.length / COMMUNITY_ITEMS_PER_PAGE,
@@ -273,43 +311,112 @@ export function TemplateGrid() {
               Community Templates
             </h2>
           </div>
-          <div
-            className="flex flex-wrap gap-2"
-            role="group"
-            aria-label="Filter by featured status"
-          >
-            {(
-              [
-                { value: "all" as const, label: "All", icon: null },
-                {
-                  value: "featured" as const,
-                  label: "Featured only",
-                  icon: Star,
-                },
-                {
-                  value: "exclude-featured" as const,
-                  label: "Exclude featured",
-                  icon: StarOff,
-                },
-              ] as const
-            ).map(({ value, label, icon: Icon }) => {
-              const isSelected = communityFeaturedFilter === value;
-              return (
-                <button
-                  key={value}
-                  type="button"
-                  onClick={() => setCommunityFeaturedFilter(value)}
-                  className={`flex items-center gap-2 px-3.5 py-2 rounded-lg text-sm font-medium transition-all ${
-                    isSelected
-                      ? "bg-violet-500 text-white"
-                      : "bg-gray-100 dark:bg-white/5 text-gray-700 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white hover:bg-gray-200 dark:hover:bg-white/10 border border-gray-200 dark:border-white/5"
+          <div className="flex flex-wrap items-center gap-2">
+            <div className="relative" role="group" aria-label="Filter by tag">
+              <button
+                type="button"
+                onClick={() => setTagDropdownOpen((o) => !o)}
+                className={`flex items-center gap-2 px-3.5 py-2 rounded-lg text-sm font-medium transition-all border ${
+                  communityTagFilter
+                    ? "bg-violet-500/20 border-violet-500/50 text-violet-600 dark:text-violet-400"
+                    : "bg-gray-100 dark:bg-white/5 text-gray-700 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white hover:bg-gray-200 dark:hover:bg-white/10 border-gray-200 dark:border-white/5"
+                }`}
+              >
+                <Tag className="w-4 h-4 shrink-0" />
+                <span>{communityTagFilter ?? "Filter by tag"}</span>
+                <ChevronDown
+                  className={`w-4 h-4 shrink-0 transition-transform ${
+                    tagDropdownOpen ? "rotate-180" : ""
                   }`}
-                >
-                  {Icon && <Icon className="w-4 h-4 shrink-0" />}
-                  <span>{label}</span>
-                </button>
-              );
-            })}
+                />
+              </button>
+              {tagDropdownOpen && (
+                <>
+                  <div
+                    className="fixed inset-0 z-10"
+                    aria-hidden="true"
+                    onClick={() => setTagDropdownOpen(false)}
+                  />
+                  <div className="absolute right-0 top-full mt-1 z-20 min-w-[12rem] max-h-64 overflow-y-auto rounded-xl border border-gray-200 dark:border-white/10 bg-white dark:bg-gray-900 shadow-lg py-1">
+                    <button
+                      type="button"
+                      onClick={() => {
+                        setCommunityTagFilter(null);
+                        setTagDropdownOpen(false);
+                      }}
+                      className={`w-full text-left px-4 py-2 text-sm ${
+                        !communityTagFilter
+                          ? "bg-violet-500/10 text-violet-600 dark:text-violet-400 font-medium"
+                          : "text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-white/5"
+                      }`}
+                    >
+                      All tags
+                    </button>
+                    {allTags.length === 0 ? (
+                      <div className="px-4 py-2 text-sm text-gray-500">
+                        No tags yet
+                      </div>
+                    ) : (
+                      allTags.map((tag) => (
+                        <button
+                          key={tag}
+                          type="button"
+                          onClick={() => {
+                            setCommunityTagFilter(tag);
+                            setTagDropdownOpen(false);
+                          }}
+                          className={`w-full text-left px-4 py-2 text-sm ${
+                            communityTagFilter === tag
+                              ? "bg-violet-500/10 text-violet-600 dark:text-violet-400 font-medium"
+                              : "text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-white/5"
+                          }`}
+                        >
+                          {tag}
+                        </button>
+                      ))
+                    )}
+                  </div>
+                </>
+              )}
+            </div>
+            <div
+              className="flex flex-wrap gap-2"
+              role="group"
+              aria-label="Filter by featured status"
+            >
+              {(
+                [
+                  { value: "all" as const, label: "All", icon: null },
+                  {
+                    value: "featured" as const,
+                    label: "Featured only",
+                    icon: Star,
+                  },
+                  {
+                    value: "exclude-featured" as const,
+                    label: "Exclude featured",
+                    icon: StarOff,
+                  },
+                ] as const
+              ).map(({ value, label, icon: Icon }) => {
+                const isSelected = communityFeaturedFilter === value;
+                return (
+                  <button
+                    key={value}
+                    type="button"
+                    onClick={() => setCommunityFeaturedFilter(value)}
+                    className={`flex items-center gap-2 px-3.5 py-2 rounded-lg text-sm font-medium transition-all ${
+                      isSelected
+                        ? "bg-violet-500 text-white"
+                        : "bg-gray-100 dark:bg-white/5 text-gray-700 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white hover:bg-gray-200 dark:hover:bg-white/10 border border-gray-200 dark:border-white/5"
+                    }`}
+                  >
+                    {Icon && <Icon className="w-4 h-4 shrink-0" />}
+                    <span>{label}</span>
+                  </button>
+                );
+              })}
+            </div>
           </div>
         </div>
 
@@ -409,7 +516,9 @@ export function TemplateGrid() {
         ) : (
           <div className="card rounded-2xl p-12 text-center">
             <p className="text-gray-500">
-              {communityFeaturedFilter === "featured"
+              {communityTagFilter
+                ? `No community templates with tag "${communityTagFilter}".`
+                : communityFeaturedFilter === "featured"
                 ? "No featured community templates."
                 : communityFeaturedFilter === "exclude-featured"
                 ? "No non-featured community templates."

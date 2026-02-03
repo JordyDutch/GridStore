@@ -1,0 +1,47 @@
+{
+  "LSP28TheGrid": [
+    {
+      "title": "Founder Profile",
+      "gridColumns": 3,
+      "visibility": "public",
+      "grid": [
+        {
+          "width": 2,
+          "height": 2,
+          "type": "TEXT",
+          "properties": {
+            "title": "Hi, I\u2019m Alex \u2014 founder of BlockLab",
+            "text": "I'm building transparent tools for the new internet.\n\n\ud83d\ude80 Latest product: TrustlessHub\n\ud83d\udccd Based in Lisbon\n\ud83e\udde0 Thinking in public",
+            "textColor": "#000000",
+            "backgroundColor": "#ffffff"
+          }
+        },
+        {
+          "width": 1,
+          "height": 1,
+          "type": "X",
+          "properties": {
+            "type": "post",
+            "username": "alexblocklab",
+            "id": "1804519711377436675",
+            "theme": "light",
+            "language": "en",
+            "donottrack": true
+          }
+        },
+        {
+          "width": 3,
+          "height": 1,
+          "type": "IMAGES",
+          "properties": {
+            "type": "grid",
+            "images": [
+              "https://www.svgrepo.com/show/508699/landscape-placeholder.svg",
+              "https://www.svgrepo.com/show/508699/landscape-placeholder.svg"
+            ]
+          }
+        }
+      ]
+    }
+  ]
+}

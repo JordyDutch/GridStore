@@ -10,7 +10,7 @@ export const GRID_DATA_KEY = "0x724141d9918ce69e6b8afcf53a91748466086ba2c74b94ca
 // Grid Layout schema using the official Universal Everything Grid key
 export const GridLayoutSchema: ERC725JSONSchema[] = [
   {
-    name: "Grid",
+    name: "LSP28TheGrid",
     key: GRID_DATA_KEY,
     keyType: "Singleton",
     valueType: "bytes",

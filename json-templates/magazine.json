@@ -1,0 +1,41 @@
+{
+  "LSP28TheGrid": [
+    {
+      "title": "Magazine",
+      "gridColumns": 3,
+      "visibility": "public",
+      "grid": [
+        {
+          "width": 3,
+          "height": 1,
+          "type": "TEXT",
+          "properties": {
+            "title": "Issue 014 \u2014 The New Curators",
+            "text": "In this edition: Cultural shifts, digital fashion, and crypto publishing.",
+            "backgroundColor": "#f4f4f4"
+          }
+        },
+        {
+          "width": 1,
+          "height": 1,
+          "type": "IMAGES",
+          "properties": {
+            "type": "grid",
+            "images": [
+              "https://www.svgrepo.com/show/508699/landscape-placeholder.svg"
+            ]
+          }
+        },
+        {
+          "width": 2,
+          "height": 2,
+          "type": "IFRAME",
+          "properties": {
+            "src": "https://example.com/magazine-preview",
+            "allowfullscreen": true
+          }
+        }
+      ]
+    }
+  ]
+}

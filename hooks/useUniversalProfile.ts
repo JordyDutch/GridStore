@@ -1,8 +1,9 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import { useAccount } from "wagmi";
+import { useAccount, useChainId } from "wagmi";
 import { fetchProfileMetadata } from "@/lib/erc725";
+import { luksoMainnet, luksoTestnet } from "@/lib/wagmi";
 
 interface ProfileData {
   name: string;
@@ -27,11 +28,11 @@ interface LSP3ProfileValue {
  */
 function resolveIPFSUrl(url?: string): string | undefined {
   if (!url) return undefined;
-  
+
   if (url.startsWith("ipfs://")) {
     return `https://api.universalprofile.cloud/ipfs/${url.slice(7)}`;
   }
-  
+
   return url;
 }
 
@@ -40,6 +41,9 @@ function resolveIPFSUrl(url?: string): string | undefined {
  */
 export function useUniversalProfile() {
   const { address, isConnected } = useAccount();
+  const chainId = useChainId();
+  const chain = chainId == 42 ? luksoMainnet : luksoTestnet;
+
   const [profile, setProfile] = useState<ProfileData | null>(null);
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
@@ -55,11 +59,14 @@ export function useUniversalProfile() {
       setError(null);
 
       try {
-        const metadata = await fetchProfileMetadata(address) as LSP3ProfileValue | null;
+        const metadata = (await fetchProfileMetadata(
+          address,
+          chain
+        )) as LSP3ProfileValue | null;
 
         if (metadata?.LSP3Profile) {
           const lsp3 = metadata.LSP3Profile;
-          
+
           // Get the first profile image URL
           const profileImageUrl = lsp3.profileImage?.[0]?.url;
           const backgroundImageUrl = lsp3.backgroundImage?.[0]?.url;
@@ -84,7 +91,7 @@ export function useUniversalProfile() {
     }
 
     fetchProfile();
-  }, [address, isConnected]);
+  }, [address, isConnected, chain]);
 
   return {
     profile,

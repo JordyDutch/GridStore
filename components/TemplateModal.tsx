@@ -21,8 +21,10 @@ import {
   useAccount,
   useWriteContract,
   useWaitForTransactionReceipt,
+  useChainId,
 } from "wagmi";
 import { useState, useEffect } from "react";
+import { luksoMainnet, luksoTestnet } from "@/lib/wagmi";
 
 interface TemplateModalProps {
   template: GridTemplate;
@@ -31,6 +33,9 @@ interface TemplateModalProps {
 
 export function TemplateModal({ template, onClose }: TemplateModalProps) {
   const { address, isConnected } = useAccount();
+  const chainId = useChainId();
+  const chain = chainId == 42 ? luksoMainnet : luksoTestnet;
+
   const [txSuccess, setTxSuccess] = useState(false);
   const [fetchedRawValue, setFetchedRawValue] = useState<string | null>(null);
   const [isFetchingGridData, setIsFetchingGridData] = useState(false);
@@ -59,7 +64,11 @@ export function TemplateModal({ template, onClose }: TemplateModalProps) {
         setIsFetchingGridData(true);
         setFetchError(null);
         try {
-          const rawValue = await fetchRawGridData(template.profileAddress);
+          // Community templates are always on mainnet (42)
+          const rawValue = await fetchRawGridData(
+            template.profileAddress,
+            chain,
+          );
           if (rawValue) {
             setFetchedRawValue(rawValue);
           } else {

@@ -139,7 +139,7 @@ export function SearchUPSection({ onSelectTemplate }: SearchUPSectionProps) {
       <div className="flex items-center gap-3 mb-6">
         <div className="w-1 h-6 bg-gradient-to-b from-violet-500 to-purple-500 rounded-full" />
         <h2 className="text-xl font-semibold text-gray-900 dark:text-white">
-          Find user' grid
+          Find user's grid
         </h2>
       </div>
 

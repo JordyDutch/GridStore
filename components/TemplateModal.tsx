@@ -25,6 +25,7 @@ import {
 } from "wagmi";
 import { useState, useEffect } from "react";
 import { luksoMainnet, luksoTestnet } from "@/lib/wagmi";
+import { useCommunityProfile } from "@/hooks/useCommunityProfile";
 
 interface TemplateModalProps {
   template: GridTemplate;
@@ -35,6 +36,12 @@ export function TemplateModal({ template, onClose }: TemplateModalProps) {
   const { address, isConnected } = useAccount();
   const chainId = useChainId();
   const chain = chainId == 42 ? luksoMainnet : luksoTestnet;
+
+  const isCommunityWithAddress =
+    template.category === "community" && template.profileAddress;
+  const { images, isLoading: isLoadingProfile } = useCommunityProfile(
+    isCommunityWithAddress ? template.profileAddress : undefined,
+  );
 
   const [txSuccess, setTxSuccess] = useState(false);
   const [fetchedRawValue, setFetchedRawValue] = useState<string | null>(null);
@@ -159,24 +166,52 @@ export function TemplateModal({ template, onClose }: TemplateModalProps) {
           <X className="w-5 h-5" />
         </button>
 
-        {/* Preview */}
-        <div className="h-40 relative" style={{ background: template.preview }}>
-          {/* Grid Preview Overlay */}
-          <div className="absolute inset-0 p-6 flex items-center justify-center">
-            <div
-              className="w-full h-full grid gap-1.5 opacity-40"
-              style={{
-                gridTemplateColumns: `repeat(${template.gridConfig.columns}, 1fr)`,
-                gridTemplateRows: `repeat(${template.gridConfig.rows}, 1fr)`,
-              }}
-            >
-              {Array.from({
-                length: template.gridConfig.columns * template.gridConfig.rows,
-              }).map((_, i) => (
-                <div key={i} className="bg-white/70 rounded" />
-              ))}
+        {/* Preview: profile/background for community, else gradient + grid */}
+        <div
+          className="h-40 relative overflow-hidden"
+          style={{
+            background: !images.backgroundImage ? template.preview : undefined,
+          }}
+        >
+          {images.backgroundImage && (
+            <img
+              src={images.backgroundImage}
+              alt={`${template.author}'s background`}
+              className="absolute inset-0 w-full h-full object-cover"
+            />
+          )}
+          {isCommunityWithAddress && isLoadingProfile && (
+            <div className="absolute inset-0 flex items-center justify-center bg-black/20">
+              <Loader2 className="w-6 h-6 text-white/50 animate-spin" />
             </div>
-          </div>
+          )}
+          {!images.backgroundImage && (
+            <div className="absolute inset-0 p-6 flex items-center justify-center">
+              <div
+                className="w-full h-full grid gap-1.5 opacity-40"
+                style={{
+                  gridTemplateColumns: `repeat(${template.gridConfig.columns}, 1fr)`,
+                  gridTemplateRows: `repeat(${template.gridConfig.rows}, 1fr)`,
+                }}
+              >
+                {Array.from({
+                  length:
+                    template.gridConfig.columns * template.gridConfig.rows,
+                }).map((_, i) => (
+                  <div key={i} className="bg-white/70 rounded" />
+                ))}
+              </div>
+            </div>
+          )}
+          {images.profileImage && (
+            <div className="absolute bottom-3 left-3">
+              <img
+                src={images.profileImage}
+                alt={template.author}
+                className="w-12 h-12 rounded-full border-2 border-white/30 object-cover shadow-lg"
+              />
+            </div>
+          )}
         </div>
 
         {/* Content */}

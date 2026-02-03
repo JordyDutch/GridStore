@@ -92,7 +92,9 @@ export function TemplateGrid() {
       <section className="mb-12">
         <div className="flex items-center gap-3 mb-6">
           <div className="w-1 h-6 bg-gradient-to-b from-violet-500 to-purple-500 rounded-full" />
-          <h2 className="text-xl font-semibold text-white">All Templates</h2>
+          <h2 className="text-xl font-semibold text-gray-900 dark:text-white">
+            All Templates
+          </h2>
         </div>
 
         {/* Search & Filter Card */}
@@ -105,7 +107,7 @@ export function TemplateGrid() {
               placeholder="Search templates..."
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
-              className="w-full py-2.5 pl-11 pr-4 text-sm text-white placeholder-gray-500 focus:outline-none rounded-xl"
+              className="w-full py-2.5 pl-11 pr-4 text-sm text-gray-900 dark:text-white placeholder-gray-500 dark:placeholder-gray-500 focus:outline-none rounded-xl"
             />
           </div>
 
@@ -222,7 +224,7 @@ export function TemplateGrid() {
       <section id="featured" className="mb-12">
         <div className="flex items-center gap-3 mb-6">
           <div className="w-1 h-6 bg-gradient-to-b from-violet-500 to-purple-500 rounded-full" />
-          <h2 className="text-xl font-semibold text-white">
+          <h2 className="text-xl font-semibold text-gray-900 dark:text-white">
             Featured Templates
           </h2>
         </div>
@@ -250,7 +252,7 @@ export function TemplateGrid() {
       <section id="community" className="mb-12">
         <div className="flex items-center gap-3 mb-6">
           <div className="w-1 h-6 bg-gradient-to-b from-violet-500 to-purple-500 rounded-full" />
-          <h2 className="text-xl font-semibold text-white">
+          <h2 className="text-xl font-semibold text-gray-900 dark:text-white">
             Community Templates
           </h2>
         </div>

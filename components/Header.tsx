@@ -9,12 +9,15 @@ import {
   ExternalLink,
   LogOut,
   Wallet,
+  Sun,
+  Moon,
 } from "lucide-react";
 import { useState, useRef, useEffect } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import { useUniversalProfile } from "@/hooks/useUniversalProfile";
 import { useDisconnect, useBalance } from "wagmi";
+import { useTheme } from "@/contexts/ThemeContext";
 
 export function Header() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
@@ -26,6 +29,7 @@ export function Header() {
   const { data: balance } = useBalance({
     address: address as `0x${string}` | undefined,
   });
+  const { theme, toggleTheme } = useTheme();
 
   // Close menu when clicking outside
   useEffect(() => {
@@ -48,7 +52,7 @@ export function Header() {
   };
 
   return (
-    <header className="fixed top-0 left-0 right-0 z-50 bg-[#0a0a0f]/80 backdrop-blur-md border-b border-white/5">
+    <header className="fixed top-0 left-0 right-0 z-50 bg-white/80 dark:bg-[#0a0a0f]/80 backdrop-blur-md border-b border-gray-200 dark:border-white/5">
       <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between h-16">
           {/* Logo */}
@@ -56,20 +60,22 @@ export function Header() {
             <div className="w-9 h-9 bg-gradient-to-br from-violet-500 to-purple-600 rounded-lg flex items-center justify-center">
               <Grid3X3 className="w-4.5 h-4.5 text-white" />
             </div>
-            <span className="text-lg font-semibold text-white">GridStore</span>
+            <span className="text-lg font-semibold text-gray-900 dark:text-white">
+              GridStore
+            </span>
           </Link>
 
           {/* Desktop Navigation */}
           <nav className="hidden md:flex items-center gap-1">
             <Link
               href="/"
-              className="px-4 py-2 text-sm text-gray-300 hover:text-white transition-colors rounded-lg hover:bg-white/5"
+              className="px-4 py-2 text-sm text-gray-600 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white transition-colors rounded-lg hover:bg-gray-100 dark:hover:bg-white/5"
             >
               Templates
             </Link>
             <Link
               href="#featured"
-              className="px-4 py-2 text-sm text-gray-300 hover:text-white transition-colors rounded-lg hover:bg-white/5"
+              className="px-4 py-2 text-sm text-gray-600 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white transition-colors rounded-lg hover:bg-gray-100 dark:hover:bg-white/5"
             >
               Featured
             </Link>
@@ -77,7 +83,7 @@ export function Header() {
               href="https://erc725-inspect.lukso.tech"
               target="_blank"
               rel="noopener noreferrer"
-              className="px-4 py-2 text-sm text-gray-300 hover:text-white transition-colors rounded-lg hover:bg-white/5"
+              className="px-4 py-2 text-sm text-gray-600 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white transition-colors rounded-lg hover:bg-gray-100 dark:hover:bg-white/5"
             >
               ERC725 Inspect
             </a>
@@ -85,7 +91,7 @@ export function Header() {
               href="https://docs.lukso.tech/learn/mini-apps/connect-upprovider/"
               target="_blank"
               rel="noopener noreferrer"
-              className="px-4 py-2 text-sm text-gray-300 hover:text-white transition-colors rounded-lg hover:bg-white/5"
+              className="px-4 py-2 text-sm text-gray-600 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white transition-colors rounded-lg hover:bg-gray-100 dark:hover:bg-white/5"
             >
               Docs
             </a>
@@ -93,6 +99,21 @@ export function Header() {
 
           {/* Connect Button / Profile */}
           <div className="flex items-center gap-3">
+            {/* Theme Toggle */}
+            <button
+              onClick={toggleTheme}
+              className="p-2 rounded-lg bg-gray-100 dark:bg-white/5 border border-gray-200 dark:border-white/10 hover:border-gray-300 dark:hover:border-white/20 text-gray-700 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white transition-colors"
+              aria-label={`Switch to ${
+                theme === "dark" ? "light" : "dark"
+              } mode`}
+            >
+              {theme === "dark" ? (
+                <Sun className="w-5 h-5" />
+              ) : (
+                <Moon className="w-5 h-5" />
+              )}
+            </button>
+
             <div className="hidden sm:block">
               {isConnected && address ? (
                 <div className="relative" ref={menuRef}>
@@ -135,7 +156,9 @@ export function Header() {
                     )}
 
                     <ChevronDown
-                      className={`w-4 h-4 text-gray-400 transition-transform ${profileMenuOpen ? "rotate-180" : ""}`}
+                      className={`w-4 h-4 text-gray-400 transition-transform ${
+                        profileMenuOpen ? "rotate-180" : ""
+                      }`}
                     />
                   </button>
 

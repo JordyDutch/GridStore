@@ -1,0 +1,40 @@
+{
+  "LSP28TheGrid": [
+    {
+      "title": "Web3 Influencer",
+      "gridColumns": 3,
+      "visibility": "public",
+      "grid": [
+        {
+          "width": 3,
+          "height": 1,
+          "type": "TEXT",
+          "properties": {
+            "title": "Top Tokens",
+            "text": "\ud83d\udd25 $LYX\n\ud83d\ude80 $ARB\n\ud83e\udde0 $OP",
+            "backgroundColor": "#f5f5ff"
+          }
+        },
+        {
+          "width": 2,
+          "height": 1,
+          "type": "X",
+          "properties": {
+            "type": "profile",
+            "username": "cryptojourney",
+            "theme": "light"
+          }
+        },
+        {
+          "width": 1,
+          "height": 1,
+          "type": "INSTAGRAM",
+          "properties": {
+            "type": "p",
+            "id": "influencer-ig-post"
+          }
+        }
+      ]
+    }
+  ]
+}

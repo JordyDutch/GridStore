@@ -4,7 +4,7 @@ import { createERC725Instance } from "./erc725.js";
 import template from "../json-templates/event-conference.json";
 
 // 2. Set the IPFS CID of the JSON file
-const ipfsCid = "bafkreignk4jxqlfevc3dlkwe4pvomv6f2ebsh4yqsax74oxq36po45bm5m";
+const ipfsCid = "bafkreibzf3bxrs55ygmdrx64xuscnuhyglz4ugjpcb5ukomnyncv3dha3y";
 
 // this is just a placeholder
 const profileAddress = "0x1234567890123456789012345678901234567890";

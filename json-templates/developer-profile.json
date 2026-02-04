@@ -1,0 +1,40 @@
+{
+  "LSP28TheGrid": [
+    {
+      "title": "Developer Profile",
+      "gridColumns": 3,
+      "visibility": "public",
+      "grid": [
+        {
+          "width": 2,
+          "height": 1,
+          "type": "TEXT",
+          "properties": {
+            "title": "\ud83d\udc68\u200d\ud83d\udcbb Developer Profile",
+            "text": "Open-source builder passionate about decentralized systems and developer tooling.\n\nFocused on: Solidity, Next.js, LUKSO SDK",
+            "backgroundColor": "#f0f4f8"
+          }
+        },
+        {
+          "width": 1,
+          "height": 2,
+          "type": "IFRAME",
+          "properties": {
+            "src": "https://github.com/yourusername",
+            "allowfullscreen": true
+          }
+        },
+        {
+          "width": 3,
+          "height": 1,
+          "type": "TEXT",
+          "properties": {
+            "title": "Projects",
+            "text": "- Universal Auth\n- LUKSO DEX UI\n- LSP7 Explorer",
+            "backgroundColor": "#ffffff"
+          }
+        }
+      ]
+    }
+  ]
+}

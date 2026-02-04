@@ -1,0 +1,3 @@
+# Notes
+
+For musician profile, add Soundcloud, spotify, etc...

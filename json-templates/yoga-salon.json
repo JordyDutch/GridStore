@@ -1,0 +1,40 @@
+{
+  "LSP28TheGrid": [
+    {
+      "title": "Yoga Salon",
+      "gridColumns": 3,
+      "visibility": "public",
+      "grid": [
+        {
+          "width": 3,
+          "height": 1,
+          "type": "TEXT",
+          "properties": {
+            "title": "\ud83c\udf3f Zen Studio",
+            "text": "A calm space in the city.\nWe offer daily vinyasa, yin, and sound healing.\n\ud83d\udccd Berlin\n\ud83d\udd49\ufe0f Book your session now below.",
+            "backgroundColor": "#e0f7ec"
+          }
+        },
+        {
+          "width": 2,
+          "height": 2,
+          "type": "IMAGES",
+          "properties": {
+            "images": [
+              "https://www.svgrepo.com/show/508699/landscape-placeholder.svg",
+              "https://www.svgrepo.com/show/508699/landscape-placeholder.svg"
+            ]
+          }
+        },
+        {
+          "width": 1,
+          "height": 1,
+          "type": "QR_CODE",
+          "properties": {
+            "data": "https://yogazen.com/book"
+          }
+        }
+      ]
+    }
+  ]
+}

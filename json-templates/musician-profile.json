@@ -1,0 +1,30 @@
+{
+  "LSP28TheGrid": [
+    {
+      "title": "Musician",
+      "gridColumns": 3,
+      "visibility": "public",
+      "grid": [
+        {
+          "width": 2,
+          "height": 2,
+          "type": "TEXT",
+          "properties": {
+            "title": "\ud83c\udfb5 Welcome to My Sound",
+            "text": "Genre-bending producer and performer.\n\nLatest EP: *Waves of Ether* (2024)",
+            "backgroundColor": "#fef6f0"
+          }
+        },
+        {
+          "width": 3,
+          "height": 1,
+          "type": "IFRAME",
+          "properties": {
+            "src": "https://youtube.com/embed/example-video",
+            "allowfullscreen": true
+          }
+        }
+      ]
+    }
+  ]
+}

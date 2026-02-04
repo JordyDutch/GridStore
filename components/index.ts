@@ -6,3 +6,4 @@ export { TemplateCard } from "./TemplateCard";
 export { TemplateGrid } from "./TemplateGrid";
 export { TemplateModal } from "./TemplateModal";
 export { SearchUPSection } from "./SearchUPSection";
+export { GridPreview } from "./GridPreview";
